@@ -122,32 +122,167 @@ CodeIRGame/fast:
 	$(MAKE) -f CMakeFiles\CodeIRGame.dir\build.make CMakeFiles/CodeIRGame.dir/build
 .PHONY : CodeIRGame/fast
 
-main.obj: main.cpp.obj
+Core/main.obj: Core/main.cpp.obj
 
-.PHONY : main.obj
+.PHONY : Core/main.obj
 
 # target to build an object file
-main.cpp.obj:
-	$(MAKE) -f CMakeFiles\CodeIRGame.dir\build.make CMakeFiles/CodeIRGame.dir/main.cpp.obj
-.PHONY : main.cpp.obj
+Core/main.cpp.obj:
+	$(MAKE) -f CMakeFiles\CodeIRGame.dir\build.make CMakeFiles/CodeIRGame.dir/Core/main.cpp.obj
+.PHONY : Core/main.cpp.obj
 
-main.i: main.cpp.i
+Core/main.i: Core/main.cpp.i
 
-.PHONY : main.i
+.PHONY : Core/main.i
 
 # target to preprocess a source file
-main.cpp.i:
-	$(MAKE) -f CMakeFiles\CodeIRGame.dir\build.make CMakeFiles/CodeIRGame.dir/main.cpp.i
-.PHONY : main.cpp.i
+Core/main.cpp.i:
+	$(MAKE) -f CMakeFiles\CodeIRGame.dir\build.make CMakeFiles/CodeIRGame.dir/Core/main.cpp.i
+.PHONY : Core/main.cpp.i
 
-main.s: main.cpp.s
+Core/main.s: Core/main.cpp.s
 
-.PHONY : main.s
+.PHONY : Core/main.s
 
 # target to generate assembly for a file
-main.cpp.s:
-	$(MAKE) -f CMakeFiles\CodeIRGame.dir\build.make CMakeFiles/CodeIRGame.dir/main.cpp.s
-.PHONY : main.cpp.s
+Core/main.cpp.s:
+	$(MAKE) -f CMakeFiles\CodeIRGame.dir\build.make CMakeFiles/CodeIRGame.dir/Core/main.cpp.s
+.PHONY : Core/main.cpp.s
+
+Data/Decoding.obj: Data/Decoding.cpp.obj
+
+.PHONY : Data/Decoding.obj
+
+# target to build an object file
+Data/Decoding.cpp.obj:
+	$(MAKE) -f CMakeFiles\CodeIRGame.dir\build.make CMakeFiles/CodeIRGame.dir/Data/Decoding.cpp.obj
+.PHONY : Data/Decoding.cpp.obj
+
+Data/Decoding.i: Data/Decoding.cpp.i
+
+.PHONY : Data/Decoding.i
+
+# target to preprocess a source file
+Data/Decoding.cpp.i:
+	$(MAKE) -f CMakeFiles\CodeIRGame.dir\build.make CMakeFiles/CodeIRGame.dir/Data/Decoding.cpp.i
+.PHONY : Data/Decoding.cpp.i
+
+Data/Decoding.s: Data/Decoding.cpp.s
+
+.PHONY : Data/Decoding.s
+
+# target to generate assembly for a file
+Data/Decoding.cpp.s:
+	$(MAKE) -f CMakeFiles\CodeIRGame.dir\build.make CMakeFiles/CodeIRGame.dir/Data/Decoding.cpp.s
+.PHONY : Data/Decoding.cpp.s
+
+Data/IRProtocol.obj: Data/IRProtocol.cpp.obj
+
+.PHONY : Data/IRProtocol.obj
+
+# target to build an object file
+Data/IRProtocol.cpp.obj:
+	$(MAKE) -f CMakeFiles\CodeIRGame.dir\build.make CMakeFiles/CodeIRGame.dir/Data/IRProtocol.cpp.obj
+.PHONY : Data/IRProtocol.cpp.obj
+
+Data/IRProtocol.i: Data/IRProtocol.cpp.i
+
+.PHONY : Data/IRProtocol.i
+
+# target to preprocess a source file
+Data/IRProtocol.cpp.i:
+	$(MAKE) -f CMakeFiles\CodeIRGame.dir\build.make CMakeFiles/CodeIRGame.dir/Data/IRProtocol.cpp.i
+.PHONY : Data/IRProtocol.cpp.i
+
+Data/IRProtocol.s: Data/IRProtocol.cpp.s
+
+.PHONY : Data/IRProtocol.s
+
+# target to generate assembly for a file
+Data/IRProtocol.cpp.s:
+	$(MAKE) -f CMakeFiles\CodeIRGame.dir\build.make CMakeFiles/CodeIRGame.dir/Data/IRProtocol.cpp.s
+.PHONY : Data/IRProtocol.cpp.s
+
+Data/IRSendClass.obj: Data/IRSendClass.cpp.obj
+
+.PHONY : Data/IRSendClass.obj
+
+# target to build an object file
+Data/IRSendClass.cpp.obj:
+	$(MAKE) -f CMakeFiles\CodeIRGame.dir\build.make CMakeFiles/CodeIRGame.dir/Data/IRSendClass.cpp.obj
+.PHONY : Data/IRSendClass.cpp.obj
+
+Data/IRSendClass.i: Data/IRSendClass.cpp.i
+
+.PHONY : Data/IRSendClass.i
+
+# target to preprocess a source file
+Data/IRSendClass.cpp.i:
+	$(MAKE) -f CMakeFiles\CodeIRGame.dir\build.make CMakeFiles/CodeIRGame.dir/Data/IRSendClass.cpp.i
+.PHONY : Data/IRSendClass.cpp.i
+
+Data/IRSendClass.s: Data/IRSendClass.cpp.s
+
+.PHONY : Data/IRSendClass.s
+
+# target to generate assembly for a file
+Data/IRSendClass.cpp.s:
+	$(MAKE) -f CMakeFiles\CodeIRGame.dir\build.make CMakeFiles/CodeIRGame.dir/Data/IRSendClass.cpp.s
+.PHONY : Data/IRSendClass.cpp.s
+
+Data/IRfrequency.obj: Data/IRfrequency.cpp.obj
+
+.PHONY : Data/IRfrequency.obj
+
+# target to build an object file
+Data/IRfrequency.cpp.obj:
+	$(MAKE) -f CMakeFiles\CodeIRGame.dir\build.make CMakeFiles/CodeIRGame.dir/Data/IRfrequency.cpp.obj
+.PHONY : Data/IRfrequency.cpp.obj
+
+Data/IRfrequency.i: Data/IRfrequency.cpp.i
+
+.PHONY : Data/IRfrequency.i
+
+# target to preprocess a source file
+Data/IRfrequency.cpp.i:
+	$(MAKE) -f CMakeFiles\CodeIRGame.dir\build.make CMakeFiles/CodeIRGame.dir/Data/IRfrequency.cpp.i
+.PHONY : Data/IRfrequency.cpp.i
+
+Data/IRfrequency.s: Data/IRfrequency.cpp.s
+
+.PHONY : Data/IRfrequency.s
+
+# target to generate assembly for a file
+Data/IRfrequency.cpp.s:
+	$(MAKE) -f CMakeFiles\CodeIRGame.dir\build.make CMakeFiles/CodeIRGame.dir/Data/IRfrequency.cpp.s
+.PHONY : Data/IRfrequency.cpp.s
+
+Data/Receive.obj: Data/Receive.cpp.obj
+
+.PHONY : Data/Receive.obj
+
+# target to build an object file
+Data/Receive.cpp.obj:
+	$(MAKE) -f CMakeFiles\CodeIRGame.dir\build.make CMakeFiles/CodeIRGame.dir/Data/Receive.cpp.obj
+.PHONY : Data/Receive.cpp.obj
+
+Data/Receive.i: Data/Receive.cpp.i
+
+.PHONY : Data/Receive.i
+
+# target to preprocess a source file
+Data/Receive.cpp.i:
+	$(MAKE) -f CMakeFiles\CodeIRGame.dir\build.make CMakeFiles/CodeIRGame.dir/Data/Receive.cpp.i
+.PHONY : Data/Receive.cpp.i
+
+Data/Receive.s: Data/Receive.cpp.s
+
+.PHONY : Data/Receive.s
+
+# target to generate assembly for a file
+Data/Receive.cpp.s:
+	$(MAKE) -f CMakeFiles\CodeIRGame.dir\build.make CMakeFiles/CodeIRGame.dir/Data/Receive.cpp.s
+.PHONY : Data/Receive.cpp.s
 
 # Help Target
 help:
@@ -158,9 +293,24 @@ help:
 	@echo ... rebuild_cache
 	@echo ... CodeIRGame
 	@echo ... edit_cache
-	@echo ... main.obj
-	@echo ... main.i
-	@echo ... main.s
+	@echo ... Core/main.obj
+	@echo ... Core/main.i
+	@echo ... Core/main.s
+	@echo ... Data/Decoding.obj
+	@echo ... Data/Decoding.i
+	@echo ... Data/Decoding.s
+	@echo ... Data/IRProtocol.obj
+	@echo ... Data/IRProtocol.i
+	@echo ... Data/IRProtocol.s
+	@echo ... Data/IRSendClass.obj
+	@echo ... Data/IRSendClass.i
+	@echo ... Data/IRSendClass.s
+	@echo ... Data/IRfrequency.obj
+	@echo ... Data/IRfrequency.i
+	@echo ... Data/IRfrequency.s
+	@echo ... Data/Receive.obj
+	@echo ... Data/Receive.i
+	@echo ... Data/Receive.s
 .PHONY : help
 
 
