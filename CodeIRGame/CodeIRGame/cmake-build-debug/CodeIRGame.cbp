@@ -113,6 +113,12 @@
 		<Unit filename="C:/Users/jelle/Documents/KBS1819/CodeIRGame/CodeIRGame/Data/Receive.h">
 			<Option target="CodeIRGame"/>
 		</Unit>
+		<Unit filename="C:/Users/jelle/Documents/KBS1819/CodeIRGame/CodeIRGame/Tasks/MainTaskClass.cpp">
+			<Option target="CodeIRGame"/>
+		</Unit>
+		<Unit filename="C:/Users/jelle/Documents/KBS1819/CodeIRGame/CodeIRGame/Tasks/MainTaskClass.h">
+			<Option target="CodeIRGame"/>
+		</Unit>
 		<Unit filename="C:/Users/jelle/Documents/KBS1819/CodeIRGame/CodeIRGame/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>

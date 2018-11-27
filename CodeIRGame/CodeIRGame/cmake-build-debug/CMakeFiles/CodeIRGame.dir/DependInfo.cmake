@@ -10,6 +10,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "C:/Users/jelle/Documents/KBS1819/CodeIRGame/CodeIRGame/Data/IRSendClass.cpp" "C:/Users/jelle/Documents/KBS1819/CodeIRGame/CodeIRGame/cmake-build-debug/CMakeFiles/CodeIRGame.dir/Data/IRSendClass.cpp.obj"
   "C:/Users/jelle/Documents/KBS1819/CodeIRGame/CodeIRGame/Data/IRfrequency.cpp" "C:/Users/jelle/Documents/KBS1819/CodeIRGame/CodeIRGame/cmake-build-debug/CMakeFiles/CodeIRGame.dir/Data/IRfrequency.cpp.obj"
   "C:/Users/jelle/Documents/KBS1819/CodeIRGame/CodeIRGame/Data/Receive.cpp" "C:/Users/jelle/Documents/KBS1819/CodeIRGame/CodeIRGame/cmake-build-debug/CMakeFiles/CodeIRGame.dir/Data/Receive.cpp.obj"
+  "C:/Users/jelle/Documents/KBS1819/CodeIRGame/CodeIRGame/Tasks/MainTaskClass.cpp" "C:/Users/jelle/Documents/KBS1819/CodeIRGame/CodeIRGame/cmake-build-debug/CMakeFiles/CodeIRGame.dir/Tasks/MainTaskClass.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

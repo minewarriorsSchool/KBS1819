@@ -284,6 +284,33 @@ Data/Receive.cpp.s:
 	$(MAKE) -f CMakeFiles\CodeIRGame.dir\build.make CMakeFiles/CodeIRGame.dir/Data/Receive.cpp.s
 .PHONY : Data/Receive.cpp.s
 
+Tasks/MainTaskClass.obj: Tasks/MainTaskClass.cpp.obj
+
+.PHONY : Tasks/MainTaskClass.obj
+
+# target to build an object file
+Tasks/MainTaskClass.cpp.obj:
+	$(MAKE) -f CMakeFiles\CodeIRGame.dir\build.make CMakeFiles/CodeIRGame.dir/Tasks/MainTaskClass.cpp.obj
+.PHONY : Tasks/MainTaskClass.cpp.obj
+
+Tasks/MainTaskClass.i: Tasks/MainTaskClass.cpp.i
+
+.PHONY : Tasks/MainTaskClass.i
+
+# target to preprocess a source file
+Tasks/MainTaskClass.cpp.i:
+	$(MAKE) -f CMakeFiles\CodeIRGame.dir\build.make CMakeFiles/CodeIRGame.dir/Tasks/MainTaskClass.cpp.i
+.PHONY : Tasks/MainTaskClass.cpp.i
+
+Tasks/MainTaskClass.s: Tasks/MainTaskClass.cpp.s
+
+.PHONY : Tasks/MainTaskClass.s
+
+# target to generate assembly for a file
+Tasks/MainTaskClass.cpp.s:
+	$(MAKE) -f CMakeFiles\CodeIRGame.dir\build.make CMakeFiles/CodeIRGame.dir/Tasks/MainTaskClass.cpp.s
+.PHONY : Tasks/MainTaskClass.cpp.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -311,6 +338,9 @@ help:
 	@echo ... Data/Receive.obj
 	@echo ... Data/Receive.i
 	@echo ... Data/Receive.s
+	@echo ... Tasks/MainTaskClass.obj
+	@echo ... Tasks/MainTaskClass.i
+	@echo ... Tasks/MainTaskClass.s
 .PHONY : help
 
 
