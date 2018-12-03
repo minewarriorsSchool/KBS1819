@@ -1,5 +1,12 @@
 #include <iostream>
 
 int main() {
-    return 0;
+    /* Register settings down below*/
+
+
+    /* Game loop */ 
+    while(1){
+
+     return 0;
+    }
 }

@@ -12,20 +12,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="50764961-af9e-455b-a1a3-21dfafdc7dcc" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Utils/TimerValue.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Utils/TimerValue.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/Decoding.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/Decoding.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/IRProtocol.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/IRProtocol.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/IRSendClass.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/IRSendClass.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/IRfrequency.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/IRfrequency.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/Receive.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/Receive.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tasks/MainTaskClass.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tasks/MainTaskClass.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CodeIRGame.dir/DependInfo.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CodeIRGame.dir/DependInfo.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CodeIRGame.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CodeIRGame.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CodeIRGame.dir/cmake_clean.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CodeIRGame.dir/cmake_clean.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CodeIRGame.dir/objects1.rsp" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CodeIRGame.dir/objects1.rsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CodeIRGame.dir/progress.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CodeIRGame.dir/progress.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/progress.marks" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/progress.marks" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CodeIRGame.cbp" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CodeIRGame.cbp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Makefile" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -49,24 +48,24 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="cpp" value="7" />
-          <entry key="h" value="6" />
+          <entry key="cpp" value="8" />
+          <entry key="h" value="8" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="ObjectiveC" value="13" />
+          <entry key="ObjectiveC" value="16" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="cpp" value="200" />
+          <entry key="cpp" value="291" />
           <entry key="h" value="306" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="ObjectiveC" value="506" />
+          <entry key="ObjectiveC" value="597" />
         </counts>
       </usages-collector>
     </session>
@@ -76,10 +75,20 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Core/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="19" selection-start-column="19" selection-end-column="19" />
+            <state relative-caret-position="132">
+              <caret line="6" column="20" selection-start-line="6" selection-start-column="20" selection-end-line="6" selection-end-column="20" />
             </state>
           </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Utils/TimerValue.cpp">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Utils/TimerValue.h">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
     </leaf>
@@ -128,6 +137,11 @@
               <item name="CodeIRGame" type="b2602c69:ProjectViewProjectNode" />
               <item name="CodeIRGame" type="462c0819:PsiDirectoryNode" />
               <item name="Core" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="CodeIRGame" type="b2602c69:ProjectViewProjectNode" />
+              <item name="CodeIRGame" type="462c0819:PsiDirectoryNode" />
+              <item name="Utils" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -190,12 +204,12 @@
       <workItem from="1542964338128" duration="825000" />
       <workItem from="1543314447196" duration="1411000" />
       <workItem from="1543433126351" duration="842000" />
-      <workItem from="1543836674496" duration="295000" />
+      <workItem from="1543836674496" duration="713000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3964000" />
+    <option name="totallyTimeSpent" value="4382000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
@@ -285,10 +299,19 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Utils/TimerClass.h">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Utils/TimerValue.h">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Utils/TimerValue.cpp">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/Core/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="19" selection-start-column="19" selection-end-column="19" />
+        <state relative-caret-position="132">
+          <caret line="6" column="20" selection-start-line="6" selection-start-column="20" selection-end-line="6" selection-end-column="20" />
         </state>
       </provider>
     </entry>

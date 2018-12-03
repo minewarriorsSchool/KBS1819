@@ -149,167 +149,32 @@ Core/main.cpp.s:
 	$(MAKE) -f CMakeFiles\CodeIRGame.dir\build.make CMakeFiles/CodeIRGame.dir/Core/main.cpp.s
 .PHONY : Core/main.cpp.s
 
-Data/Decoding.obj: Data/Decoding.cpp.obj
+Utils/TimerValue.obj: Utils/TimerValue.cpp.obj
 
-.PHONY : Data/Decoding.obj
-
-# target to build an object file
-Data/Decoding.cpp.obj:
-	$(MAKE) -f CMakeFiles\CodeIRGame.dir\build.make CMakeFiles/CodeIRGame.dir/Data/Decoding.cpp.obj
-.PHONY : Data/Decoding.cpp.obj
-
-Data/Decoding.i: Data/Decoding.cpp.i
-
-.PHONY : Data/Decoding.i
-
-# target to preprocess a source file
-Data/Decoding.cpp.i:
-	$(MAKE) -f CMakeFiles\CodeIRGame.dir\build.make CMakeFiles/CodeIRGame.dir/Data/Decoding.cpp.i
-.PHONY : Data/Decoding.cpp.i
-
-Data/Decoding.s: Data/Decoding.cpp.s
-
-.PHONY : Data/Decoding.s
-
-# target to generate assembly for a file
-Data/Decoding.cpp.s:
-	$(MAKE) -f CMakeFiles\CodeIRGame.dir\build.make CMakeFiles/CodeIRGame.dir/Data/Decoding.cpp.s
-.PHONY : Data/Decoding.cpp.s
-
-Data/IRProtocol.obj: Data/IRProtocol.cpp.obj
-
-.PHONY : Data/IRProtocol.obj
+.PHONY : Utils/TimerValue.obj
 
 # target to build an object file
-Data/IRProtocol.cpp.obj:
-	$(MAKE) -f CMakeFiles\CodeIRGame.dir\build.make CMakeFiles/CodeIRGame.dir/Data/IRProtocol.cpp.obj
-.PHONY : Data/IRProtocol.cpp.obj
+Utils/TimerValue.cpp.obj:
+	$(MAKE) -f CMakeFiles\CodeIRGame.dir\build.make CMakeFiles/CodeIRGame.dir/Utils/TimerValue.cpp.obj
+.PHONY : Utils/TimerValue.cpp.obj
 
-Data/IRProtocol.i: Data/IRProtocol.cpp.i
+Utils/TimerValue.i: Utils/TimerValue.cpp.i
 
-.PHONY : Data/IRProtocol.i
-
-# target to preprocess a source file
-Data/IRProtocol.cpp.i:
-	$(MAKE) -f CMakeFiles\CodeIRGame.dir\build.make CMakeFiles/CodeIRGame.dir/Data/IRProtocol.cpp.i
-.PHONY : Data/IRProtocol.cpp.i
-
-Data/IRProtocol.s: Data/IRProtocol.cpp.s
-
-.PHONY : Data/IRProtocol.s
-
-# target to generate assembly for a file
-Data/IRProtocol.cpp.s:
-	$(MAKE) -f CMakeFiles\CodeIRGame.dir\build.make CMakeFiles/CodeIRGame.dir/Data/IRProtocol.cpp.s
-.PHONY : Data/IRProtocol.cpp.s
-
-Data/IRSendClass.obj: Data/IRSendClass.cpp.obj
-
-.PHONY : Data/IRSendClass.obj
-
-# target to build an object file
-Data/IRSendClass.cpp.obj:
-	$(MAKE) -f CMakeFiles\CodeIRGame.dir\build.make CMakeFiles/CodeIRGame.dir/Data/IRSendClass.cpp.obj
-.PHONY : Data/IRSendClass.cpp.obj
-
-Data/IRSendClass.i: Data/IRSendClass.cpp.i
-
-.PHONY : Data/IRSendClass.i
+.PHONY : Utils/TimerValue.i
 
 # target to preprocess a source file
-Data/IRSendClass.cpp.i:
-	$(MAKE) -f CMakeFiles\CodeIRGame.dir\build.make CMakeFiles/CodeIRGame.dir/Data/IRSendClass.cpp.i
-.PHONY : Data/IRSendClass.cpp.i
+Utils/TimerValue.cpp.i:
+	$(MAKE) -f CMakeFiles\CodeIRGame.dir\build.make CMakeFiles/CodeIRGame.dir/Utils/TimerValue.cpp.i
+.PHONY : Utils/TimerValue.cpp.i
 
-Data/IRSendClass.s: Data/IRSendClass.cpp.s
+Utils/TimerValue.s: Utils/TimerValue.cpp.s
 
-.PHONY : Data/IRSendClass.s
-
-# target to generate assembly for a file
-Data/IRSendClass.cpp.s:
-	$(MAKE) -f CMakeFiles\CodeIRGame.dir\build.make CMakeFiles/CodeIRGame.dir/Data/IRSendClass.cpp.s
-.PHONY : Data/IRSendClass.cpp.s
-
-Data/IRfrequency.obj: Data/IRfrequency.cpp.obj
-
-.PHONY : Data/IRfrequency.obj
-
-# target to build an object file
-Data/IRfrequency.cpp.obj:
-	$(MAKE) -f CMakeFiles\CodeIRGame.dir\build.make CMakeFiles/CodeIRGame.dir/Data/IRfrequency.cpp.obj
-.PHONY : Data/IRfrequency.cpp.obj
-
-Data/IRfrequency.i: Data/IRfrequency.cpp.i
-
-.PHONY : Data/IRfrequency.i
-
-# target to preprocess a source file
-Data/IRfrequency.cpp.i:
-	$(MAKE) -f CMakeFiles\CodeIRGame.dir\build.make CMakeFiles/CodeIRGame.dir/Data/IRfrequency.cpp.i
-.PHONY : Data/IRfrequency.cpp.i
-
-Data/IRfrequency.s: Data/IRfrequency.cpp.s
-
-.PHONY : Data/IRfrequency.s
+.PHONY : Utils/TimerValue.s
 
 # target to generate assembly for a file
-Data/IRfrequency.cpp.s:
-	$(MAKE) -f CMakeFiles\CodeIRGame.dir\build.make CMakeFiles/CodeIRGame.dir/Data/IRfrequency.cpp.s
-.PHONY : Data/IRfrequency.cpp.s
-
-Data/Receive.obj: Data/Receive.cpp.obj
-
-.PHONY : Data/Receive.obj
-
-# target to build an object file
-Data/Receive.cpp.obj:
-	$(MAKE) -f CMakeFiles\CodeIRGame.dir\build.make CMakeFiles/CodeIRGame.dir/Data/Receive.cpp.obj
-.PHONY : Data/Receive.cpp.obj
-
-Data/Receive.i: Data/Receive.cpp.i
-
-.PHONY : Data/Receive.i
-
-# target to preprocess a source file
-Data/Receive.cpp.i:
-	$(MAKE) -f CMakeFiles\CodeIRGame.dir\build.make CMakeFiles/CodeIRGame.dir/Data/Receive.cpp.i
-.PHONY : Data/Receive.cpp.i
-
-Data/Receive.s: Data/Receive.cpp.s
-
-.PHONY : Data/Receive.s
-
-# target to generate assembly for a file
-Data/Receive.cpp.s:
-	$(MAKE) -f CMakeFiles\CodeIRGame.dir\build.make CMakeFiles/CodeIRGame.dir/Data/Receive.cpp.s
-.PHONY : Data/Receive.cpp.s
-
-Tasks/MainTaskClass.obj: Tasks/MainTaskClass.cpp.obj
-
-.PHONY : Tasks/MainTaskClass.obj
-
-# target to build an object file
-Tasks/MainTaskClass.cpp.obj:
-	$(MAKE) -f CMakeFiles\CodeIRGame.dir\build.make CMakeFiles/CodeIRGame.dir/Tasks/MainTaskClass.cpp.obj
-.PHONY : Tasks/MainTaskClass.cpp.obj
-
-Tasks/MainTaskClass.i: Tasks/MainTaskClass.cpp.i
-
-.PHONY : Tasks/MainTaskClass.i
-
-# target to preprocess a source file
-Tasks/MainTaskClass.cpp.i:
-	$(MAKE) -f CMakeFiles\CodeIRGame.dir\build.make CMakeFiles/CodeIRGame.dir/Tasks/MainTaskClass.cpp.i
-.PHONY : Tasks/MainTaskClass.cpp.i
-
-Tasks/MainTaskClass.s: Tasks/MainTaskClass.cpp.s
-
-.PHONY : Tasks/MainTaskClass.s
-
-# target to generate assembly for a file
-Tasks/MainTaskClass.cpp.s:
-	$(MAKE) -f CMakeFiles\CodeIRGame.dir\build.make CMakeFiles/CodeIRGame.dir/Tasks/MainTaskClass.cpp.s
-.PHONY : Tasks/MainTaskClass.cpp.s
+Utils/TimerValue.cpp.s:
+	$(MAKE) -f CMakeFiles\CodeIRGame.dir\build.make CMakeFiles/CodeIRGame.dir/Utils/TimerValue.cpp.s
+.PHONY : Utils/TimerValue.cpp.s
 
 # Help Target
 help:
@@ -323,24 +188,9 @@ help:
 	@echo ... Core/main.obj
 	@echo ... Core/main.i
 	@echo ... Core/main.s
-	@echo ... Data/Decoding.obj
-	@echo ... Data/Decoding.i
-	@echo ... Data/Decoding.s
-	@echo ... Data/IRProtocol.obj
-	@echo ... Data/IRProtocol.i
-	@echo ... Data/IRProtocol.s
-	@echo ... Data/IRSendClass.obj
-	@echo ... Data/IRSendClass.i
-	@echo ... Data/IRSendClass.s
-	@echo ... Data/IRfrequency.obj
-	@echo ... Data/IRfrequency.i
-	@echo ... Data/IRfrequency.s
-	@echo ... Data/Receive.obj
-	@echo ... Data/Receive.i
-	@echo ... Data/Receive.s
-	@echo ... Tasks/MainTaskClass.obj
-	@echo ... Tasks/MainTaskClass.i
-	@echo ... Tasks/MainTaskClass.s
+	@echo ... Utils/TimerValue.obj
+	@echo ... Utils/TimerValue.i
+	@echo ... Utils/TimerValue.s
 .PHONY : help
 
 

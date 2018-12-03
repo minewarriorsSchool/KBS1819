@@ -3,4 +3,4 @@ project(CodeIRGame)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(CodeIRGame Core/main.cpp)
+add_executable(CodeIRGame Core/main.cpp Utils/TimerValue.cpp Utils/TimerValue.h)

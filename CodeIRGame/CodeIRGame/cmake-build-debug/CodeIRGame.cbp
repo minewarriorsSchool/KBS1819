@@ -83,40 +83,10 @@
 		<Unit filename="C:/Users/jelle/Documents/KBS1819/CodeIRGame/CodeIRGame/Core/main.cpp">
 			<Option target="CodeIRGame"/>
 		</Unit>
-		<Unit filename="C:/Users/jelle/Documents/KBS1819/CodeIRGame/CodeIRGame/Data/Decoding.cpp">
+		<Unit filename="C:/Users/jelle/Documents/KBS1819/CodeIRGame/CodeIRGame/Utils/TimerValue.cpp">
 			<Option target="CodeIRGame"/>
 		</Unit>
-		<Unit filename="C:/Users/jelle/Documents/KBS1819/CodeIRGame/CodeIRGame/Data/Decoding.h">
-			<Option target="CodeIRGame"/>
-		</Unit>
-		<Unit filename="C:/Users/jelle/Documents/KBS1819/CodeIRGame/CodeIRGame/Data/IRProtocol.cpp">
-			<Option target="CodeIRGame"/>
-		</Unit>
-		<Unit filename="C:/Users/jelle/Documents/KBS1819/CodeIRGame/CodeIRGame/Data/IRProtocol.h">
-			<Option target="CodeIRGame"/>
-		</Unit>
-		<Unit filename="C:/Users/jelle/Documents/KBS1819/CodeIRGame/CodeIRGame/Data/IRSendClass.cpp">
-			<Option target="CodeIRGame"/>
-		</Unit>
-		<Unit filename="C:/Users/jelle/Documents/KBS1819/CodeIRGame/CodeIRGame/Data/IRSendClass.h">
-			<Option target="CodeIRGame"/>
-		</Unit>
-		<Unit filename="C:/Users/jelle/Documents/KBS1819/CodeIRGame/CodeIRGame/Data/IRfrequency.cpp">
-			<Option target="CodeIRGame"/>
-		</Unit>
-		<Unit filename="C:/Users/jelle/Documents/KBS1819/CodeIRGame/CodeIRGame/Data/IRfrequency.h">
-			<Option target="CodeIRGame"/>
-		</Unit>
-		<Unit filename="C:/Users/jelle/Documents/KBS1819/CodeIRGame/CodeIRGame/Data/Receive.cpp">
-			<Option target="CodeIRGame"/>
-		</Unit>
-		<Unit filename="C:/Users/jelle/Documents/KBS1819/CodeIRGame/CodeIRGame/Data/Receive.h">
-			<Option target="CodeIRGame"/>
-		</Unit>
-		<Unit filename="C:/Users/jelle/Documents/KBS1819/CodeIRGame/CodeIRGame/Tasks/MainTaskClass.cpp">
-			<Option target="CodeIRGame"/>
-		</Unit>
-		<Unit filename="C:/Users/jelle/Documents/KBS1819/CodeIRGame/CodeIRGame/Tasks/MainTaskClass.h">
+		<Unit filename="C:/Users/jelle/Documents/KBS1819/CodeIRGame/CodeIRGame/Utils/TimerValue.h">
 			<Option target="CodeIRGame"/>
 		</Unit>
 		<Unit filename="C:/Users/jelle/Documents/KBS1819/CodeIRGame/CodeIRGame/CMakeLists.txt">

@@ -1,11 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/CodeIRGame.dir/Core/main.cpp.obj"
-  "CMakeFiles/CodeIRGame.dir/Data/IRSendClass.cpp.obj"
-  "CMakeFiles/CodeIRGame.dir/Data/IRProtocol.cpp.obj"
-  "CMakeFiles/CodeIRGame.dir/Data/Decoding.cpp.obj"
-  "CMakeFiles/CodeIRGame.dir/Data/Receive.cpp.obj"
-  "CMakeFiles/CodeIRGame.dir/Data/IRfrequency.cpp.obj"
-  "CMakeFiles/CodeIRGame.dir/Tasks/MainTaskClass.cpp.obj"
+  "CMakeFiles/CodeIRGame.dir/Utils/TimerValue.cpp.obj"
   "CodeIRGame.pdb"
   "CodeIRGame.exe"
   "CodeIRGame.exe.manifest"

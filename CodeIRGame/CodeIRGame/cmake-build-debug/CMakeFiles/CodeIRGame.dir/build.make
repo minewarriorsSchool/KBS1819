@@ -69,109 +69,34 @@ CMakeFiles/CodeIRGame.dir/Core/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CodeIRGame.dir/Core/main.cpp.s"
 	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\jelle\Documents\KBS1819\CodeIRGame\CodeIRGame\Core\main.cpp -o CMakeFiles\CodeIRGame.dir\Core\main.cpp.s
 
-CMakeFiles/CodeIRGame.dir/Data/IRSendClass.cpp.obj: CMakeFiles/CodeIRGame.dir/flags.make
-CMakeFiles/CodeIRGame.dir/Data/IRSendClass.cpp.obj: ../Data/IRSendClass.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\jelle\Documents\KBS1819\CodeIRGame\CodeIRGame\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/CodeIRGame.dir/Data/IRSendClass.cpp.obj"
-	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\CodeIRGame.dir\Data\IRSendClass.cpp.obj -c C:\Users\jelle\Documents\KBS1819\CodeIRGame\CodeIRGame\Data\IRSendClass.cpp
+CMakeFiles/CodeIRGame.dir/Utils/TimerValue.cpp.obj: CMakeFiles/CodeIRGame.dir/flags.make
+CMakeFiles/CodeIRGame.dir/Utils/TimerValue.cpp.obj: ../Utils/TimerValue.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\jelle\Documents\KBS1819\CodeIRGame\CodeIRGame\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/CodeIRGame.dir/Utils/TimerValue.cpp.obj"
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\CodeIRGame.dir\Utils\TimerValue.cpp.obj -c C:\Users\jelle\Documents\KBS1819\CodeIRGame\CodeIRGame\Utils\TimerValue.cpp
 
-CMakeFiles/CodeIRGame.dir/Data/IRSendClass.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/CodeIRGame.dir/Data/IRSendClass.cpp.i"
-	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\jelle\Documents\KBS1819\CodeIRGame\CodeIRGame\Data\IRSendClass.cpp > CMakeFiles\CodeIRGame.dir\Data\IRSendClass.cpp.i
+CMakeFiles/CodeIRGame.dir/Utils/TimerValue.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/CodeIRGame.dir/Utils/TimerValue.cpp.i"
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\jelle\Documents\KBS1819\CodeIRGame\CodeIRGame\Utils\TimerValue.cpp > CMakeFiles\CodeIRGame.dir\Utils\TimerValue.cpp.i
 
-CMakeFiles/CodeIRGame.dir/Data/IRSendClass.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CodeIRGame.dir/Data/IRSendClass.cpp.s"
-	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\jelle\Documents\KBS1819\CodeIRGame\CodeIRGame\Data\IRSendClass.cpp -o CMakeFiles\CodeIRGame.dir\Data\IRSendClass.cpp.s
-
-CMakeFiles/CodeIRGame.dir/Data/IRProtocol.cpp.obj: CMakeFiles/CodeIRGame.dir/flags.make
-CMakeFiles/CodeIRGame.dir/Data/IRProtocol.cpp.obj: ../Data/IRProtocol.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\jelle\Documents\KBS1819\CodeIRGame\CodeIRGame\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/CodeIRGame.dir/Data/IRProtocol.cpp.obj"
-	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\CodeIRGame.dir\Data\IRProtocol.cpp.obj -c C:\Users\jelle\Documents\KBS1819\CodeIRGame\CodeIRGame\Data\IRProtocol.cpp
-
-CMakeFiles/CodeIRGame.dir/Data/IRProtocol.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/CodeIRGame.dir/Data/IRProtocol.cpp.i"
-	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\jelle\Documents\KBS1819\CodeIRGame\CodeIRGame\Data\IRProtocol.cpp > CMakeFiles\CodeIRGame.dir\Data\IRProtocol.cpp.i
-
-CMakeFiles/CodeIRGame.dir/Data/IRProtocol.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CodeIRGame.dir/Data/IRProtocol.cpp.s"
-	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\jelle\Documents\KBS1819\CodeIRGame\CodeIRGame\Data\IRProtocol.cpp -o CMakeFiles\CodeIRGame.dir\Data\IRProtocol.cpp.s
-
-CMakeFiles/CodeIRGame.dir/Data/Decoding.cpp.obj: CMakeFiles/CodeIRGame.dir/flags.make
-CMakeFiles/CodeIRGame.dir/Data/Decoding.cpp.obj: ../Data/Decoding.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\jelle\Documents\KBS1819\CodeIRGame\CodeIRGame\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/CodeIRGame.dir/Data/Decoding.cpp.obj"
-	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\CodeIRGame.dir\Data\Decoding.cpp.obj -c C:\Users\jelle\Documents\KBS1819\CodeIRGame\CodeIRGame\Data\Decoding.cpp
-
-CMakeFiles/CodeIRGame.dir/Data/Decoding.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/CodeIRGame.dir/Data/Decoding.cpp.i"
-	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\jelle\Documents\KBS1819\CodeIRGame\CodeIRGame\Data\Decoding.cpp > CMakeFiles\CodeIRGame.dir\Data\Decoding.cpp.i
-
-CMakeFiles/CodeIRGame.dir/Data/Decoding.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CodeIRGame.dir/Data/Decoding.cpp.s"
-	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\jelle\Documents\KBS1819\CodeIRGame\CodeIRGame\Data\Decoding.cpp -o CMakeFiles\CodeIRGame.dir\Data\Decoding.cpp.s
-
-CMakeFiles/CodeIRGame.dir/Data/Receive.cpp.obj: CMakeFiles/CodeIRGame.dir/flags.make
-CMakeFiles/CodeIRGame.dir/Data/Receive.cpp.obj: ../Data/Receive.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\jelle\Documents\KBS1819\CodeIRGame\CodeIRGame\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/CodeIRGame.dir/Data/Receive.cpp.obj"
-	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\CodeIRGame.dir\Data\Receive.cpp.obj -c C:\Users\jelle\Documents\KBS1819\CodeIRGame\CodeIRGame\Data\Receive.cpp
-
-CMakeFiles/CodeIRGame.dir/Data/Receive.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/CodeIRGame.dir/Data/Receive.cpp.i"
-	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\jelle\Documents\KBS1819\CodeIRGame\CodeIRGame\Data\Receive.cpp > CMakeFiles\CodeIRGame.dir\Data\Receive.cpp.i
-
-CMakeFiles/CodeIRGame.dir/Data/Receive.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CodeIRGame.dir/Data/Receive.cpp.s"
-	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\jelle\Documents\KBS1819\CodeIRGame\CodeIRGame\Data\Receive.cpp -o CMakeFiles\CodeIRGame.dir\Data\Receive.cpp.s
-
-CMakeFiles/CodeIRGame.dir/Data/IRfrequency.cpp.obj: CMakeFiles/CodeIRGame.dir/flags.make
-CMakeFiles/CodeIRGame.dir/Data/IRfrequency.cpp.obj: ../Data/IRfrequency.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\jelle\Documents\KBS1819\CodeIRGame\CodeIRGame\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/CodeIRGame.dir/Data/IRfrequency.cpp.obj"
-	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\CodeIRGame.dir\Data\IRfrequency.cpp.obj -c C:\Users\jelle\Documents\KBS1819\CodeIRGame\CodeIRGame\Data\IRfrequency.cpp
-
-CMakeFiles/CodeIRGame.dir/Data/IRfrequency.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/CodeIRGame.dir/Data/IRfrequency.cpp.i"
-	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\jelle\Documents\KBS1819\CodeIRGame\CodeIRGame\Data\IRfrequency.cpp > CMakeFiles\CodeIRGame.dir\Data\IRfrequency.cpp.i
-
-CMakeFiles/CodeIRGame.dir/Data/IRfrequency.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CodeIRGame.dir/Data/IRfrequency.cpp.s"
-	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\jelle\Documents\KBS1819\CodeIRGame\CodeIRGame\Data\IRfrequency.cpp -o CMakeFiles\CodeIRGame.dir\Data\IRfrequency.cpp.s
-
-CMakeFiles/CodeIRGame.dir/Tasks/MainTaskClass.cpp.obj: CMakeFiles/CodeIRGame.dir/flags.make
-CMakeFiles/CodeIRGame.dir/Tasks/MainTaskClass.cpp.obj: ../Tasks/MainTaskClass.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\jelle\Documents\KBS1819\CodeIRGame\CodeIRGame\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/CodeIRGame.dir/Tasks/MainTaskClass.cpp.obj"
-	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\CodeIRGame.dir\Tasks\MainTaskClass.cpp.obj -c C:\Users\jelle\Documents\KBS1819\CodeIRGame\CodeIRGame\Tasks\MainTaskClass.cpp
-
-CMakeFiles/CodeIRGame.dir/Tasks/MainTaskClass.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/CodeIRGame.dir/Tasks/MainTaskClass.cpp.i"
-	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\jelle\Documents\KBS1819\CodeIRGame\CodeIRGame\Tasks\MainTaskClass.cpp > CMakeFiles\CodeIRGame.dir\Tasks\MainTaskClass.cpp.i
-
-CMakeFiles/CodeIRGame.dir/Tasks/MainTaskClass.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CodeIRGame.dir/Tasks/MainTaskClass.cpp.s"
-	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\jelle\Documents\KBS1819\CodeIRGame\CodeIRGame\Tasks\MainTaskClass.cpp -o CMakeFiles\CodeIRGame.dir\Tasks\MainTaskClass.cpp.s
+CMakeFiles/CodeIRGame.dir/Utils/TimerValue.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CodeIRGame.dir/Utils/TimerValue.cpp.s"
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\jelle\Documents\KBS1819\CodeIRGame\CodeIRGame\Utils\TimerValue.cpp -o CMakeFiles\CodeIRGame.dir\Utils\TimerValue.cpp.s
 
 # Object files for target CodeIRGame
 CodeIRGame_OBJECTS = \
 "CMakeFiles/CodeIRGame.dir/Core/main.cpp.obj" \
-"CMakeFiles/CodeIRGame.dir/Data/IRSendClass.cpp.obj" \
-"CMakeFiles/CodeIRGame.dir/Data/IRProtocol.cpp.obj" \
-"CMakeFiles/CodeIRGame.dir/Data/Decoding.cpp.obj" \
-"CMakeFiles/CodeIRGame.dir/Data/Receive.cpp.obj" \
-"CMakeFiles/CodeIRGame.dir/Data/IRfrequency.cpp.obj" \
-"CMakeFiles/CodeIRGame.dir/Tasks/MainTaskClass.cpp.obj"
+"CMakeFiles/CodeIRGame.dir/Utils/TimerValue.cpp.obj"
 
 # External object files for target CodeIRGame
 CodeIRGame_EXTERNAL_OBJECTS =
 
 CodeIRGame.exe: CMakeFiles/CodeIRGame.dir/Core/main.cpp.obj
-CodeIRGame.exe: CMakeFiles/CodeIRGame.dir/Data/IRSendClass.cpp.obj
-CodeIRGame.exe: CMakeFiles/CodeIRGame.dir/Data/IRProtocol.cpp.obj
-CodeIRGame.exe: CMakeFiles/CodeIRGame.dir/Data/Decoding.cpp.obj
-CodeIRGame.exe: CMakeFiles/CodeIRGame.dir/Data/Receive.cpp.obj
-CodeIRGame.exe: CMakeFiles/CodeIRGame.dir/Data/IRfrequency.cpp.obj
-CodeIRGame.exe: CMakeFiles/CodeIRGame.dir/Tasks/MainTaskClass.cpp.obj
+CodeIRGame.exe: CMakeFiles/CodeIRGame.dir/Utils/TimerValue.cpp.obj
 CodeIRGame.exe: CMakeFiles/CodeIRGame.dir/build.make
 CodeIRGame.exe: CMakeFiles/CodeIRGame.dir/linklibs.rsp
 CodeIRGame.exe: CMakeFiles/CodeIRGame.dir/objects1.rsp
 CodeIRGame.exe: CMakeFiles/CodeIRGame.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\jelle\Documents\KBS1819\CodeIRGame\CodeIRGame\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable CodeIRGame.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\jelle\Documents\KBS1819\CodeIRGame\CodeIRGame\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable CodeIRGame.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\CodeIRGame.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

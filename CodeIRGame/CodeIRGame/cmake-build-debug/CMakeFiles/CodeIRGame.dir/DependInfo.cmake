@@ -5,12 +5,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
   "C:/Users/jelle/Documents/KBS1819/CodeIRGame/CodeIRGame/Core/main.cpp" "C:/Users/jelle/Documents/KBS1819/CodeIRGame/CodeIRGame/cmake-build-debug/CMakeFiles/CodeIRGame.dir/Core/main.cpp.obj"
-  "C:/Users/jelle/Documents/KBS1819/CodeIRGame/CodeIRGame/Data/Decoding.cpp" "C:/Users/jelle/Documents/KBS1819/CodeIRGame/CodeIRGame/cmake-build-debug/CMakeFiles/CodeIRGame.dir/Data/Decoding.cpp.obj"
-  "C:/Users/jelle/Documents/KBS1819/CodeIRGame/CodeIRGame/Data/IRProtocol.cpp" "C:/Users/jelle/Documents/KBS1819/CodeIRGame/CodeIRGame/cmake-build-debug/CMakeFiles/CodeIRGame.dir/Data/IRProtocol.cpp.obj"
-  "C:/Users/jelle/Documents/KBS1819/CodeIRGame/CodeIRGame/Data/IRSendClass.cpp" "C:/Users/jelle/Documents/KBS1819/CodeIRGame/CodeIRGame/cmake-build-debug/CMakeFiles/CodeIRGame.dir/Data/IRSendClass.cpp.obj"
-  "C:/Users/jelle/Documents/KBS1819/CodeIRGame/CodeIRGame/Data/IRfrequency.cpp" "C:/Users/jelle/Documents/KBS1819/CodeIRGame/CodeIRGame/cmake-build-debug/CMakeFiles/CodeIRGame.dir/Data/IRfrequency.cpp.obj"
-  "C:/Users/jelle/Documents/KBS1819/CodeIRGame/CodeIRGame/Data/Receive.cpp" "C:/Users/jelle/Documents/KBS1819/CodeIRGame/CodeIRGame/cmake-build-debug/CMakeFiles/CodeIRGame.dir/Data/Receive.cpp.obj"
-  "C:/Users/jelle/Documents/KBS1819/CodeIRGame/CodeIRGame/Tasks/MainTaskClass.cpp" "C:/Users/jelle/Documents/KBS1819/CodeIRGame/CodeIRGame/cmake-build-debug/CMakeFiles/CodeIRGame.dir/Tasks/MainTaskClass.cpp.obj"
+  "C:/Users/jelle/Documents/KBS1819/CodeIRGame/CodeIRGame/Utils/TimerValue.cpp" "C:/Users/jelle/Documents/KBS1819/CodeIRGame/CodeIRGame/cmake-build-debug/CMakeFiles/CodeIRGame.dir/Utils/TimerValue.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
