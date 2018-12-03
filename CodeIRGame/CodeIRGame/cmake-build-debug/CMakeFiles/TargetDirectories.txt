@@ -1,3 +1,0 @@
-C:/Users/jelle/Documents/KBS1819/CodeIRGame/CodeIRGame/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-C:/Users/jelle/Documents/KBS1819/CodeIRGame/CodeIRGame/cmake-build-debug/CMakeFiles/CodeIRGame.dir
-C:/Users/jelle/Documents/KBS1819/CodeIRGame/CodeIRGame/cmake-build-debug/CMakeFiles/edit_cache.dir

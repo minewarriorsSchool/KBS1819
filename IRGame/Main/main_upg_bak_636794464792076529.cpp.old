@@ -1,0 +1,18 @@
+/*
+ * IRGame.cpp
+ *
+ * Created: 03/12/2018 15:07:36
+ * Author : jelle
+ */ 
+
+#include <avr/io.h>
+
+
+int main(void)
+{
+    /* Replace with your application code */
+    while (1) 
+    {
+    }
+}
+
