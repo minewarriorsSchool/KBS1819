@@ -1,5 +1,9 @@
 #include <Arduino.h>
 
-int main(void){
+//Declaring registers here
 
+//End declaring registers
+
+int main(void){
+	
 }
