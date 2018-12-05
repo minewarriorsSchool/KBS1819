@@ -47,7 +47,7 @@ class IRCommunication
 	public:
 	IRCommunication();
 	~IRCommunication();
-	init();
+	init(uint8_t frequencyInKHz);
 	protected:
 	private:
 	IRCommunication( const IRCommunication &c );
