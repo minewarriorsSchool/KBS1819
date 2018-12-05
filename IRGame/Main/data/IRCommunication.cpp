@@ -1,4 +1,4 @@
-/* 
+/*
 * IRCommunication.cpp
 *
 * Created: 05/12/2018 18:32:37
@@ -17,3 +17,7 @@ IRCommunication::IRCommunication()
 IRCommunication::~IRCommunication()
 {
 } //~IRCommunication
+
+IRCommunication::init(){
+	
+}

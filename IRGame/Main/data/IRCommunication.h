@@ -47,6 +47,7 @@ class IRCommunication
 	public:
 	IRCommunication();
 	~IRCommunication();
+	init();
 	protected:
 	private:
 	IRCommunication( const IRCommunication &c );
