@@ -18,6 +18,7 @@ class IRCommunication
 	public:
 	protected:
 	private:
+	
 	//Declaring registers here
 	/*
 	going for fast PWM mode
@@ -25,6 +26,8 @@ class IRCommunication
 	16.000.000/56.000/8 close to 36 (35,714285714285714285714285714286)
 	16.000.000/38.000/8 close to 53 (52,631578947368421052631578947368)
 	*/
+	#define OC56KHZ 36;
+	#define OC38KHZ 53;
 
 	/*
 	Clear OC2B on Compare match, set OC2B at bottom, (non-inverting mode)
