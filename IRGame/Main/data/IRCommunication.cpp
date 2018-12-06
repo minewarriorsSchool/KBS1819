@@ -5,7 +5,6 @@
 * Author: jelle
 */
 
-
 #include "IRCommunication.h"
 
 // default constructor
@@ -18,9 +17,13 @@ IRCommunication::~IRCommunication()
 {
 } //~IRCommunication
 
-IRCommunication::init(uint8_t frequencyInKHz){
+IRCommunication::initTask(uint8_t frequencyInKHz){
 	 /*frequencies other then 56KHz & 38 KHz are not allowed in the IR communication*/
 	while(frequencyInKHz != OC38KHZ || != OC56KHZ){
 		break;
 	}
+}
+
+IRCommunication::frequencyInteruptTask(uint8_t frequency){
+	
 }

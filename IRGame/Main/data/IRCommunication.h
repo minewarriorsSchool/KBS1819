@@ -34,8 +34,10 @@ class IRCommunication
 	Fast PWM mode TOP: 0xFF, Update of OCRx at Bottom, TOV flag set on MAX
 	*/
 	TCCR2A |= (1<<COM2B1)| (1<<WGM21) | (1<<WGM20);
+	
 	//pre-scaling 8 --> for correct prescaling
 	TCCR2B |= (1<<CS21);
+	
 	/*
 	OCR2B = 53 if sender is 38 KHZ
 	OCR2b = 36 if sender is 56 KHZ
@@ -45,9 +47,10 @@ class IRCommunication
 
 	//functions
 	public:
-	IRCommunication();
-	~IRCommunication();
-	init(uint8_t frequencyInKHz);
+	IRCommunication();//Constructor
+	~IRCommunication();//Destructor
+	initTask(uint8_t frequencyInKHz); //Controls which frequencies are accepted
+	frequencyInteruptTask(uint8_t frequency); //Controls which frequency is being received
 	protected:
 	private:
 	IRCommunication( const IRCommunication &c );
