@@ -10,5 +10,6 @@ IRCommunication IR();
 int main(void){
 	for (int i= 0; i<maxTask; i++)
 	{
+		tasks[i].run();
 	}
 }
