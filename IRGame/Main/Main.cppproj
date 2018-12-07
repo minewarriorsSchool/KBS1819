@@ -248,6 +248,12 @@
     <Compile Include="data\IRCommunication.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="tasks\Task.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="tasks\testTask.cpp">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="__vm\.Main.vsarduino.h">
       <SubType>compile</SubType>
     </Compile>

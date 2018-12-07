@@ -24,6 +24,6 @@ IRCommunication::initTask(uint8_t frequencyInKHz){
 	}
 }
 
-IRCommunication::frequencyInteruptTask(uint8_t frequency){
-	
+IRCommunication::frequencyInteruptTask(uint8_t OCFrequencyCompareNumber){
+	OCR2B = OCFrequencyCompareNumber;
 }
