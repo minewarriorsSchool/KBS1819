@@ -26,4 +26,4 @@ class Task{
 	}
 	private:
 	int taskcounter = 0;
-	};
+};

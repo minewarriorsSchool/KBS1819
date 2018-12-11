@@ -2,7 +2,7 @@
 #include "tasks"
 #define maxTask 10;
 
-Task tasks;
+Task tasks[maxTask];
 
 Task.addTask(testTask);
 
