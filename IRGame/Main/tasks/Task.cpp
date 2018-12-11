@@ -7,11 +7,10 @@
 
 
 #include "Task.h"
-#define maxTasks 10
+#define maxTask 10;
 
 class Task{
-	public:
-	Task tasks[maxTasks];
+	public: Task tasks [maxTasks];
 	virtual int canProcess()=0;
 	virtual void process()=0;
 	void run(){

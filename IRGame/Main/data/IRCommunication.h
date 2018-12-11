@@ -33,15 +33,16 @@ class IRCommunication
 	Clear OC2B on Compare match, set OC2B at bottom, (non-inverting mode)
 	Fast PWM mode TOP: 0xFF, Update of OCRx at Bottom, TOV flag set on MAX
 	*/
-	TCCR2A |= (1<<COM2B1)| (1<<WGM21) | (1<<WGM20);
+	TCCR2A |= (1<<COM2B1)| (1<<WGM22) | (1<<WGM21) | (1<<WGM20);
 	
 	//pre-scaling 8 --> for correct prescaling
 	TCCR2B |= (1<<CS21);
 	
 	/*
-	OCR2B = 53 if sender is 38 KHZ
-	OCR2b = 36 if sender is 56 KHZ
+	OCR2A = 53 if sender is 38 KHZ
+	OCR2A = 36 if sender is 56 KHZ
 	*/
+	OCR2A = 53;
 
 	//End declaring registers
 

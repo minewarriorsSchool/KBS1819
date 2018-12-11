@@ -1,15 +1,10 @@
 #include "data"
 #include "tasks"
-#define maxTask 10;
 
-Task tasks[maxTask];
+Task taskSystem = new Task();
+taskSystem.addTask(testTask);
 
-Task.addTask(testTask);
-
-IRCommunication IR();
+IRCommunication IR= new IRCommunication();
 int main(void){
-	for (int i= 0; i<maxTask; i++)
-	{
-		tasks[i].run();
-	}
+	
 }
