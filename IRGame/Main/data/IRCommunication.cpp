@@ -1,29 +1,24 @@
-/*
-* IRCommunication.cpp
-*
-* Created: 05/12/2018 18:32:37
-* Author: jelle
-*/
+//
+//
+//
 
 #include "IRCommunication.h"
 
-// default constructor
-IRCommunication::IRCommunication()
-{
-} //IRCommunication
-
-// default destructor
-IRCommunication::~IRCommunication()
-{
-} //~IRCommunication
-
-IRCommunication::initTask(uint8_t frequencyInKHz){
-	 /*frequencies other then 56KHz & 38 KHz are not allowed in the IR communication*/
-	while(frequencyInKHz != OC38KHZ || != OC56KHZ){
-		break;
+IRCommunicatie::IRCommunicatie(uint8_t frequency){
+	while(frequency!=frequency56kHz  || frequency!=frequency38kHz){}	//Making sure that no other frequency is allowed besides required frequencies
+	if(frequency == frequency38kHz){									//Setting the duty-cycle to 50%; and frequency to 38.000 Hz
+		OCR2A = OCR2AWaarde38kHz;
+		OCR2B = OCR2BWaarde38kHz;
+	}
+	if(frequency == frequency56kHz){									//Setting the duty-cycle to 50%; and frequency to 56.000 Hz
+		OCR2A = OCR2AWaarde56kHz;
+		OCR2B = OCR2BWaarde56kHz;
 	}
 }
 
-IRCommunication::frequencyInteruptTask(uint8_t OCFrequencyCompareNumber){
-	OCR2B = OCFrequencyCompareNumber;
+void IRCommunicatie::setHzfrequency(){
+	PORTD |= (1<<PORTD3);
+	DDRD |= (1<<DDD3);
+	TCCR2A |= (1<<COM2A0)| (1<<COM2B1) | (1<<WGM20) | (1<<WGM21);		//set compare B
+	TCCR2B |= (1<<CS21) | (1<<WGM22);									//set clock pre-scaler to 8 and Fast PWM
 }
