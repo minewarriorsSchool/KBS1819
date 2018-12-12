@@ -5,10 +5,6 @@ VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{E66E83B9-2572-4076-B26E-6BE79FF3018A}") = "Main", "Main\Main.cppproj", "{C81EAF1A-0A54-410B-B45E-6B0DB2E92897}"
 EndProject
-Project("{E66E83B9-2572-4076-B26E-6BE79FF3018A}") = "testHz", "..\..\Arduino\testHz\testHz.cppproj", "{6B3F647A-DC7F-41EA-A8FF-37DFD94E7B89}"
-EndProject
-Project("{E66E83B9-2572-4076-B26E-6BE79FF3018A}") = "Mic_opdract_3", "..\..\Arduino\Mic_opdract_3\Mic_opdract_3.cppproj", "{100ABF4F-0CD5-441B-B8D3-CD001CEAB226}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|AVR = Debug|AVR
@@ -19,14 +15,6 @@ Global
 		{C81EAF1A-0A54-410B-B45E-6B0DB2E92897}.Debug|AVR.Build.0 = Debug|AVR
 		{C81EAF1A-0A54-410B-B45E-6B0DB2E92897}.Release|AVR.ActiveCfg = Release|AVR
 		{C81EAF1A-0A54-410B-B45E-6B0DB2E92897}.Release|AVR.Build.0 = Release|AVR
-		{6B3F647A-DC7F-41EA-A8FF-37DFD94E7B89}.Debug|AVR.ActiveCfg = Debug|AVR
-		{6B3F647A-DC7F-41EA-A8FF-37DFD94E7B89}.Debug|AVR.Build.0 = Debug|AVR
-		{6B3F647A-DC7F-41EA-A8FF-37DFD94E7B89}.Release|AVR.ActiveCfg = Release|AVR
-		{6B3F647A-DC7F-41EA-A8FF-37DFD94E7B89}.Release|AVR.Build.0 = Release|AVR
-		{100ABF4F-0CD5-441B-B8D3-CD001CEAB226}.Debug|AVR.ActiveCfg = Debug|AVR
-		{100ABF4F-0CD5-441B-B8D3-CD001CEAB226}.Debug|AVR.Build.0 = Debug|AVR
-		{100ABF4F-0CD5-441B-B8D3-CD001CEAB226}.Release|AVR.ActiveCfg = Release|AVR
-		{100ABF4F-0CD5-441B-B8D3-CD001CEAB226}.Release|AVR.Build.0 = Release|AVR
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

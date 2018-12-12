@@ -22,4 +22,4 @@ int main(void);
 
 #include "pins_arduino.h" 
 #include "arduino.h"
-#include "core\Main.ino"
+#include "Main.ino"
