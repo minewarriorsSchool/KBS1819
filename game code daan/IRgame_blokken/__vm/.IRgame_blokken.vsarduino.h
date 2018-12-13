@@ -19,7 +19,8 @@
 #define ARDUINO_AVR_UNO
 #define ARDUINO_ARCH_AVR
 int main(void);
-void drawblock(int x0, int w, int h);
+void drawblock(int x0, int grootte);
+void seed ();
 
 #include "pins_arduino.h" 
 #include "arduino.h"

@@ -13,6 +13,8 @@
 #define GREY    0xD6BA
 
 #define BACKGROUND	0x0000
+#define rectcolor GREY
+
 
 #define TFT_DC 9
 #define TFT_CS 10
@@ -21,8 +23,13 @@ Adafruit_ILI9341 screen = Adafruit_ILI9341(TFT_CS, TFT_DC);
 
 int tijd;
 int stap, oudestap;
-int rectcolor = GREEN;
+
 int y0;
+int snelheid = 10;
+
+int locaties [50], groottes [50]; 
+int randomlocatie, randomgrootte;
+int nummer = 0;
 
 int timer1_counter;
 
@@ -47,23 +54,40 @@ int main(void) {
 	
 	
 	Serial.begin(19200);
+	
+	seed();
 	for(;;) {
-		drawblock(100, 30, 30);
+		drawblock(locaties[nummer], groottes[nummer]);
+		if (stap > 320){
+			nummer++;
+			stap = 0;
+		}
+		
 	}
 }
 
-void drawblock(int x0, int w, int h) {
-	screen.fillRect(x0, stap, w, h, rectcolor);
-	screen.fillRect(x0, stap - 3, w, 3, BACKGROUND);
+void drawblock(int x0, int grootte) {
+	screen.fillRect(x0, stap, grootte, grootte, rectcolor);
+	screen.fillRect(x0, stap - 10, grootte, 10, BACKGROUND);
+}
+
+void seed (){
+	for(int i; i < 50; i++) {
+		groottes[i] = rand() % 100 + 50;
+		locaties[i] = rand() % 210;
+	}
 }
 
 ISR(TIMER1_OVF_vect)				//de interrupt die idere 1000ste van een seconde word aangeroepen
 {
 	TCNT1 = timer1_counter;			// de timer begint weer opnieuw
 	tijd++;							// de tijd word met 1 verhoogt
-	//Serial.println(tijd);
+	
 	if (tijd > 10) {
 		stap++;
+		//Serial.println(stap);
 		tijd = 0;
 	}
 }
+
+
