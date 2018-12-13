@@ -248,6 +248,12 @@
     <Compile Include="data\IRCommunication.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="Poppetje.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Poppetje.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="__vm\.Main.vsarduino.h">
       <SubType>compile</SubType>
     </Compile>
