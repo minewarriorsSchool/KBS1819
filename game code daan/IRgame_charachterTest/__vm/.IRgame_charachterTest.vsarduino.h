@@ -19,15 +19,7 @@
 #define ARDUINO_AVR_UNO
 #define ARDUINO_ARCH_AVR
 int main ();
-void clearScreen ();
-void drawHomescreen();
-void drawcharHomescreen(int x, int y, int color);
-void drawPointer();
-void start();
-void highscore();
-void controls();
 void drawcharacter(int x, int y, int Color);
-void drawblock(int x0, int w, int h);
 static void nunchuck_setpowerpins();
 void nunchuck_init();
 void nunchuck_send_request();
@@ -37,11 +29,11 @@ char nunchuk_decode_byte (char x);
 int nunchuck_zbutton();
 int nunchuck_cbutton();
 int nunchuck_joyx();
-int nunchuck_joyy();
+int nunchuck_y();
 int nunchuck_accelx();
 int nunchuck_accely();
 int nunchuck_accelz();
 
 #include "pins_arduino.h" 
 #include "arduino.h"
-#include "IRalles.ino"
+#include "IRgame_charachterTest.ino"

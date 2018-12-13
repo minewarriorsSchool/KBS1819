@@ -27,7 +27,6 @@ void start();
 void highscore();
 void controls();
 void drawcharacter(int x, int y, int Color);
-void drawblock(int x0, int w, int h);
 static void nunchuck_setpowerpins();
 void nunchuck_init();
 void nunchuck_send_request();
@@ -44,4 +43,4 @@ int nunchuck_accelz();
 
 #include "pins_arduino.h" 
 #include "arduino.h"
-#include "IRalles.ino"
+#include "IRgame_home.ino"
