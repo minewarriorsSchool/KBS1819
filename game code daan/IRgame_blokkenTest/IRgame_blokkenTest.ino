@@ -11,8 +11,9 @@
 #define YELLOW  0xFFE0
 #define WHITE   0xFFFF
 #define GREY    0xD6BA
-
-#define BACKGROUND	0x0000
+#define rectcolor GREY
+#define MAXARRAY 100
+#define MAXLEVENS 3
 
 #define TFT_DC 9
 #define TFT_CS 10
@@ -21,14 +22,23 @@ Adafruit_ILI9341 screen = Adafruit_ILI9341(TFT_CS, TFT_DC);
 
 int pointerPos = 1;
 int oudpointerPos = 2;
-//int joyy;
 int scherm = 1, oudescherm = 1;
 
 int tijd;
-int stap, oudestap;
-int rectcolor = GREY;
-int y0;
+int stap1, stap2;
+int blok2;
+int snelheid = 5;		//snelheid waarmee de blokken vallen (2 = heel snel, 4 = langzaam)
+int blokweg = 10;		// de grootte van het zwarte vierkant wat de blokken achtervolgt om het spoor weg te halen
+int checkcollision = 1;
+int collisiontijd;
 
+int geraakt, score, extrascore;
+
+#define BACKGROUND	0x0000
+
+int locaties [100], groottes [100];
+int randomlocatie, randomgrootte, randomafstand = 180;
+int nummer1 = 1, nummer2 = 50;
 int timer1_counter;
 
 int joyx;			//de x-coordinaten van het charcter
@@ -50,14 +60,16 @@ int main (){
 	TCCR1B |= (1 << CS12);    // 256 prescaler
 	TIMSK1 |= (1 << TOIE1);   // enable timer overflow interrupt
 	interrupts();             // enable alle interrupts
+	init();
 	
-	init();
-	init();
 	screen.begin();
 	screen.fillScreen(BACKGROUND);
+	
 	nunchuck_setpowerpins();
 	nunchuck_init();
 	Serial.begin(9600);
+	
+	seed();
 	
 	for(;;){
 		nunchuck_get_data();	//nunchuck data ophalen
@@ -91,14 +103,29 @@ int main (){
 		if(scherm == 4){		//scherm 4 is de controls
 			controls();
 		}
+		
+		if (scherm == 5){
+			gameover();
+		}
 	}
 }
 
 void clearScreen (){
 	if (scherm != oudescherm) {			//het scherm wor eerst geleegd als je van scherm veranderd
 		screen.fillScreen(BACKGROUND);	
+		if(scherm == 2 || oudescherm == 2) {
+			stap1 = 0;
+			stap2 = 0;
+			geraakt = 0;
+			score = 0;
+			blok2 = 0;
+			nummer1 = 1;
+			nummer2 = MAXARRAY / 2;
+			int snelheid = 5;
+			int blokweg = 10;
+			seed();
+		}
 		oudescherm = scherm;
-		stap = 0;
 	}
 }
 
@@ -184,8 +211,32 @@ void drawPointer(){			//het tekenen  van de aanwijzer
 }
 
 void start(){
-	drawcharacter(joyx, 275, BLUE);
-	drawblock(100, 30, 30);
+
+	drawcharacter(joyx, 275, BLUE); 
+	
+	drawblock(locaties[nummer1], groottes[nummer1]);
+	drawblock2(locaties[nummer2], groottes[nummer2]);
+	
+	collision();
+	header();
+	
+	if (MAXLEVENS - geraakt <= 0) {
+		scherm = 5;
+	}
+	
+	if(nunchuck_cbutton() == 1){
+		scherm = 1;
+	}
+}
+
+void gameover() {
+	screen.setCursor(40, 70);
+	screen.setTextColor(WHITE);
+	screen.setTextSize(3);
+	screen.println("GAME OVER");
+	screen.setCursor(50, 300);
+	screen.setTextSize(1);
+	screen.println("press c to go back");
 	
 	if(nunchuck_cbutton() == 1){
 		scherm = 1;
@@ -194,9 +245,10 @@ void start(){
 
 void highscore(){
 	screen.setCursor(30, 40);
-	screen.setTextColor(WHITE);  
+	screen.setTextColor(WHITE);
 	screen.setTextSize(3);
 	screen.println("HIGHSCORES");
+	
 	
 	if(nunchuck_cbutton() == 1){
 		scherm = 1;
@@ -206,28 +258,179 @@ void highscore(){
 
 void controls(){
 	screen.setCursor(30, 40);
-	screen.setTextColor(WHITE);  
+	screen.setTextColor(WHITE);
 	screen.setTextSize(3);
 	screen.println("CONTROLS");
-	
-	
+	screen.setCursor(30, 80);
+	screen.setTextColor(WHITE);  screen.setTextSize(2);
+	screen.println("Move the joystick");
+	screen.setCursor(30, 100);
+	screen.setTextColor(WHITE);  screen.setTextSize(2);
+	screen.println("to go left and");
+	screen.setCursor(30, 120);
+
+	drawcharacter(joyx, 160, RED);
+
+	screen.setTextColor(WHITE);  screen.setTextSize(2);
+	screen.println("right");
+	screen.setCursor(30, 190);
+	screen.setTextColor(WHITE);  screen.setTextSize(2);
+	screen.println("Press C to go");
+	screen.setCursor(30, 210);
+	screen.setTextColor(WHITE);  screen.setTextSize(2);
+	screen.println("back to the");
+	screen.setCursor(30, 230);
+	screen.setTextColor(WHITE);  screen.setTextSize(2);
+	screen.println("homescreen");
+
+
 	if(nunchuck_cbutton() == 1){
 		scherm = 1;
 	}
 }
 
 
-//functie voor het teken van het charachter op de juiste locatie
+void drawblock(int x, int grootte) {
+	if (nummer1 != 49) {
+		screen.fillRect(x, stap1 - grootte, grootte, grootte, rectcolor);
+		screen.fillRect(x, stap1 - grootte - blokweg, grootte, blokweg, BACKGROUND);
+		
+		if (stap1 > 330 + grootte && stap2 > randomafstand){
+			nummer1++;
+			screen.fillRect(200, 0, 50, 10, BACKGROUND);		//oude score weghalen om plaats te maken voor de nieuwe score
+			stap1 = 0;
+		}
+	}
+}
+
+void drawblock2(int x, int grootte) {
+	if (stap1 >= 160) {
+		blok2 = 1;		//als het aller eerste blok1 weg is mag blok2 ook beginnen
+	}
+	
+	if (blok2 == 1) {
+		screen.fillRect(x, stap2, grootte, grootte, CYAN);			//blok2 tekenen
+		screen.fillRect(x, stap2 - blokweg, grootte, blokweg, BACKGROUND);
+		
+		if (stap2 > (330 + grootte) && stap1 > randomafstand){	// als het vorige blok2 uit het scherm is en blok1 is ver genoeg
+			nummer2++;											// volgende blok2
+			screen.fillRect(200, 0, 50, 10, BACKGROUND);		// oude score weghalen om plaats te maken voor de nieuwe score
+			stap2 = 0;											//stappenteller reseten
+			randomafstand = rand() % 20 + 180;					// nieuwe random afstand uitrekenen die tussen de blokken moet zitten
+		}
+	}
+	
+	if(nummer2 == MAXARRAY) {
+		nummer1 = 0;
+		nummer2 = MAXARRAY / 2;
+		extrascore = extrascore + MAXARRAY;
+		seed();
+	}
+	
+	if (score >= 25) {
+		snelheid = 4;
+		blokweg = 15;
+		if (score >= 50) {
+			snelheid = 3;			// de blokken vallen iets sneller
+			blokweg = 17;
+			if (score >= 75) {
+				snelheid = 2;		// de blokken vallen heel snel
+				blokweg = 20;
+				if (score >= 125) {
+					snelheid = 1;
+					blokweg = 25;
+				}
+			}
+		}
+	}
+}
+
+void seed (){
+	for(int i = 0; i <= MAXARRAY; i++) {
+		groottes[i] = rand() % 25 + 25;
+		locaties[i] = rand() % (240 - groottes[i]);
+	}
+}
+
+ISR(TIMER1_OVF_vect)				//de interrupt die idere 1000ste van een seconde word aangeroepen
+{
+	TCNT1 = timer1_counter;			// de timer begint weer opnieuw
+	tijd++;							// de tijd word met 1 verhoogt
+	
+	if (tijd > snelheid) {
+		stap1++;
+		if (blok2 == 1){
+			stap2++;
+		}
+		tijd = 0;
+	}
+}
+
+void header() {
+	screen.setCursor(0, 0);
+	screen.setTextColor(WHITE);  
+	screen.setTextSize(1);
+	screen.print("levens");
+	
+	for(int lev = 40; lev < (MAXLEVENS - geraakt) * 10 + 40; lev = lev + 10){
+		screen.fillCircle(lev, 4, 3, RED);
+	}
+	
+	screen.setCursor(160, 0);
+	screen.print("score: ");
+	score = nummer1 + (nummer2 - MAXARRAY / 2) + extrascore;
+	screen.print(score);
+	
+}
+
+void collision (){
+	if (checkcollision == 1){
+		if(locaties[nummer1] + groottes[nummer1] >= charachterx - 15 && locaties[nummer1] <= charachterx - 15 && (stap1 >= 265 && stap1 <= 285)) {
+			geraakt++;
+			screen.fillRect(0, 0, 70, 10, BACKGROUND);
+			drawcharacter(joyx, 275, GREY);
+			checkcollision = 0;
+			collisiontijd = stap1;
+		}
+		
+		if(locaties[nummer1] + groottes[nummer1] >= charachterx + 15 && locaties[nummer1] <= charachterx + 15 && (stap1 >= 265 && stap1 <= 285)) {
+			geraakt++;
+			screen.fillRect(0, 0, 70, 10, BACKGROUND);
+			checkcollision = 0;
+			collisiontijd = stap1;
+		}
+		
+		if(locaties[nummer2] + groottes[nummer2] >= charachterx - 15 && locaties[nummer2] <= charachterx - 15 && (stap2 >= 265 && stap2 <= 285)) {
+			geraakt++;
+			screen.fillRect(0, 0, 70, 10, BACKGROUND);
+			checkcollision = 0;
+			collisiontijd = stap1;
+		}
+		
+		if(locaties[nummer2] + groottes[nummer2] >= charachterx + 15 && locaties[nummer2] <= charachterx + 15 && (stap2 >= 265 && stap2 <= 285)) {
+			geraakt++;
+			screen.fillRect(0, 0, 70, 10, BACKGROUND);
+			checkcollision = 0;
+			collisiontijd = stap1;
+		}
+	} else {
+		if (stap1 - 100 > collisiontijd) {
+			checkcollision = 1;
+		}
+	}
+	
+}
+
+
+
 void drawcharacter(int x, int y, int Color){
 	
 	
 	if (x > 140 && charachterx < 225) {			//de x coordinaten van de charachter mag niet hoger worden dan 225, anders gaat hij uit het scherm
-		charachterx++;								//als de nunchuck naar rechts is geduwd, gaat het charachter ook naar rechts
+		charachterx = charachterx + 4;								//als de nunchuck naar rechts is geduwd, gaat het charachter ook naar rechts
 		} else if (x < 90 && charachterx > 15) {	//de y coordinaten van de charachter mag niet lager worden dan 15, anders gaat hij uit het scherm
-		charachterx--;								//als de nunchuck naar links is geduwd, gaat het charachter ook naar links
+		charachterx = charachterx - 4;								//als de nunchuck naar links is geduwd, gaat het charachter ook naar links
 	}
-	
-	
 	
 	//teken het charachter
 	screen.fillCircle(charachterx, y, 10, Color);						//hoofd
@@ -237,48 +440,21 @@ void drawcharacter(int x, int y, int Color){
 	//een lijn om het charachter heen tekenen in dezelfde kleur als de achtergrond
 	// B = boven, O = onder, L = links, R = rechts, hoofd is de middelste circel en de schouders zijn de uitsteksels aan de linker en rechter kant
 	screen.drawLine(charachterx - 4, y - 11, charachterx + 4, y - 11, BACKGROUND);									// B hoofd
-	screen.fillTriangle(charachterx - 4, y - 10, charachterx - 8, y - 6, charachterx - 8, y - 10, BACKGROUND);		// LB hoofd
-	screen.drawLine(charachterx - 12, y - 6, charachterx - 8, y - 6, BACKGROUND);									// L schouder B
+	screen.fillTriangle(charachterx - 4, y - 11, charachterx - 9, y - 6, charachterx - 9, y - 11, BACKGROUND);		// LB hoofd
+	screen.fillRect(charachterx - 14, y - 9, 6, 4, BACKGROUND);														// L schouder B
 	screen.fillTriangle(charachterx - 13, y - 6, charachterx - 16, y - 2, charachterx - 16, y - 6, BACKGROUND);		// L shouder LB
-	screen.drawLine(charachterx - 16, y + 2, charachterx - 16, y - 2, BACKGROUND);									// L schouder L
+	screen.fillRect(charachterx - 18, y - 6, 4, 13, BACKGROUND);													// L schouder L
 	screen.fillTriangle(charachterx - 13, y + 6, charachterx - 16, y + 2, charachterx - 16, y + 6, BACKGROUND);		// L schouder LO
-	screen.drawLine(charachterx - 12, y + 6, charachterx - 8, y + 6, BACKGROUND);									// L schouder O
-	screen.fillTriangle(charachterx - 4, y + 10, charachterx - 8, y + 6, charachterx - 8, y + 10, BACKGROUND);		// LO hoofd
+	screen.fillRect(charachterx - 14, y + 5, 6, 4, BACKGROUND);														// L schouder O
+	screen.fillTriangle(charachterx - 4, y + 11, charachterx - 9, y + 6, charachterx - 9, y + 11, BACKGROUND);		// LO hoofd
 	screen.drawLine(charachterx - 4, y + 11, charachterx + 4, y + 11, BACKGROUND);									// O hoofd
-	screen.fillTriangle(charachterx + 8, y + 6, charachterx + 4, y + 11, charachterx + 8, y + 11, BACKGROUND);		// RO hoofd
-	screen.drawLine(charachterx + 12, y + 6, charachterx + 8, y + 6, BACKGROUND);									// R schouder O
+	screen.fillTriangle(charachterx + 9, y + 6, charachterx + 4, y + 11, charachterx + 9, y + 11, BACKGROUND);		// RO hoofd
+	screen.fillRect(charachterx + 8, y + 5, 6, 4, BACKGROUND);														// R schouder O
 	screen.fillTriangle(charachterx + 13, y + 6, charachterx + 16, y + 2, charachterx + 16, y + 6, BACKGROUND);		// R schouder RO
-	screen.drawLine(charachterx + 16, y + 2, charachterx + 16, y - 2, BACKGROUND);									// R schouder R
+	screen.fillRect(charachterx + 16, y - 6, 4, 13, BACKGROUND);													// R schouder R
 	screen.fillTriangle(charachterx + 13, y - 6, charachterx + 16, y - 2, charachterx + 16, y - 6, BACKGROUND);		// R shouder RB
-	screen.drawLine(charachterx + 12, y - 6, charachterx + 8, y - 6, BACKGROUND);									// R schouder B
-	screen.fillTriangle(charachterx + 4, y - 10, charachterx + 8, y - 6, charachterx + 8, y - 10, BACKGROUND);		// RB hoofd
-
-	//tweede keer de lijn tekenen maar dan 1px meer naar buiten, zodat echt alles van het charachter word weggehaald wat buiten de lijn komt
-	screen.drawLine(charachterx - 5, y - 12, charachterx + 5, y - 12, BACKGROUND);		// B hoofd
-	screen.drawLine(charachterx - 13, y - 7, charachterx - 9, y - 7, BACKGROUND);		// L schouder B
-	screen.drawLine(charachterx - 17, y + 3, charachterx - 17, y - 3, BACKGROUND);		// L schouder L
-	screen.drawLine(charachterx - 13, y + 7, charachterx - 9, y + 7, BACKGROUND);		// L schouder O
-	screen.drawLine(charachterx - 5, y + 12, charachterx + 4, y + 12, BACKGROUND);		// O hoofd
-	screen.drawLine(charachterx + 13, y + 7, charachterx + 9, y + 7, BACKGROUND);		// R schouder O
-	screen.drawLine(charachterx + 17, y + 4, charachterx + 17, y - 3, BACKGROUND);		// R schouder R
-	screen.drawLine(charachterx + 13, y - 7, charachterx + 9, y - 7, BACKGROUND);		// R schouder B
-	
-}
-
-void drawblock(int x0, int w, int h) {
-	screen.fillRect(x0, stap, w, h, rectcolor);
-	screen.fillRect(x0, stap - 3, w, 3, BACKGROUND);
-}
-
-ISR(TIMER1_OVF_vect)				//de interrupt die idere 1000ste van een seconde word aangeroepen
-{
-	TCNT1 = timer1_counter;			// de timer begint weer opnieuw
-	tijd++;							// de tijd word met 1 verhoogt
-	//Serial.println(tijd);
-	if (tijd > 10) {
-		stap++;
-		tijd = 0;
-	}
+	screen.fillRect(charachterx + 8, y - 9, 6, 4, BACKGROUND);														// R schouder B
+	screen.fillTriangle(charachterx + 4, y - 11, charachterx + 9, y - 6, charachterx + 9, y - 11, BACKGROUND);		// RB hoofd
 }
 
 

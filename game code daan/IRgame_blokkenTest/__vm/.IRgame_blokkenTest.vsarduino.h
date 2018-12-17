@@ -10,13 +10,12 @@
 
 #define __AVR_ATmega328p__
 #define __AVR_ATmega328P__
-#define _VMDEBUG 1
-#define ARDUINO 10805
+#define ARDUINO 10807
 #define ARDUINO_MAIN
 #define F_CPU 16000000L
 #define __AVR__
 #define F_CPU 16000000L
-#define ARDUINO 10805
+#define ARDUINO 10807
 #define ARDUINO_AVR_UNO
 #define ARDUINO_ARCH_AVR
 int main ();
@@ -25,10 +24,15 @@ void drawHomescreen();
 void drawcharHomescreen(int x, int y, int color);
 void drawPointer();
 void start();
+void gameover();
 void highscore();
 void controls();
+void drawblock(int x, int grootte);
+void drawblock2(int x, int grootte);
+void seed ();
+void header();
+void collision ();
 void drawcharacter(int x, int y, int Color);
-void drawblock(int x0, int w, int h);
 static void nunchuck_setpowerpins();
 void nunchuck_init();
 void nunchuck_send_request();
