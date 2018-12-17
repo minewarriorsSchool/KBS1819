@@ -19,9 +19,14 @@ class IRCommunicatie{
 	public:
 	IRCommunicatie(uint8_t frequency);
 	void setHzfrequency();
+	void changeCounter(boolean pinchange);
+	int getCounter();
+	void setCounterToZero();
+	
 	protected:
 	private:
-	int OCR2AWaarde, OCR2BWaarde;
+	int OCR2AWaarde, OCR2BWaarde, counter = 0;
+	
 };
 
 

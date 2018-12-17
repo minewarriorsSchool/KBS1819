@@ -24,3 +24,17 @@ void IRCommunicatie::setHzfrequency(){
 	TIMSK2 |= (1<<TOIE2);
 	sei();																// enable global interrupts
 }
+
+void IRCommunicatie::changeCounter(boolean pinchange){
+	if(pinchange == true){
+		counter = 0;
+	} else counter++;
+}
+
+int IRCommunicatie::getCounter(){
+	return counter;
+}
+
+void IRCommunicatie::setCounterToZero(){
+	counter = 0;
+}

@@ -19,7 +19,6 @@
 #define ARDUINO_AVR_UNO
 #define ARDUINO_ARCH_AVR
 int main(void);
-void change();
 
 #include "pins_arduino.h" 
 #include "arduino.h"
