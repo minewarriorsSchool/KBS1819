@@ -17,8 +17,6 @@ IRCommunicatie::IRCommunicatie(uint8_t frequency){
 }
 
 void IRCommunicatie::setHzfrequency(){
-	PORTB |= (1<<PORTB0);												//Digital pin 8 pullup weerstand;
-	DDRB |= ~(1<<DDB0);													//digital pin 8 set to input;
 	PORTD |= (1<<PORTD3);												
 	DDRD |= (1<<DDD3);
 	TCCR2A |= (1<<COM2A0)| (1<<COM2B1) | (1<<WGM20) | (1<<WGM21);		//set compare B
