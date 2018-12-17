@@ -3,6 +3,10 @@
 // 
 
 #include "Homescreen.h"
+#include "Nunchuck.cpp"
+#include <Wire.h>
+#include <Adafruit_ILI9341.h>
+#include <Adafruit_GFX.h>
 
 Homescreen::Homescreen(){
 		nunchuck_get_data();	//nunchuck data ophalen
