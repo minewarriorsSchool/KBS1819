@@ -17,15 +17,17 @@
 
 class IRCommunicatie{
 	public:
-	IRCommunicatie(uint8_t frequency);
+	IRCommunicatie(uint8_t frequency, boolean testMode);
 	void setHzfrequency();
 	void changeCounter(boolean pinchange);
 	int getCounter();
 	void setCounterToZero();
+	void enablePWM();
+	void disablePWM();
 	
 	protected:
 	private:
-	int OCR2AWaarde, OCR2BWaarde, counter = 0;
+	int counter = 0;
 	
 };
 
