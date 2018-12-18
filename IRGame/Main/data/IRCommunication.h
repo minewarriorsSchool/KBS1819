@@ -13,7 +13,6 @@
 #define OverFlowCounterStartBit 50
 #define OverFlowCounterStopBit 60
 #define OverFlowCounterParity 40
-#define statusSendingStartBit false
 
 #if defined(ARDUINO) && ARDUINO >= 100
 #include "arduino.h"
@@ -31,10 +30,12 @@ class IRCommunicatie{
 	void enablePWM();
 	void disablePWM();
 	void dataToSend();
+	void setSendData(boolean Yes_No);
 	
 	protected:
 	private:
 	int counter = 0, stateOfprotocol = 0;
+	boolean statusSendingBit = false, sendData = false;
 	
 };
 

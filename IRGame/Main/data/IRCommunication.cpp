@@ -36,12 +36,12 @@ void IRCommunicatie::setHzfrequency(){
 
 void IRCommunicatie::changeCounter(boolean pinchange){					//on pinchange reset counter else keep counting overflows
 	if(pinchange == true){												//if there is a pinchange reset the counter
-		setCounterToZero()												//resetting counter
+		setCounterToZero();												//resetting counter
 		PORTB ^= (1<<PORTB5);											//blink a LED to see the pinchange
 		} else if(getCounter() == OverFlowCounterStopBit){				//if overflow is equal to stop-bit, stop adding overflows to counter and wait till pinchange to reset counter
 		
 		}else{															//else add 1 overflow to overflowcounter
-		counter++														//up counter with 1
+		counter++;														//up counter with 1
 	}
 }
 
@@ -53,32 +53,39 @@ void IRCommunicatie::setCounterToZero(){
 	counter = 0;
 }
 
+void IRCommunicatie::setSendData(boolean Yes_No){
+	sendData = Yes_No;
+}
+
 void IRCommunicatie::dataToSend(){
 	/*Starting of with sending a startbit to make start data transfer
 	startbit consists of an overflow counter around 40 overflows long*/
-	if(stateOfprotocol == 0){
-		if(statusSendingBit == false){									//If not busy with sending start bit, make change in pin to start sending startbit
-			PORTD ^= (1<<PORTD3);										//Make pinchange in pin 3 PWM pin
-			statusSendingBit = true;									//Set status to true because sending startbit												
+	if(sendData == true){
+		if(stateOfprotocol == 0){
+			if(statusSendingBit == false){									//If not busy with sending start bit, make change in pin to start sending startbit
+				PORTD ^= (1<<PORTD3);										//Make pinchange in pin 3 PWM pin
+				statusSendingBit = true;									//Set status to true because sending startbit
+			}
+			if(getCounter() == OverFlowCounterStartBit){					// if overflow counter reached the time of the startbit set status startbit to completed and move to next step
+				statusSendingBit = false;									// startbit time is reached so set the status of sending to false
+				stateOfprotocol++;											// startbit has been reached so move te next step in the protocol
+			}
 		}
-		if(getCounter() == OverFlowCounterStartBit){					// if overflow counter reached the time of the startbit set status startbit to completed and move to next step
-			statusSendingBit = false;									// startbit time is reached so set the status of sending to false
-			stateOfprotocol++;											// startbit has been reached so move te next step in the protocol
-		}
-	}
-	
-	if(stateOfprotocol == 1){											//state 1 means sending the data that has to be send
 		
-	}
-	
-	if(stateOfprotocol == 3){											// state 2 means sending the stop bit
-		if(statusSendingBit == false){									//If not busy with sending start bit, make change in pin to start sending stopbit
-			PORTD ^= (1<<PORTD3);										//Make pinchange in pin 3 PWM pin
-			statusSendingBit = true;									//Set status to true because sending stopbit												
+		if(stateOfprotocol == 1){											//state 1 means sending the data that has to be send
+			stateOfprotocol++;												//TODO: MAKING SENDING DATA
 		}
-		if(getCounter() == OverFlowCounterStopBit){						// if overflow counter reached the time of the stopbit set status stopbit to completed and move to next step
-			statusSendingBit = false;									// stopbit time is reached so set the status of sending to false
-			stateOfprotocol++;											// stopbit has been reached so move te next step in the protocol
+		
+		if(stateOfprotocol == 2){											// state 2 means sending the stop bit
+			if(statusSendingBit == false){									//If not busy with sending start bit, make change in pin to start sending stopbit
+				PORTD ^= (1<<PORTD3);										//Make pinchange in pin 3 PWM pin
+				statusSendingBit = true;									//Set status to true because sending stopbit
+			}
+			if(getCounter() == OverFlowCounterStopBit){						// if overflow counter reached the time of the stopbit set status stopbit to completed and move to next step
+				statusSendingBit = false;									// stopbit time is reached so set the status of sending to false
+				stateOfprotocol = 0;										// stopbit has been reached so done sending data, back to start
+				setSendData(false);											// stop sending data
+			}
 		}
 	}
 }

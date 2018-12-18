@@ -5,9 +5,7 @@
 IRCommunicatie *ircommunicatie = new IRCommunicatie(frequency56kHz, true);
 
 ISR(TIMER2_OVF_vect){
-	if(ircommunicatie->getCounter() == 5){
-		ircommunicatie->changeCounter(true);
-	} else ircommunicatie->changeCounter(false);
+	ircommunicatie->dataToSend();
 	Serial.println(ircommunicatie->getCounter());
 }
 
@@ -20,6 +18,7 @@ int main(void){
 	
 	Serial.begin(9600);
 	while(1){
+		ircommunicatie->setSendData(true);
 	}
 	Serial.end();
 }
