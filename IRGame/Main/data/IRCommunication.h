@@ -13,7 +13,7 @@
 #define OverFlowCounterStartBit 50
 #define OverFlowCounterStopBit 60
 #define OverFlowCounterParity 40
-#define startBitSendStatus false
+#define statusSendingStartBit false
 
 #if defined(ARDUINO) && ARDUINO >= 100
 #include "arduino.h"
