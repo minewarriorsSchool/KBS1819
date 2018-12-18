@@ -8,6 +8,12 @@
 #define OCR2BWaarde38kHz 26 // 50.75% 37,71kHz
 #define frequency56kHz 56	// definition of 56 kHz
 #define frequency38kHz 38	// definition of 38 kHz
+#define OverFlowCounterBit0 20
+#define OverFlowCounterBit1 30
+#define OverFlowCounterStartBit 50
+#define OverFlowCounterStopBit 60
+#define OverFlowCounterParity 40
+#define startBitSendStatus false
 
 #if defined(ARDUINO) && ARDUINO >= 100
 #include "arduino.h"
@@ -24,10 +30,11 @@ class IRCommunicatie{
 	void setCounterToZero();
 	void enablePWM();
 	void disablePWM();
+	void dataToSend();
 	
 	protected:
 	private:
-	int counter = 0;
+	int counter = 0, stateOfprotocol = 0;
 	
 };
 
