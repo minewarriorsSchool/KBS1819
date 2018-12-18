@@ -13,25 +13,28 @@
 #define GREY    0xD6BA
 #define rectcolor GREY
 #define MAXARRAY 100
-#define MAXLEVENS 3
+#define MAXLEVENS 15		//de hoeveelheid levens die je hebt (er passen er 12 op het scherm)
 
 #define TFT_DC 9
 #define TFT_CS 10
 
 Adafruit_ILI9341 screen = Adafruit_ILI9341(TFT_CS, TFT_DC);
 
+int speler1kleur = BLUE;
+int speler2kleur = RED;
+
 int pointerPos = 1;
 int oudpointerPos = 2;
 int scherm = 1, oudescherm = 1;
 
-int tijd;
-int stap1, stap2;
-int blok2;
+int tijd;				//de tijd die de timer ieder ms met 1 verhoogd
+int stap1, stap2;		// de y coordinaten van blok 1 en 2
+int blok2;				// bij 1 mag blok2 vallen, bij 0 niet
 int snelheid = 5;		//snelheid waarmee de blokken vallen (2 = heel snel, 4 = langzaam)
 int blokweg = 10;		// de grootte van het zwarte vierkant wat de blokken achtervolgt om het spoor weg te halen
-int checkcollision = 1;
-int collisiontijd;
-
+int checkcollision = 0;	// bij 0 is er geen collision, bij 1 wel
+int collisiontijd;		// de score die de speler had toen de collision plaatsvond
+int invincibility = 1;	// de tijd dat je onoverwinnelijk bent nadat je bent geraakt
 int geraakt, score, extrascore;
 
 #define BACKGROUND	0x0000
@@ -40,6 +43,7 @@ int locaties [100], groottes [100];
 int randomlocatie, randomgrootte, randomafstand = 180;
 int nummer1 = 1, nummer2 = 50;
 int timer1_counter;
+int check;
 
 int joyx;			//de x-coordinaten van het charcter
 int joyy = 275;		//de y-coordinaten van het charcter, 275 is de beginlocatie van het onderste charachter
@@ -66,7 +70,7 @@ int main (){
 	screen.fillScreen(BACKGROUND);
 	
 	nunchuck_setpowerpins();
-	nunchuck_init();
+	nunchuck_init();			//nunchuck initialiseren
 	Serial.begin(9600);
 	
 	seed();
@@ -82,10 +86,36 @@ int main (){
 		Serial.print(", c button: ");
 		Serial.print(nunchuck_cbutton());
 		Serial.print(", z button: ");
-		Serial.println(nunchuck_zbutton());
+		Serial.print(nunchuck_zbutton());
+		Serial.print(", joyy: ");
+		Serial.print(joyy);
+		Serial.print(", joyx: ");
+		Serial.println(joyx);
 		*/
 		
-		clearScreen();
+		while (joyy == 0 && joyx == 0 && nunchuck_cbutton() == 1 && nunchuck_zbutton() == 1) {	//check of de nunchuck is aangesloten
+			check = 0;
+			screen.setCursor(50, 40);		// print dat de nunchuck niet is aangesloten
+			screen.setTextColor(WHITE);
+			screen.setTextSize(3);
+			screen.println("PLEASE");
+			screen.setCursor(50, 70);
+			screen.println("CONNECT");
+			screen.setCursor(50, 100);
+			screen.println("NUNCHUCK");
+			screen.setCursor(50, 130);
+			screen.println("AND");
+			screen.setCursor(50, 160);
+			screen.println("RESET");
+		}
+		if (check == 0) {		// het scherm weer eenmaal zwart maken om de tekst "please connect nunchuck" weg te halen
+			check = 1;
+			screen.fillScreen(BACKGROUND);
+		}
+		
+		clearScreen();			// als het scherm is veranderd alles eerst zwart maken
+		
+		
 		
 		if(scherm == 1){		//scherm 1 is het homescreen
 			drawHomescreen();
@@ -104,16 +134,16 @@ int main (){
 			controls();
 		}
 		
-		if (scherm == 5){
+		if (scherm == 5){		//scherm 5 is het gameover scherm
 			gameover();
 		}
 	}
 }
 
 void clearScreen (){
-	if (scherm != oudescherm) {			//het scherm wor eerst geleegd als je van scherm veranderd
+	if (scherm != oudescherm) {			//het scherm word geleegd als je van scherm veranderd
 		screen.fillScreen(BACKGROUND);	
-		if(scherm == 2 || oudescherm == 2) {
+		if(scherm == 1) {				//het spel is terug gegaan naar het hoofdmenu dus alles word gereset naar de beginwaardes
 			stap1 = 0;
 			stap2 = 0;
 			geraakt = 0;
@@ -121,9 +151,11 @@ void clearScreen (){
 			blok2 = 0;
 			nummer1 = 1;
 			nummer2 = MAXARRAY / 2;
-			int snelheid = 5;
-			int blokweg = 10;
-			seed();
+			snelheid = 5;
+			blokweg = 10;
+			checkcollision = 0;
+			collisiontijd = 0;
+			seed();					// nieuwe seed berekenen
 		}
 		oudescherm = scherm;
 	}
@@ -146,8 +178,13 @@ void drawHomescreen(){				//het homescreen
 	screen.setTextColor(WHITE);  screen.setTextSize(2);
 	screen.println("Controls");
 	
-	drawcharHomescreen(50, 275, RED);		//teken twee players ter decoratie op het homescreen
-	drawcharHomescreen(180, 235, BLUE);
+	
+	speler1kleur = BLUE;
+	speler2kleur = RED;
+	score = 0;
+	
+	drawcharHomescreen(50, 275, speler2kleur);		//teken twee players ter decoratie op het homescreen
+	drawcharHomescreen(180, 235, speler1kleur);
 }
 
 
@@ -212,7 +249,7 @@ void drawPointer(){			//het tekenen  van de aanwijzer
 
 void start(){
 
-	drawcharacter(joyx, 275, BLUE); 
+	drawcharacter(joyx, 275, speler1kleur); 
 	
 	drawblock(locaties[nummer1], groottes[nummer1]);
 	drawblock2(locaties[nummer2], groottes[nummer2]);
@@ -234,9 +271,14 @@ void gameover() {
 	screen.setTextColor(WHITE);
 	screen.setTextSize(3);
 	screen.println("GAME OVER");
-	screen.setCursor(50, 300);
+	screen.setCursor(70, 160);
+	screen.setTextSize(2);
+	screen.print("score: ");
+	screen.println(score);
+	screen.setCursor(130, 300);
 	screen.setTextSize(1);
 	screen.println("press c to go back");
+	
 	
 	if(nunchuck_cbutton() == 1){
 		scherm = 1;
@@ -328,17 +370,21 @@ void drawblock2(int x, int grootte) {
 	}
 	
 	if (score >= 25) {
-		snelheid = 4;
-		blokweg = 15;
+		snelheid = 4;				// de blokken vallen sloom
+		blokweg = 15;				// de grootte van het zwarte blok wat de blokke achtervolgt om het spoor weg te halen
+		invincibility = 2;			// als je geraakt word ben je voor de tijd van '1' score punt ononverwinnelijk
 		if (score >= 50) {
 			snelheid = 3;			// de blokken vallen iets sneller
 			blokweg = 17;
+			invincibility = 3;
 			if (score >= 75) {
 				snelheid = 2;		// de blokken vallen heel snel
 				blokweg = 20;
+				invincibility = 4;
 				if (score >= 125) {
 					snelheid = 1;
 					blokweg = 25;
+					invincibility = 5;
 				}
 			}
 		}
@@ -372,7 +418,7 @@ void header() {
 	screen.setTextSize(1);
 	screen.print("levens");
 	
-	for(int lev = 40; lev < (MAXLEVENS - geraakt) * 10 + 40; lev = lev + 10){
+	for(int lev = 40; (lev < (MAXLEVENS - geraakt) * 10 + 40) && lev < 160; lev = lev + 10){	//het teken van alle levens
 		screen.fillCircle(lev, 4, 3, RED);
 	}
 	
@@ -384,41 +430,48 @@ void header() {
 }
 
 void collision (){
-	if (checkcollision == 1){
-		if(locaties[nummer1] + groottes[nummer1] >= charachterx - 15 && locaties[nummer1] <= charachterx - 15 && (stap1 >= 265 && stap1 <= 285)) {
-			geraakt++;
-			screen.fillRect(0, 0, 70, 10, BACKGROUND);
-			drawcharacter(joyx, 275, GREY);
-			checkcollision = 0;
-			collisiontijd = stap1;
-		}
-		
-		if(locaties[nummer1] + groottes[nummer1] >= charachterx + 15 && locaties[nummer1] <= charachterx + 15 && (stap1 >= 265 && stap1 <= 285)) {
-			geraakt++;
-			screen.fillRect(0, 0, 70, 10, BACKGROUND);
-			checkcollision = 0;
-			collisiontijd = stap1;
-		}
-		
-		if(locaties[nummer2] + groottes[nummer2] >= charachterx - 15 && locaties[nummer2] <= charachterx - 15 && (stap2 >= 265 && stap2 <= 285)) {
-			geraakt++;
-			screen.fillRect(0, 0, 70, 10, BACKGROUND);
-			checkcollision = 0;
-			collisiontijd = stap1;
-		}
-		
-		if(locaties[nummer2] + groottes[nummer2] >= charachterx + 15 && locaties[nummer2] <= charachterx + 15 && (stap2 >= 265 && stap2 <= 285)) {
-			geraakt++;
-			screen.fillRect(0, 0, 70, 10, BACKGROUND);
-			checkcollision = 0;
-			collisiontijd = stap1;
-		}
-	} else {
-		if (stap1 - 100 > collisiontijd) {
+	if (checkcollision == 0){
+		if(locaties[nummer1] + groottes[nummer1] >= charachterx - 15 && locaties[nummer1] <= charachterx - 15 && (stap1 >= 265 && stap1 <= 285)) {	// controleren of blok1 de linker kant van de speler heeft geraakt
 			checkcollision = 1;
+			collisiontijd = score;	//de tijd van de collsion opslaan zodat de speler voor een korte tijd invinceble is
+			geraakt++;				// de speler is één keer vaker geraakt en verliest dus ook één leven
+		}
+		
+		if(locaties[nummer1] + groottes[nummer1] >= charachterx + 15 && locaties[nummer1] <= charachterx + 15 && (stap1 >= 265 && stap1 <= 285)) {	// controleren of blok1 de rechter kant van de speler heeft geraakt
+			checkcollision = 1;
+			collisiontijd = score;
+			geraakt++;
+		}
+		
+		if(locaties[nummer2] + groottes[nummer2] >= charachterx - 15 && locaties[nummer2] <= charachterx - 15 && (stap2 >= 265 && stap2 <= 285)) {	// controleren of blok2 de linker kant van de speler heeft geraakt
+			checkcollision = 1;
+			collisiontijd = score;
+			geraakt++;
+		}
+		
+		if(locaties[nummer2] + groottes[nummer2] >= charachterx + 15 && locaties[nummer2] <= charachterx + 15 && (stap2 >= 265 && stap2 <= 285)) {	// controleren of blok2 de rechter kant van de speler heeft geraakt
+			checkcollision = 1;
+			collisiontijd = score;
+			geraakt++;
 		}
 	}
 	
+	if (checkcollision == 1) {	//er is een botsing geweest
+		screen.fillRect(0, 0, 160, 10, BACKGROUND);
+		speler1kleur = WHITE;
+		if ((collisiontijd + invincibility) < score) {
+			checkcollision = 0;
+			speler1kleur = BLUE;
+		}
+	}
+	/*		UITLEZEN
+	Serial.print("score: ");
+	Serial.print(score);
+	Serial.print("   collisiontijd: ");
+	Serial.print(collisiontijd);
+	Serial.print("   invincibility: ");
+	Serial.println(invincibility);
+	*/
 }
 
 
