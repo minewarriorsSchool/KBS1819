@@ -4,34 +4,44 @@
 
 int COUNTER = 0;
 boolean changebits = false;
-
+int frequentie = 38;
+int data[8];
+int dataPointer = 0;
 
 // OVERFLOWS
-int overflowBit0 = 55;
-int overflowBit1 = 110;
+int overflowBit0 = 100;
+int overflowBit1 = 220;
+
+void checkCounter(){
+  if(COUNTER != 0){
+//    if (COUNTER <= overflowBit0){
+//      Serial.println("bit0");
+//      }else if (COUNTER <= overflowBit1){
+//      Serial.println("bit1");
+//      }else{
+//      Serial.println("ERROR");
+//    }
+      data[dataPointer] = COUNTER;
+      dataPointer++;
+      if(dataPointer == 8){
+        dataPointer = 0;
+        for(int i = 0; i < 8; i++)
+          {
+            Serial.print(i);
+            Serial.println(data[i]);
+          }
+      }
+  }
+}
 
 ISR(TIMER2_OVF_vect){
-	if(changebits){
-		if(COUNTER != 0){
-			if (COUNTER <= overflowBit0){
-				Serial.println("bit0");
-				}else if (COUNTER <= overflowBit1){
-				Serial.println("bit1");
-				}else{
-				Serial.println("ERROR");
-			}
-		}
-		COUNTER = 0;
-		}else{
-		if (COUNTER < 110){
-			COUNTER++;
-		}
-	}
-	changebits = false;
+	COUNTER++;
 }
 
 ISR(PCINT_T0_V){
 	changebits = true;
+  checkCounter();
+  COUNTER = 0;
 }
 
 
