@@ -74,7 +74,7 @@ int main (){
 	}
 }
 
-void clearScreen (){
+void clearScreen(){
 	if (scherm != oudescherm) {			//het scherm wor eerst geleegd als je van scherm veranderd
 		screen.fillScreen(BACKGROUND);	
 		oudescherm = scherm;
