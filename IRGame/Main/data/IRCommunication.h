@@ -22,23 +22,26 @@
 
 class IRCommunicatie{
 	public:
+	//Constructor
 	IRCommunicatie(uint8_t frequency, boolean testMode);
+	
+	//Functies
 	void setHzfrequency();
 	void changeCounter(boolean pinchange);
+	
+	//Getters
 	int getCounter();
+	
+	//Setters
 	void setCounterToZero();
-	void enablePWM();
-	void disablePWM();
-	void dataToSend();
-	void setSendData(boolean Yes_No);
-	void receivingDataFromSerial();
-	void settingDataToSend(uint8_t Byte);
+	
+	//+Variabelen
 	
 	protected:
 	private:
-	int counter = 0, stateOfprotocol = 0, DataInOverflows[8];
-	boolean statusSendingBit = false, sendData = false;
-	uint8_t Data;
+	
+	//-Variabelen
+	int counter = 0;
 	
 };
 
