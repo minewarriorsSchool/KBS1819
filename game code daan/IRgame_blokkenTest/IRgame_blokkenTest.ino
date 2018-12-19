@@ -1,6 +1,5 @@
 #include <Wire.h>
 #include <Adafruit_ILI9341.h>
-#include <Adafruit_GFX.h>    // Core graphics library
 
 #define BLACK   0x0000
 #define BLUE    0x001F
@@ -11,8 +10,10 @@
 #define YELLOW  0xFFE0
 #define WHITE   0xFFFF
 #define GREY    0xD6BA
+
 #define rectcolor GREY
 #define MAXARRAY 100	
+#define BACKGROUND	0x0000
 
 #define TFT_DC 9
 #define TFT_CS 10
@@ -23,22 +24,21 @@ int speler1kleur = BLUE;
 int speler2kleur = RED;
 int MAXLEVENS = 3;			//de hoeveelheid levens die je hebt (er passen er 12 op het scherm)
 
-int pointerPos = 1;
-int oudpointerPos = 2;
-int scherm = 1, oudescherm = 1;
+int pointerPos = 1;					//de positie van de pointer in het hoofdmenu
+int oudpointerPos = 2;				//de oude positie van de pointer in het hoofdmenu
+int scherm = 1, oudescherm = 1;		//het scherm wat nu word getoond (hoofdmenu, controls, het spel) en het vorige scherm om veranderingen te controleren
 
 int tijd;				//de tijd die de timer ieder ms met 1 verhoogd
 int stap1, stap2;		// de y coordinaten van blok 1 en 2
-int blok2;				// bij 1 mag blok2 vallen, bij 0 niet
+int blok2;				// bij 1 mag blok2 vallen, bij 0 nog niet
 int snelheid = 5;		//snelheid waarmee de blokken vallen (2 = heel snel, 4 = langzaam)
 int blokweg = 10;		// de grootte van het zwarte vierkant wat de blokken achtervolgt om het spoor weg te halen
-int checkcollision = 0;	// bij 0 is er geen collision, bij 1 wel
+int checkcollision ;	// bij 0 is er geen collision, bij 1 wel
 int collisiontijd;		// de score die de speler had toen de collision plaatsvond
 int invincibility = 1;	// de tijd dat je onoverwinnelijk bent nadat je bent geraakt
 int geraakt, score, extrascore;
 int livespointer;		// bij 0 is de linker pijl in het settings menu geselecteerd, bij 1 de rechter pijl en bij 2 geen
 
-#define BACKGROUND	0x0000
 
 int locaties [100], groottes [100];
 int randomlocatie, randomgrootte, randomafstand = 180;
@@ -53,6 +53,10 @@ int joyy = 275;		//de y-coordinaten van het charcter, 275 is de beginlocatie van
 
 int charachterx = 115;	//de x locatie van het charchter, als de nunchuck naar rechts/links word geduwd komt er iedere loop 1 bij/af
 //115 is de beginlocatie waaruit de charachter wordt getekend
+
+
+boolean nieuwHighscore = false;
+int Counter = 0;
 
 
 int main (){
@@ -161,6 +165,8 @@ void clearScreen (){
 			blokweg = 10;
 			checkcollision = 0;
 			collisiontijd = 0;
+			Counter = 0;
+			nieuwHighscore = false;
 			seed();					// nieuwe seed berekenen
 		}
 		oudescherm = scherm;
@@ -299,7 +305,16 @@ void gameover() {
 	screen.setTextSize(1);
 	screen.println("press c to go back");
 	
+	if (MAXLEVENS < 4) {
+		for(Counter; Counter < 5 && score != EEPROM_read(Counter); Counter++){
+			if(score > EEPROM_read(Counter) && !nieuwHighscore){
+				EEPROM_write(Counter, score);
+				nieuwHighscore = true;
+			}
+		}
+	}
 	
+		
 	if(nunchuck_cbutton() == 1){
 		scherm = 1;
 	}
@@ -310,6 +325,22 @@ void highscore(){
 	screen.setTextColor(WHITE);
 	screen.setTextSize(3);
 	screen.println("HIGHSCORES");
+	screen.setCursor(60, 90);
+	screen.setTextColor(WHITE);  screen.setTextSize(3);
+	screen.print("1:  ");
+	screen.println(EEPROM_read(0));
+	screen.setCursor(60, 120);
+	screen.print("2:  ");
+	screen.println(EEPROM_read(1));
+	screen.setCursor(60, 150);
+	screen.print("3:  ");
+	screen.println(EEPROM_read(2));
+	screen.setCursor(60, 180);
+	screen.print("4:  ");
+	screen.println(EEPROM_read(3));
+	screen.setCursor(60, 210);
+	screen.print("5:  ");
+	screen.println(EEPROM_read(4));
 	
 	
 	if(nunchuck_cbutton() == 1){
@@ -363,26 +394,33 @@ void settings () {
 	screen.setCursor(30, 100);
 	screen.println("do you want?");
 		
+		
 	if (joyx > 160) {
 		livespointer = 1;		//als de nunchuck naar rechts is geduwd, word het rechter pijltje geselecteerd
 	} else if (joyx < 70) {
 		livespointer = 0;		//bij rechts word het rechter pijltje geselecteerd
 	}
 		
+		
 	if (livespointer == 2) {	//geen van de pijlen is nog geselecteerd, ze zijn allebei wit
+		
 		screen.fillTriangle(90, 131, 90, 141, 80, 136, WHITE);
 		screen.fillTriangle(140, 131, 140, 141, 150, 136, WHITE);
-	} else if (livespointer == 1) {		// de rechter pijl is geselecteerd
-		screen.fillTriangle(90, 131, 90, 141, 80, 136, WHITE);
-		screen.fillTriangle(140, 131, 140, 141, 150, 136, GREEN);
 		
-		if(nunchuck_zbutton() == 1 && zcheck == 0){		// als er op z word gedrukt worden de maxlevens verhoogd met 1
+	} else if (livespointer == 1) {		// de rechter pijl is geselecteerd
+		
+		screen.fillTriangle(90, 131, 90, 141, 80, 136, WHITE);
+		screen.fillTriangle(140, 131, 140, 141, 150, 136, GREEN);		//de rechter pijl is geselecteerd (groen)
+		
+		if(nunchuck_zbutton() == 1 && MAXLEVENS != 99 && zcheck == 0){		// als er op z word gedrukt worden de maxlevens verhoogd met 1
 			MAXLEVENS++;
 			screen.fillRect(95, 131, 50, 15, BACKGROUND);	//oude maxlevens weghalen
 			zcheck = 1;										// zcheck zorgt ervoor dat je de knop apart moet indrukken voor iedere keer dat je er een leven bij of af wilt
 		}
+		
 	} else if (livespointer == 0) {
-		screen.fillTriangle(90, 131, 90, 141, 80, 136, GREEN);
+		
+		screen.fillTriangle(90, 131, 90, 141, 80, 136, GREEN);			//de linker pijl is geselecteerd (groen)
 		screen.fillTriangle(140, 131, 140, 141, 150, 136, WHITE);
 		
 		if(nunchuck_zbutton() == 1 && MAXLEVENS != 1 && zcheck == 0){
@@ -391,6 +429,7 @@ void settings () {
 			zcheck = 1;
 		}
 	}
+	
 	
 	screen.setCursor(105, 131);
 	screen.println(MAXLEVENS);
@@ -590,8 +629,33 @@ void drawcharacter(int x, int y, int Color){
 
 
 
+void EEPROM_write(unsigned int uiAddress, unsigned char ucData)
+{
+	/* Wait for completion of previous write */
+	while(EECR & (1<<EEPE))
+	;
+	/* Set up address and Data Registers */
+	EEAR = uiAddress;
+	EEDR = ucData;
+	/* Write logical one to EEMPE */
+	EECR |= (1<<EEMPE);
+	/* Start eeprom write by setting EEPE */
+	EECR |= (1<<EEPE);
+}
 
 
+unsigned char EEPROM_read(unsigned int uiAddress)
+{
+	/* Wait for completion of previous write */
+	while(EECR & (1<<EEPE))
+	;
+	/* Set up address register */
+	EEAR = uiAddress;
+	/* Start eeprom read by writing EERE */
+	EECR |= (1<<EERE);
+	/* Return data from Data Register */
+	return EEDR;
+}
 
 
 
