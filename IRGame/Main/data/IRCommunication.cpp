@@ -57,7 +57,22 @@ void IRCommunicatie::setSendData(boolean Yes_No){
 	sendData = Yes_No;
 }
 
-void IRCommunicatie::dataToSend(){
+void IRCommunicatie::receivingDataFromSerial(){
+	if(Serial.available()){
+		settingDataToSend(Serial.read());
+	}
+}
+
+void IRCommunicatie::settingDataToSend(uint8_t Byte){
+	for(int i = 0; i<=7; i++){
+		if(Byte & (1<<i)){
+			DataInOverflows[i] = 1;
+		}else DataInOverflows[i] = 0;
+	}
+	dataToSend(DataInOverflows);
+}
+
+void IRCommunicatie::dataToSend(int *Byte){
 	/*Starting of with sending a startbit to make start data transfer
 	startbit consists of an overflow counter around 40 overflows long*/
 	if(sendData == true){
@@ -73,6 +88,16 @@ void IRCommunicatie::dataToSend(){
 		}
 		
 		if(stateOfprotocol == 1){											//state 1 means sending the data that has to be send
+			for(int i=0; i<=7; i++){
+				if(statusSendingBit == false){								//If not busy with sending start bit, make change in pin to start sending startbit
+					PORTD ^= (1<<PORTD3);									//Make pinchange in pin 3 PWM pin
+					statusSendingBit = true;								//Set status to true because sending startbit
+				}
+				if(getCounter() == OverFlowCounterStartBit){				// if overflow counter reached the time of the startbit set status startbit to completed and move to next step
+					statusSendingBit = false;								// startbit time is reached so set the status of sending to false
+					stateOfprotocol++;										// startbit has been reached so move te next step in the protocol
+				}
+			}
 			stateOfprotocol++;												//TODO: MAKING SENDING DATA
 		}
 		

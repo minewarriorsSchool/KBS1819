@@ -31,11 +31,14 @@ class IRCommunicatie{
 	void disablePWM();
 	void dataToSend();
 	void setSendData(boolean Yes_No);
+	void receivingDataFromSerial();
+	void settingDataToSend(uint8_t Byte);
 	
 	protected:
 	private:
-	int counter = 0, stateOfprotocol = 0;
+	int counter = 0, stateOfprotocol = 0, DataInOverflows[8];
 	boolean statusSendingBit = false, sendData = false;
+	uint8_t Data;
 	
 };
 
