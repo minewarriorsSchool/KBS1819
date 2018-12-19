@@ -12,8 +12,7 @@
 #define WHITE   0xFFFF
 #define GREY    0xD6BA
 #define rectcolor GREY
-#define MAXARRAY 100
-#define MAXLEVENS 15		//de hoeveelheid levens die je hebt (er passen er 12 op het scherm)
+#define MAXARRAY 100	
 
 #define TFT_DC 9
 #define TFT_CS 10
@@ -22,6 +21,7 @@ Adafruit_ILI9341 screen = Adafruit_ILI9341(TFT_CS, TFT_DC);
 
 int speler1kleur = BLUE;
 int speler2kleur = RED;
+int MAXLEVENS = 3;			//de hoeveelheid levens die je hebt (er passen er 12 op het scherm)
 
 int pointerPos = 1;
 int oudpointerPos = 2;
@@ -36,6 +36,7 @@ int checkcollision = 0;	// bij 0 is er geen collision, bij 1 wel
 int collisiontijd;		// de score die de speler had toen de collision plaatsvond
 int invincibility = 1;	// de tijd dat je onoverwinnelijk bent nadat je bent geraakt
 int geraakt, score, extrascore;
+int livespointer;		// bij 0 is de linker pijl in het settings menu geselecteerd, bij 1 de rechter pijl en bij 2 geen
 
 #define BACKGROUND	0x0000
 
@@ -43,7 +44,8 @@ int locaties [100], groottes [100];
 int randomlocatie, randomgrootte, randomafstand = 180;
 int nummer1 = 1, nummer2 = 50;
 int timer1_counter;
-int check;
+int nunchuckcheck;
+int zcheck;
 
 int joyx;			//de x-coordinaten van het charcter
 int joyy = 275;		//de y-coordinaten van het charcter, 275 is de beginlocatie van het onderste charachter
@@ -94,7 +96,7 @@ int main (){
 		*/
 		
 		while (joyy == 0 && joyx == 0 && nunchuck_cbutton() == 1 && nunchuck_zbutton() == 1) {	//check of de nunchuck is aangesloten
-			check = 0;
+			nunchuckcheck = 0;
 			screen.setCursor(50, 40);		// print dat de nunchuck niet is aangesloten
 			screen.setTextColor(WHITE);
 			screen.setTextSize(3);
@@ -108,8 +110,8 @@ int main (){
 			screen.setCursor(50, 160);
 			screen.println("RESET");
 		}
-		if (check == 0) {		// het scherm weer eenmaal zwart maken om de tekst "please connect nunchuck" weg te halen
-			check = 1;
+		if (nunchuckcheck == 0) {		// het scherm weer eenmaal zwart maken om de tekst "please connect nunchuck" weg te halen
+			nunchuckcheck = 1;
 			screen.fillScreen(BACKGROUND);
 		}
 		
@@ -136,6 +138,10 @@ int main (){
 		
 		if (scherm == 5){		//scherm 5 is het gameover scherm
 			gameover();
+		}
+		
+		if (scherm == 6) {
+			settings();
 		}
 	}
 }
@@ -177,11 +183,13 @@ void drawHomescreen(){				//het homescreen
 	screen.setCursor(71, 171);
 	screen.setTextColor(WHITE);  screen.setTextSize(2);
 	screen.println("Controls");
+	screen.setCursor(70, 191);
+	screen.setTextColor(WHITE);  screen.setTextSize(2);
+	screen.println("Settings");
 	
 	
 	speler1kleur = BLUE;
 	speler2kleur = RED;
-	score = 0;
 	
 	drawcharHomescreen(50, 275, speler2kleur);		//teken twee players ter decoratie op het homescreen
 	drawcharHomescreen(180, 235, speler1kleur);
@@ -209,6 +217,10 @@ void drawPointer(){			//het tekenen  van de aanwijzer
 			screen.fillTriangle(45, 171, 45, 181, 55, 176, BACKGROUND);
 		}
 		
+		if (oudpointerPos == 4){
+			screen.fillTriangle(45, 191, 45, 201, 55, 196, BACKGROUND);
+		}
+		
 	}
 	
 	if (pointerPos == 1){
@@ -234,6 +246,14 @@ void drawPointer(){			//het tekenen  van de aanwijzer
 		}
 	}
 	
+	if (pointerPos == 4){
+		screen.fillTriangle(45, 191, 45, 201, 55, 196, GREEN);	//teken een pointer op positie 3
+		
+		if(nunchuck_zbutton() == 1){
+			scherm = 6;		//als de pointer op positie 4 is en er word op z gedrukt, ga naar scherm 2 (settings)
+		}
+	}
+	
 	oudpointerPos = pointerPos;
 	
 	_delay_ms(50);
@@ -241,7 +261,7 @@ void drawPointer(){			//het tekenen  van de aanwijzer
 
 	if (joyy > 160 && pointerPos > 1) {
 		pointerPos--;
-	} else if (joyy < 80 && pointerPos < 3) {
+	} else if (joyy < 80 && pointerPos < 4) {
 		pointerPos++;
 	}
 	
@@ -331,6 +351,60 @@ void controls(){
 	}
 }
 
+void settings () {
+	screen.setCursor(30, 40);
+	screen.setTextColor(WHITE);
+	screen.setTextSize(3);
+	screen.println("SETTINGS");
+	
+	screen.setCursor(30, 80);
+	screen.setTextSize(2);
+	screen.println("How many lives");
+	screen.setCursor(30, 100);
+	screen.println("do you want?");
+		
+	if (joyx > 160) {
+		livespointer = 1;		//als de nunchuck naar rechts is geduwd, word het rechter pijltje geselecteerd
+	} else if (joyx < 70) {
+		livespointer = 0;		//bij rechts word het rechter pijltje geselecteerd
+	}
+		
+	if (livespointer == 2) {	//geen van de pijlen is nog geselecteerd, ze zijn allebei wit
+		screen.fillTriangle(90, 131, 90, 141, 80, 136, WHITE);
+		screen.fillTriangle(140, 131, 140, 141, 150, 136, WHITE);
+	} else if (livespointer == 1) {		// de rechter pijl is geselecteerd
+		screen.fillTriangle(90, 131, 90, 141, 80, 136, WHITE);
+		screen.fillTriangle(140, 131, 140, 141, 150, 136, GREEN);
+		
+		if(nunchuck_zbutton() == 1 && zcheck == 0){		// als er op z word gedrukt worden de maxlevens verhoogd met 1
+			MAXLEVENS++;
+			screen.fillRect(95, 131, 50, 15, BACKGROUND);	//oude maxlevens weghalen
+			zcheck = 1;										// zcheck zorgt ervoor dat je de knop apart moet indrukken voor iedere keer dat je er een leven bij of af wilt
+		}
+	} else if (livespointer == 0) {
+		screen.fillTriangle(90, 131, 90, 141, 80, 136, GREEN);
+		screen.fillTriangle(140, 131, 140, 141, 150, 136, WHITE);
+		
+		if(nunchuck_zbutton() == 1 && MAXLEVENS != 1 && zcheck == 0){
+			MAXLEVENS--;
+			screen.fillRect(95, 131, 50, 15, BACKGROUND);
+			zcheck = 1;
+		}
+	}
+	
+	screen.setCursor(105, 131);
+	screen.println(MAXLEVENS);
+	
+	if(nunchuck_zbutton() == 0){
+		zcheck = 0;					//pas als de z knop word losgelaten kan er weer een leven bijkomen
+	}
+	
+	if(nunchuck_cbutton() == 1){
+		livespointer = 2;
+		scherm = 1;
+	}
+}
+
 
 void drawblock(int x, int grootte) {
 	if (nummer1 != 49) {
@@ -372,19 +446,19 @@ void drawblock2(int x, int grootte) {
 	if (score >= 25) {
 		snelheid = 4;				// de blokken vallen sloom
 		blokweg = 15;				// de grootte van het zwarte blok wat de blokke achtervolgt om het spoor weg te halen
-		invincibility = 2;			// als je geraakt word ben je voor de tijd van '1' score punt ononverwinnelijk
+		invincibility = 1;			// als je geraakt word ben je voor de tijd van '1' score punt ononverwinnelijk
 		if (score >= 50) {
 			snelheid = 3;			// de blokken vallen iets sneller
 			blokweg = 17;
-			invincibility = 3;
+			invincibility = 1;
 			if (score >= 75) {
 				snelheid = 2;		// de blokken vallen heel snel
 				blokweg = 20;
-				invincibility = 4;
+				invincibility = 1;
 				if (score >= 125) {
 					snelheid = 1;
-					blokweg = 25;
-					invincibility = 5;
+					blokweg = 30;
+					invincibility = 1;
 				}
 			}
 		}
@@ -416,7 +490,7 @@ void header() {
 	screen.setCursor(0, 0);
 	screen.setTextColor(WHITE);  
 	screen.setTextSize(1);
-	screen.print("levens");
+	screen.print("lives");
 	
 	for(int lev = 40; (lev < (MAXLEVENS - geraakt) * 10 + 40) && lev < 160; lev = lev + 10){	//het teken van alle levens
 		screen.fillCircle(lev, 4, 3, RED);
@@ -432,7 +506,7 @@ void header() {
 void collision (){
 	if (checkcollision == 0){
 		if(locaties[nummer1] + groottes[nummer1] >= charachterx - 15 && locaties[nummer1] <= charachterx - 15 && (stap1 >= 265 && stap1 <= 285)) {	// controleren of blok1 de linker kant van de speler heeft geraakt
-			checkcollision = 1;
+			checkcollision = 1;		//niet meer checken of er een botsing s
 			collisiontijd = score;	//de tijd van de collsion opslaan zodat de speler voor een korte tijd invinceble is
 			geraakt++;				// de speler is één keer vaker geraakt en verliest dus ook één leven
 		}
@@ -509,6 +583,21 @@ void drawcharacter(int x, int y, int Color){
 	screen.fillRect(charachterx + 8, y - 9, 6, 4, BACKGROUND);														// R schouder B
 	screen.fillTriangle(charachterx + 4, y - 11, charachterx + 9, y - 6, charachterx + 9, y - 11, BACKGROUND);		// RB hoofd
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -10,12 +10,12 @@
 
 #define __AVR_ATmega328p__
 #define __AVR_ATmega328P__
-#define ARDUINO 10807
+#define ARDUINO 10805
 #define ARDUINO_MAIN
 #define F_CPU 16000000L
 #define __AVR__
 #define F_CPU 16000000L
-#define ARDUINO 10807
+#define ARDUINO 10805
 #define ARDUINO_AVR_UNO
 #define ARDUINO_ARCH_AVR
 int main ();
@@ -27,6 +27,7 @@ void start();
 void gameover();
 void highscore();
 void controls();
+void settings ();
 void drawblock(int x, int grootte);
 void drawblock2(int x, int grootte);
 void seed ();
