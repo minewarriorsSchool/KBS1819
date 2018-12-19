@@ -8,8 +8,8 @@
 #define OCR2BWaarde38kHz 26 // 50.75% 37,71kHz
 #define frequency56kHz 56	// definition of 56 kHz
 #define frequency38kHz 38	// definition of 38 kHz
-#define OverFlowCounterBit0 10000
-#define OverFlowCounterBit1 20000
+#define OverFlowCounterBit0 20
+#define OverFlowCounterBit1 30
 #define OverFlowCounterStartBit 300
 #define OverFlowCounterStopBit 400
 
