@@ -27,6 +27,7 @@ void start();
 void gameover();
 void highscore();
 void controls();
+void settings ();
 void drawblock(int x, int grootte);
 void drawblock2(int x, int grootte);
 void seed ();
