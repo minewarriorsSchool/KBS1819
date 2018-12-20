@@ -55,7 +55,7 @@ void IRCommunicatie::encodingToTime(int *Byte){
 			} else if(Byte[i] == 0){									//as above, but than for the bit value 0
 			dummyTimes[i] = OverFlowCounterBit0;
 		}else Serial.println("Setting BIT to TIME error");				//debug if something went wrong in converting
-	}
+	} setAllowedToSend(true);
 	
 	//start debug
 	//for (int i=0; i<=7; i++)
@@ -67,32 +67,90 @@ void IRCommunicatie::encodingToTime(int *Byte){
 
 /*encodeTimeToLED encodes the times to LED switched due to multiplexing*/
 void IRCommunicatie::encodetimeToLED(int *Times){
-
-	if(nextBit){														//nextbit is by natural true to start data transfer
-		PORTB ^= (1<<PORTB5);											//switched state of LED pin 13 to let PWM pin 3 be able to send or not send --> multiplexing
-		setCounterToZero();												//set counter to 0 to start counting the right amount of ticks equal to the bit required
-		nextBit = false;												//making sure the LED does not change state while tick counting
-	}
-	
-	if(getCounter() == Times[bitCounter]){								//Checks if the right amount of ticks for the required bit has been reached
-		nextBit = true;													//If reached it is time to switch states again in previous statement to count ticks for the next bit
-		Serial.print("Counter: ");										//debug for howmany ticks have been count
-		Serial.println(getCounter());									// --
-		bitCounter++;													//get next it in array
-		if(bitCounter==7) bitCounter = 0;								//if the bitcounter is at the end of the data arrary, set back to [0] for the next data array
-	}
+	if(startBitActive && !stopBitActive && !parityBitActive){				//Check for sending start bit or not
+		if(nextBit){
+			PORTB ^= (1<<PORTB5);											//Starting data transfer with first switch
+			Serial.println("StartBit");
+			setCounterToZero();
+			nextBit = false;
+		}
+		
+		if(getCounter() == OverFlowCounterStartBit){
+			nextBit = true;
+			//Serial.print("Counter StartTime: ");							//debug for howmany ticks have been count
+			//Serial.println(getCounter());									// --
+			startBitActive = false;
+		}
+		}else if (!startBitActive && stopBitActive && !parityBitActive){					//Check for sending stop bit or not
+		if(nextBit){
+			PORTB ^= (1<<PORTB5);										//Starting data transfer with first switch
+			Serial.println("StopBit");
+			setCounterToZero();
+			nextBit = false;
+		}
+		
+		if(getCounter() == OverFlowCounterStopBit){
+			nextBit = true;
+			//Serial.print("Counter StopTime: ");						//debug for howmany ticks have been count
+			//Serial.println(getCounter());								// --
+			stopBitActive = false;
+			startBitActive = true;
+			//PORTB ^=(1<<PORTB5);
+			//Serial.println("StopBit has been send +  parity");
+			setAllowedToSend(false);
+		}
+		} else if(!startBitActive && !stopBitActive && parityBitActive){
+		if(nextBit){
+			PORTB ^= (1<<PORTB5);										//Starting data transfer with first switch
+			Serial.println("ParityBit");
+			setCounterToZero();
+			nextBit = false;
+		}
+		
+		if(getCounter() == OverFlowParityBit){
+			nextBit = true;
+			//Serial.print("Counter ParityTime: ");						//debug for howmany ticks have been count
+			//Serial.println(getCounter());								// --
+			parityBitActive = false;
+			stopBitActive = true;
+		}
+		} else if(!startBitActive && !stopBitActive && !parityBitActive){
+		if(nextBit){													//nextbit is by natural true to start data transfer
+			PORTB ^= (1<<PORTB5);										//switched state of LED pin 13 to let PWM pin 3 be able to send or not send --> multiplexing
+			setCounterToZero();											//set counter to 0 to start counting the right amount of ticks equal to the bit required
+			nextBit = false;											//making sure the LED does not change state while tick counting
+		}
+		
+		if(getCounter() == Times[bitCounter]){							//Checks if the right amount of ticks for the required bit has been reached
+			nextBit = true;												//If reached it is time to switch states again in previous statement to count ticks for the next bit
+			Serial.print("Counter DataTime: ");									//debug for howmany ticks have been count
+			Serial.println(getCounter());								// --
+			bitCounter++;												//get next it in array
+			if(bitCounter==8){											//if the bitcounter is at the end of the data arrary, set back to [0] for the next data array
+				parityBitActive = true;
+				bitCounter = 0;
+			}
+		}
+	} else Serial.println("Something went wrong!!!!");
 }
-
 //End-Functies
 
 //Getters
 int IRCommunicatie::getCounter(){
 	return counter;
 }
+
+boolean IRCommunicatie::getAllowedToSend(){
+	return allowedToSend;
+}
 //End-Getters
 
 //Setters
 void IRCommunicatie::setCounterToZero(){
 	counter = 0;
+}
+
+void IRCommunicatie::setAllowedToSend(boolean YES_NO){
+	allowedToSend = YES_NO;
 }
 //End-Setters
