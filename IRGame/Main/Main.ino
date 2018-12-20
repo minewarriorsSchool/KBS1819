@@ -1,7 +1,7 @@
 #include "data/IRCommunication.h"
 #include <Arduino.h>
 
-IRCommunicatie *ircommunicatie = new IRCommunicatie(frequency56kHz, false);
+IRCommunicatie *ircommunicatie = new IRCommunicatie(frequency56kHz, true);
 uint8_t test;
 ISR(TIMER2_OVF_vect){
 	ircommunicatie->counterPlusOne();

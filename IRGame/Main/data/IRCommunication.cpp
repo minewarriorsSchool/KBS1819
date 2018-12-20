@@ -46,35 +46,40 @@ void IRCommunicatie::counterPlusOne(){
 	counter++;
 }
 
+/*This function encodes an array of bits to time frames*/
 void IRCommunicatie::encodingToTime(int *Byte){
-	for (int i=0; i<=7; i++)
+	for (int i=0; i<=7; i++)											//loops through all 8 bits of data array
 	{
-		if(Byte[i] == 1){
-			dummyTimes[i] = OverFlowCounterBit1;
-			} else if(Byte[i] == 0){
+		if(Byte[i] == 1){												//if the bit is 1
+			dummyTimes[i] = OverFlowCounterBit1;						//turn the 1 into required define time for bit1 and put the value in another array
+			} else if(Byte[i] == 0){									//as above, but than for the bit value 0
 			dummyTimes[i] = OverFlowCounterBit0;
-		}else Serial.println("Setting BIT to TIME error");
-	}
-	for (int i=0; i<=7; i++)
-	{
-		Serial.println((dummyTimes[i] ));
-	}
-}
-
-void IRCommunicatie::encodetimeToLED(int *Times){
-
-	if(nextBit){
-		PORTB ^= (1<<PORTB5);
-		setCounterToZero();
-		nextBit = false;
+		}else Serial.println("Setting BIT to TIME error");				//debug if something went wrong in converting
 	}
 	
-	if(getCounter() == Times[bitCounter]){
-		nextBit = true;
-		Serial.print("Counter: ");
-		Serial.println(getCounter());
-		bitCounter++;
-		if(bitCounter==7) bitCounter = 0;
+	//start debug
+	//for (int i=0; i<=7; i++)
+	//{
+	//	Serial.println((dummyTimes[i] ));
+	//}
+	//end debug
+}
+
+/*encodeTimeToLED encodes the times to LED switched due to multiplexing*/
+void IRCommunicatie::encodetimeToLED(int *Times){
+
+	if(nextBit){														//nextbit is by natural true to start data transfer
+		PORTB ^= (1<<PORTB5);											//switched state of LED pin 13 to let PWM pin 3 be able to send or not send --> multiplexing
+		setCounterToZero();												//set counter to 0 to start counting the right amount of ticks equal to the bit required
+		nextBit = false;												//making sure the LED does not change state while tick counting
+	}
+	
+	if(getCounter() == Times[bitCounter]){								//Checks if the right amount of ticks for the required bit has been reached
+		nextBit = true;													//If reached it is time to switch states again in previous statement to count ticks for the next bit
+		Serial.print("Counter: ");										//debug for howmany ticks have been count
+		Serial.println(getCounter());									// --
+		bitCounter++;													//get next it in array
+		if(bitCounter==7) bitCounter = 0;								//if the bitcounter is at the end of the data arrary, set back to [0] for the next data array
 	}
 }
 
