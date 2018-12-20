@@ -1,19 +1,20 @@
 #include "data/IRCommunication.h"
 #include <Arduino.h>
 
-IRCommunicatie *ircommunicatie = new IRCommunicatie(frequency56kHz, true);
+IRCommunicatie *ircommunicatie = new IRCommunicatie(frequency56kHz, false);
 uint8_t test;
 ISR(TIMER2_OVF_vect){
+	ircommunicatie->counterPlusOne();
+	ircommunicatie->encodetimeToLED(ircommunicatie->dummyTimes);
 }
 
 
 int main(void){
-	PORTB |= (1<<PORTB5);
-	DDRB |= (1<<DDB5);
+	
+	Serial.begin(9600);
 	
 	ircommunicatie->setHzfrequency();
 	
-	Serial.begin(9600);
 	while(1){
 	}
 	Serial.end();
