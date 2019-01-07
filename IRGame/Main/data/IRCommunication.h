@@ -30,6 +30,7 @@ class IRCommunicatie{
 	void setHzfrequency();
 	void encodingToTime(int *Byte);
 	void encodetimeToLED(int *Times);
+	void nextBitQuestionMark();
 	
 	//Getters
 	int getCounter();
