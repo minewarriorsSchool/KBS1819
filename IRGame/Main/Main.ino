@@ -5,7 +5,10 @@ IRCommunicatie *ircommunicatie = new IRCommunicatie(frequency56kHz, false);
 uint8_t test;
 ISR(TIMER2_OVF_vect){
 	ircommunicatie->counterPlusOne();
-	ircommunicatie->encodetimeToLED(ircommunicatie->dummyTimes);
+	if (ircommunicatie->getAllowedToSend())
+	{
+		ircommunicatie->encodetimeToLED(ircommunicatie->dummyTimes);
+	}
 }
 
 
