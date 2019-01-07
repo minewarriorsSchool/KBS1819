@@ -1,3 +1,5 @@
+#include "Tasks.h"
+#include "ParentTaskClass.h"
 #include "data/IRCommunication.h"
 #include <Arduino.h>
 
