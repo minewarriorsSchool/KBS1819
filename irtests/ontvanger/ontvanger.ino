@@ -36,8 +36,8 @@ void checkCounter(){
 }
 
 ISR(TIMER2_OVF_vect){
-  if(COUNTER < 250){
-	  COUNTER++;
+  if(COUNTER < 70){
+    COUNTER++;
   }
 }
 
@@ -58,8 +58,8 @@ int main(){
 	TCCR2B |= (1<<CS21) | (1<<WGM22);                 //set clock pre-scaler to 8 and Fast PWM
 	TIMSK2 |= (1<<TOIE2);
 	sei();                                // enable global interrupts
-	OCR2A = 35;
-	OCR2B = 17;
+	OCR2A = 52;
+	OCR2B = 26;
 
   PORTD |= (1 << PORTD5); //pullup
 	PCICR |= (1 << PCIE2);    /* set pin-change interrupt for D pins */
