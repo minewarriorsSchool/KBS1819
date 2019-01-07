@@ -75,9 +75,9 @@ int charachterx = 115;	//de x locatie van het charchter, als de nunchuck naar re
 int spelersnelheid = 3;		// snelheid waarmee de spelers van links naar rechts gaan
 
 //highscore:
-boolean nieuwHighscore = false; //check om te zorgen dat niet alle scores worden aangepast bij een nieuwe highscore
-int Counter = 0;                //Zodat alle 5 de highscores worden gecheckt
-int opslagHigscore1;            
+boolean nieuwHighscore = false;
+int Counter = 0;
+int opslagHigscore1;
 int opslagHigscore2;
 
 
@@ -173,6 +173,7 @@ int main (){
 		if (scherm == 6) {
 			settings();
 		}
+		
 	}
 }
 
@@ -332,11 +333,12 @@ void start(){
 	if (MAXLEVENS - geraakt1 > 0) {	
 		drawcharacter(player1x, player1y, speler1kleur);		//teken speler 1
 	}
-	
+	/*
 	if (MAXLEVENS - geraakt2 > 0) {	
 		player2x = 125 - player1x + 125;
 		drawcharacter2(player2x, player2y, speler2kleur);	//teken speler 2
 	} 
+	*/
 
 	// als de array met random locaties en groottes voorbij is moet het scherm even leeg zijn en moet er een nieuwe array worden gemaakt
 	if (nummer2 != MAXARRAY) {
@@ -383,16 +385,16 @@ void gameover() {
 	screen.println("press c to go back");
 	
 	if (MAXLEVENS < 4) {
-		for(Counter; Counter < 5 && score != EEPROM_read(Counter); Counter++){ //Dankzij de counter gaat de FOR maar 5 keer door. De tweede voorwaarde zorgt ervoor dat als de nieuwe highscore al bestaat, de FOR direct stopt.
-			if(score > EEPROM_read(Counter) && !nieuwHighscore){               //Voorwaarde1: nieuwe score moet hoger zijn dan de al opgeslagen score. Voorwaarde2: Er moet nog geen highscore veranderd zijn
-				opslagHigscore1 = EEPROM_read(Counter + 1);                    //Opslaan van de score die onder de score staat die wordt veranderd
-				opslagHigscore2 = EEPROM_read(Counter + 2);                   //Opslaan van de daar op volgende score
-				EEPROM_write(Counter, score);								  //Nieuwe highscore wordt toegepast
-				EEPROM_write(Counter + 1, EEPROM_read(Counter));              // De daaropvolgende wordt gelijk gemaakt aan de oude waarde van score 1
-				EEPROM_write(Counter + 2, opslagHigscore1);					  //De daaropvolgende wordt gelijk gemaakt aan de oude waarde van score 2
-				EEPROM_write(Counter + 3, opslagHigscore2);                  //De daaropvolgende wordt gelijk gemaakt aan de oude waarde van score 3
-				EEPROM_write(Counter + 4, EEPROM_read(Counter + 3));         //De daaropvolgende wordt gelijk gemaakt aan de oude waarde van score 4
-				nieuwHighscore = true;										//De mogelijkheid voor een nieuwe highscore wordt weer open gezet
+		for(Counter; Counter < 5 && score != EEPROM_read(Counter); Counter++){		//Dankzij de counter gaat de FOR maar 5 keer door. De tweede voorwaarde zorgt ervoor dat als de nieuwe highscore al bestaat, de FOR direct stopt.
+			if(score > EEPROM_read(Counter) && !nieuwHighscore){			//Voorwaarde1: nieuwe score moet hoger zijn dan de al opgeslagen score. Voorwaarde2: Er moet nog geen highscore veranderd zijn
+				opslagHigscore1 = EEPROM_read(Counter + 1);				//Opslaan van de score die onder de score staat die wordt veranderd
+				opslagHigscore2 = EEPROM_read(Counter + 2);				//Opslaan van de daar op volgende score
+				EEPROM_write(Counter + 1, EEPROM_read(Counter));		//Nieuwe highscore wordt toegepast
+				EEPROM_write(Counter + 4, EEPROM_read(Counter + 3));	//De daaropvolgende wordt gelijk gemaakt aan de oude waarde van score 1
+				EEPROM_write(Counter, score);							//De daaropvolgende wordt gelijk gemaakt aan de oude waarde van score 2
+				EEPROM_write(Counter + 2, opslagHigscore1);				//De daaropvolgende wordt gelijk gemaakt aan de oude waarde van score 3
+				EEPROM_write(Counter + 3, opslagHigscore2);				//De daaropvolgende wordt gelijk gemaakt aan de oude waarde van score 4
+				nieuwHighscore = true;									//De mogelijkheid voor een nieuwe highscore wordt weer open gezet
 			}
 		}
 	}
@@ -452,9 +454,6 @@ void controls(){
 	screen.println("back to the");
 	screen.setCursor(30, 230);
 	screen.println("homescreen");
-
-	drawblock(locaties[nummer1], groottes[nummer1]);
-	drawblock2(locaties[nummer2], groottes[nummer2]);
 
 	if(nunchuck_cbutton() == 1){
 		scherm = 1;
@@ -545,6 +544,7 @@ void drawblock(int x, int grootte) {
 	screen.fillRect(x, stap1 - grootte - blokweg, grootte, blokweg, BACKGROUND);
 		
 	if (stap1 > 330 + grootte && stap2 > randomafstand){
+		nummer1++;
 		screen.fillRect(200, 0, 50, 10, BACKGROUND);		//oude score weghalen om plaats te maken voor de nieuwe score
 		stap1 = 0;
 		if (score >= 100) {
@@ -590,7 +590,7 @@ void drawblock2(int x, int grootte) {
 	
 	if (score >= 175) {				//de snelheid van de blokken, de grootte van het weghaal blok en de spelersnelheid worden verhoogd bij ierder 25 of 50 punten
 		snelheid = 0;				
-		blokweg = 40;
+		blokweg = 50;
 		spelersnelheid = 7;
 	} else if (score >= 125) {
 		snelheid = 1;
@@ -640,17 +640,29 @@ ISR(TIMER1_OVF_vect)				//de interrupt die idere 1000ste van een seconde word aa
 }
 
 void header() {
+	
 	screen.setCursor(0, 0);
 	screen.setTextColor(WHITE);  
 	screen.setTextSize(1);
-	screen.print("lives");
+	
+	if (MAXLEVENS - geraakt1 > 0){
+		screen.print("lives");
+	} else {
+		screen.print("dead");
+	}
 	
 	for(int lev = 40; (lev < (MAXLEVENS - geraakt1) * 10 + 40) && lev < 160; lev = lev + 10){	//het teken van alle levens
 		screen.fillCircle(lev, 4, 3, RED);
 	}
 	
 	screen.setCursor(0, 10);
-	screen.print("lives");
+	
+	if (MAXLEVENS - geraakt2 > 0){
+		screen.print("lives");
+	} else {
+		screen.print("dead");
+	}
+	
 	for(int lev = 40; (lev < (MAXLEVENS - geraakt2) * 10 + 40) && lev < 160; lev = lev + 10){	//het teken van alle levens
 		screen.fillCircle(lev, 14, 3, RED);
 	}
@@ -764,7 +776,7 @@ void drawcharacter(int x, int y, int Color){
 	
 	if (x > 140 && charachterx < 225) {			//de x coordinaten van de charachter mag niet hoger worden dan 225, anders gaat hij uit het scherm
 		charachterx = charachterx + spelersnelheid;								//als de nunchuck naar rechts is geduwd, gaat het charachter ook naar rechts
-		} else if (x < 90 && charachterx > 15) {	//de y coordinaten van de charachter mag niet lager worden dan 15, anders gaat hij uit het scherm
+	} else if (x < 118 && charachterx > 15) {	//de y coordinaten van de charachter mag niet lager worden dan 15, anders gaat hij uit het scherm
 		charachterx = charachterx - spelersnelheid;								//als de nunchuck naar links is geduwd, gaat het charachter ook naar links
 	}
 	
@@ -775,30 +787,33 @@ void drawcharacter(int x, int y, int Color){
 	
 	//een lijn om het charachter heen tekenen in dezelfde kleur als de achtergrond
 	// B = boven, O = onder, L = links, R = rechts, hoofd is de middelste circel en de schouders zijn de uitsteksels aan de linker en rechter kant
-	screen.drawLine(charachterx - 4, y - 11, charachterx + 4, y - 11, BACKGROUND);									// B hoofd
-	screen.fillTriangle(charachterx - 4, y - 11, charachterx - 9, y - 6, charachterx - 9, y - 11, BACKGROUND);		// LB hoofd
-	screen.fillRect(charachterx - 15, y - 11, 7, 6, BACKGROUND);														// L schouder B
-	screen.fillTriangle(charachterx - 13, y - 6, charachterx - 16, y - 2, charachterx - 16, y - 6, BACKGROUND);		// L shouder LB
-	screen.fillRect(charachterx - 25, y - 8, 10, 17, BACKGROUND);													// L schouder L
-	screen.fillTriangle(charachterx - 13, y + 6, charachterx - 16, y + 2, charachterx - 16, y + 6, BACKGROUND);		// L schouder LO
-	screen.fillRect(charachterx - 15, y + 6, 7, 6, BACKGROUND);														// L schouder O
-	screen.fillTriangle(charachterx - 4, y + 11, charachterx - 9, y + 6, charachterx - 9, y + 11, BACKGROUND);		// LO hoofd
-	screen.drawLine(charachterx - 4, y + 11, charachterx + 4, y + 11, BACKGROUND);									// O hoofd
-	screen.fillTriangle(charachterx + 9, y + 6, charachterx + 4, y + 11, charachterx + 9, y + 11, BACKGROUND);		// RO hoofd
-	screen.fillRect(charachterx + 8, y + 6, 7, 6, BACKGROUND);														// R schouder O
-	screen.fillTriangle(charachterx + 13, y + 6, charachterx + 16, y + 2, charachterx + 16, y + 6, BACKGROUND);		// R schouder RO
-	screen.fillRect(charachterx + 15, y - 8, 10, 17, BACKGROUND);													// R schouder R
-	screen.fillTriangle(charachterx + 13, y - 6, charachterx + 16, y - 2, charachterx + 16, y - 6, BACKGROUND);		// R shouder RB
-	screen.fillRect(charachterx + 9, y - 11, 7, 6, BACKGROUND);														// R schouder B
-	screen.fillTriangle(charachterx + 4, y - 11, charachterx + 9, y - 6, charachterx + 9, y - 11, BACKGROUND);		// RB hoofd
+	if (x > 140) {					//als de player naar rechts gaat, haal links weg
+		screen.fillTriangle(charachterx - 4, y - 11, charachterx - 9, y - 6, charachterx - 9, y - 11, BACKGROUND);		// LB hoofd
+		screen.fillRect(charachterx - 15, y - 11, 7, 6, BACKGROUND);													// L schouder B
+		screen.fillTriangle(charachterx - 13, y - 6, charachterx - 16, y - 2, charachterx - 16, y - 6, BACKGROUND);		// L shouder LB
+		screen.fillRect(charachterx - 25, y - 8, 10, 17, BACKGROUND);													// L schouder L
+		screen.fillTriangle(charachterx - 13, y + 6, charachterx - 16, y + 2, charachterx - 16, y + 6, BACKGROUND);		// L schouder LO
+		screen.fillRect(charachterx - 15, y + 6, 7, 6, BACKGROUND);														// L schouder O
+		screen.fillTriangle(charachterx - 4, y + 11, charachterx - 9, y + 6, charachterx - 9, y + 11, BACKGROUND);		// LO hoofd
+	} else if (x < 118) {			//als de player naar link gaat, haal rechts weg
+		screen.fillTriangle(charachterx + 9, y + 6, charachterx + 4, y + 11, charachterx + 9, y + 11, BACKGROUND);		// RO hoofd
+		screen.fillRect(charachterx + 8, y + 6, 7, 6, BACKGROUND);														// R schouder O
+		screen.fillTriangle(charachterx + 13, y + 6, charachterx + 16, y + 2, charachterx + 16, y + 6, BACKGROUND);		// R schouder RO
+		screen.fillRect(charachterx + 15, y - 8, 10, 17, BACKGROUND);													// R schouder R
+		screen.fillTriangle(charachterx + 13, y - 6, charachterx + 16, y - 2, charachterx + 16, y - 6, BACKGROUND);		// R shouder RB
+		screen.fillRect(charachterx + 9, y - 11, 7, 6, BACKGROUND);														// R schouder B
+		screen.fillTriangle(charachterx + 4, y - 11, charachterx + 9, y - 6, charachterx + 9, y - 11, BACKGROUND);		// RB hoofd
+	}
 }
+
+
 
 void drawcharacter2(int x, int y, int Color){
 	// speler 2 tekenen
 	
 	if (x > 140 && charachterx2 < 225) {			//de x coordinaten van de charachter mag niet hoger worden dan 225, anders gaat hij uit het scherm
 		charachterx2 = charachterx2 + spelersnelheid;								//als de nunchuck naar rechts is geduwd, gaat het charachter ook naar rechts
-		} else if (x < 90 && charachterx2 > 15) {	//de y coordinaten van de charachter mag niet lager worden dan 15, anders gaat hij uit het scherm
+	} else if (x < 118 && charachterx2 > 15) {	//de y coordinaten van de charachter mag niet lager worden dan 15, anders gaat hij uit het scherm
 		charachterx2 = charachterx2 - spelersnelheid;								//als de nunchuck naar links is geduwd, gaat het charachter ook naar links
 	}
 	
@@ -809,22 +824,23 @@ void drawcharacter2(int x, int y, int Color){
 	
 	//een lijn om het charachter heen tekenen in dezelfde kleur als de achtergrond
 	// B = boven, O = onder, L = links, R = rechts, hoofd is de middelste circel en de schouders zijn de uitsteksels aan de linker en rechter kant
-	screen.drawLine(charachterx2 - 4, y - 11, charachterx2 + 4, y - 11, BACKGROUND);									// B hoofd
-	screen.fillTriangle(charachterx2 - 4, y - 11, charachterx2 - 9, y - 6, charachterx2 - 9, y - 11, BACKGROUND);		// LB hoofd
-	screen.fillRect(charachterx2 - 15, y - 11, 7, 6, BACKGROUND);														// L schouder B
-	screen.fillTriangle(charachterx2 - 13, y - 6, charachterx2 - 16, y - 2, charachterx2 - 16, y - 6, BACKGROUND);		// L shouder LB
-	screen.fillRect(charachterx2 - 25, y - 8, 10, 17, BACKGROUND);													// L schouder L
-	screen.fillTriangle(charachterx2 - 13, y + 6, charachterx2 - 16, y + 2, charachterx2 - 16, y + 6, BACKGROUND);		// L schouder LO
-	screen.fillRect(charachterx2 - 15, y + 6, 7, 6, BACKGROUND);														// L schouder O
-	screen.fillTriangle(charachterx2 - 4, y + 11, charachterx2 - 9, y + 6, charachterx2 - 9, y + 11, BACKGROUND);		// LO hoofd
-	screen.drawLine(charachterx2 - 4, y + 11, charachterx2 + 4, y + 11, BACKGROUND);									// O hoofd
-	screen.fillTriangle(charachterx2 + 9, y + 6, charachterx2 + 4, y + 11, charachterx2 + 9, y + 11, BACKGROUND);		// RO hoofd
-	screen.fillRect(charachterx2 + 8, y + 6, 7, 6, BACKGROUND);														// R schouder O
-	screen.fillTriangle(charachterx2 + 13, y + 6, charachterx2 + 16, y + 2, charachterx2 + 16, y + 6, BACKGROUND);		// R schouder RO
-	screen.fillRect(charachterx2 + 15, y - 8, 10, 17, BACKGROUND);													// R schouder R
-	screen.fillTriangle(charachterx2 + 13, y - 6, charachterx2 + 16, y - 2, charachterx2 + 16, y - 6, BACKGROUND);		// R shouder RB
-	screen.fillRect(charachterx2 + 9, y - 11, 7, 6, BACKGROUND);														// R schouder B
-	screen.fillTriangle(charachterx2 + 4, y - 11, charachterx2 + 9, y - 6, charachterx2 + 9, y - 11, BACKGROUND);		// RB hoofd
+	if (x > 140) {				//als de player naar rechts gaat, haal links weg
+		screen.fillTriangle(charachterx2 - 4, y - 11, charachterx2 - 9, y - 6, charachterx2 - 9, y - 11, BACKGROUND);		// LB hoofd
+		screen.fillRect(charachterx2 - 15, y - 11, 7, 6, BACKGROUND);														// L schouder B
+		screen.fillTriangle(charachterx2 - 13, y - 6, charachterx2 - 16, y - 2, charachterx2 - 16, y - 6, BACKGROUND);		// L shouder LB
+		screen.fillRect(charachterx2 - 25, y - 8, 10, 17, BACKGROUND);														// L schouder L
+		screen.fillTriangle(charachterx2 - 13, y + 6, charachterx2 - 16, y + 2, charachterx2 - 16, y + 6, BACKGROUND);		// L schouder LO
+		screen.fillRect(charachterx2 - 15, y + 6, 7, 6, BACKGROUND);														// L schouder O
+	} else if (x < 118) {		//als de player naar link gaat, haal rechts weg
+		screen.fillTriangle(charachterx2 - 4, y + 11, charachterx2 - 9, y + 6, charachterx2 - 9, y + 11, BACKGROUND);		// LO hoofd
+		screen.fillTriangle(charachterx2 + 9, y + 6, charachterx2 + 4, y + 11, charachterx2 + 9, y + 11, BACKGROUND);		// RO hoofd
+		screen.fillRect(charachterx2 + 8, y + 6, 7, 6, BACKGROUND);															// R schouder O
+		screen.fillTriangle(charachterx2 + 13, y + 6, charachterx2 + 16, y + 2, charachterx2 + 16, y + 6, BACKGROUND);		// R schouder RO
+		screen.fillRect(charachterx2 + 15, y - 8, 10, 17, BACKGROUND);														// R schouder R
+		screen.fillTriangle(charachterx2 + 13, y - 6, charachterx2 + 16, y - 2, charachterx2 + 16, y - 6, BACKGROUND);		// R shouder RB
+		screen.fillRect(charachterx2 + 9, y - 11, 7, 6, BACKGROUND);														// R schouder B
+		screen.fillTriangle(charachterx2 + 4, y - 11, charachterx2 + 9, y - 6, charachterx2 + 9, y - 11, BACKGROUND);		// RB hoofd
+	}
 }
 
 
