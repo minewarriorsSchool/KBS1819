@@ -75,9 +75,9 @@ int charachterx = 115;	//de x locatie van het charchter, als de nunchuck naar re
 int spelersnelheid = 3;		// snelheid waarmee de spelers van links naar rechts gaan
 
 //highscore:
-boolean nieuwHighscore = false;
-int Counter = 0;
-int opslagHigscore1;
+boolean nieuwHighscore = false; //check om te zorgen dat niet alle scores worden aangepast bij een nieuwe highscore
+int Counter = 0;                //Zodat alle 5 de highscores worden gecheckt
+int opslagHigscore1;            
 int opslagHigscore2;
 
 
@@ -383,16 +383,16 @@ void gameover() {
 	screen.println("press c to go back");
 	
 	if (MAXLEVENS < 4) {
-		for(Counter; Counter < 5 && score != EEPROM_read(Counter); Counter++){
-			if(score > EEPROM_read(Counter) && !nieuwHighscore){
-				opslagHigscore1 = EEPROM_read(Counter + 1);
-				opslagHigscore2 = EEPROM_read(Counter + 2);
-				EEPROM_write(Counter + 1, EEPROM_read(Counter));
-				EEPROM_write(Counter + 4, EEPROM_read(Counter + 3));
-				EEPROM_write(Counter, score);
-				EEPROM_write(Counter + 2, opslagHigscore1);
-				EEPROM_write(Counter + 3, opslagHigscore2);
-				nieuwHighscore = true;
+		for(Counter; Counter < 5 && score != EEPROM_read(Counter); Counter++){ //Dankzij de counter gaat de FOR maar 5 keer door. De tweede voorwaarde zorgt ervoor dat als de nieuwe highscore al bestaat, de FOR direct stopt.
+			if(score > EEPROM_read(Counter) && !nieuwHighscore){               //Voorwaarde1: nieuwe score moet hoger zijn dan de al opgeslagen score. Voorwaarde2: Er moet nog geen highscore veranderd zijn
+				opslagHigscore1 = EEPROM_read(Counter + 1);                    //Opslaan van de score die onder de score staat die wordt veranderd
+				opslagHigscore2 = EEPROM_read(Counter + 2);                   //Opslaan van de daar op volgende score
+				EEPROM_write(Counter, score);								  //Nieuwe highscore wordt toegepast
+				EEPROM_write(Counter + 1, EEPROM_read(Counter));              // De daaropvolgende wordt gelijk gemaakt aan de oude waarde van score 1
+				EEPROM_write(Counter + 2, opslagHigscore1);					  //De daaropvolgende wordt gelijk gemaakt aan de oude waarde van score 2
+				EEPROM_write(Counter + 3, opslagHigscore2);                  //De daaropvolgende wordt gelijk gemaakt aan de oude waarde van score 3
+				EEPROM_write(Counter + 4, EEPROM_read(Counter + 3));         //De daaropvolgende wordt gelijk gemaakt aan de oude waarde van score 4
+				nieuwHighscore = true;										//De mogelijkheid voor een nieuwe highscore wordt weer open gezet
 			}
 		}
 	}
