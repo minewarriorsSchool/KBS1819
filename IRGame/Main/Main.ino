@@ -1,5 +1,5 @@
-#include "Tasks.h"
-#include "ParentTaskClass.h"
+//#include "Tasks.h"
+//#include "ParentTaskClass.h"
 #include "data/IRCommunication.h"
 #include <Arduino.h>
 
@@ -24,4 +24,3 @@ int main(void){
 	}
 	Serial.end();
 }
-
