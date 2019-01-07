@@ -10,7 +10,11 @@
 #define YELLOW  0xFFE0
 #define WHITE   0xFFFF
 #define GREY    0xD6BA
-int colors[8] {BLUE, RED, GREEN, CYAN, MAGENTA, YELLOW, WHITE, GREY};
+#define ORANGE	0xFA60
+#define LIME	0x07FF
+#define AQUA	0x04FF
+#define	PINK	0xF8FF
+int colors[12] {BLUE, RED, GREEN, CYAN, MAGENTA, YELLOW, WHITE, GREY, ORANGE, LIME, AQUA, PINK};
 
 #define MAXARRAY 25
 #define BACKGROUND	0x0000
@@ -239,8 +243,9 @@ void drawHomescreen(){				//het homescreen
 	speler1kleur = BLUE;
 	speler2kleur = RED;
 	
-	drawcharHomescreen(50, 275, speler2kleur);		//teken twee players ter decoratie op het homescreen
-	drawcharHomescreen(180, 235, speler1kleur);
+	drawcharHomescreen(180, player1y, speler1kleur);
+	drawcharHomescreen(50, player2y, speler2kleur);		//teken twee players ter decoratie op het homescreen
+	
 }
 
 
@@ -576,7 +581,7 @@ void drawblock2(int x, int grootte) {
 			if (score >= 100) {							// na 100 blokken veranderd de kleur van de blokken
 				rectcolor2 = colors[rectcolor + 1];
 				rectcolor = rectcolor + 2;
-				if (rectcolor > 5) {					// na 8 kleuren weer opnieuw beginnen met de array
+				if (rectcolor > 11) {					// na 8 kleuren weer opnieuw beginnen met de array
 					rectcolor = 0;
 				}
 			}
@@ -646,24 +651,25 @@ void header() {
 	screen.setTextSize(1);
 	
 	if (MAXLEVENS - geraakt1 > 0){
-		screen.print("lives");
+		screen.print("p1 lives:");
 	} else {
-		screen.print("dead");
+		screen.print("p1 dead");
 	}
 	
-	for(int lev = 40; (lev < (MAXLEVENS - geraakt1) * 10 + 40) && lev < 160; lev = lev + 10){	//het teken van alle levens
+	//het teken van alle levens
+	for(int lev = 60; (lev < (MAXLEVENS - geraakt1) * 10 + 60) && lev < 160; lev = lev + 10){	//tekenen begint op (0 , 60) de levens daarna worden steeds op +10 op de x-as getekend. Als de levens (0 , 160) bereikt word het tekenen gestopt
 		screen.fillCircle(lev, 4, 3, RED);
 	}
 	
 	screen.setCursor(0, 10);
 	
 	if (MAXLEVENS - geraakt2 > 0){
-		screen.print("lives");
+		screen.print("p2 lives:");
 	} else {
-		screen.print("dead");
+		screen.print("p2 dead");
 	}
 	
-	for(int lev = 40; (lev < (MAXLEVENS - geraakt2) * 10 + 40) && lev < 160; lev = lev + 10){	//het teken van alle levens
+	for(int lev = 60; (lev < (MAXLEVENS - geraakt2) * 10 + 60) && lev < 160; lev = lev + 10){	//het teken van alle levens
 		screen.fillCircle(lev, 14, 3, RED);
 	}
 	
@@ -681,21 +687,15 @@ void collision (){
 			checkcollision1 = 1;		//niet meer checken of er een botsing is
 			collisiontijd1 = score;	//de tijd van de collsion opslaan zodat de speler voor een korte tijd invincible is
 			geraakt1++;				// de speler is één keer vaker geraakt en verliest dus ook één leven
-		}
-		
-		if(locaties[nummer1] + groottes[nummer1] >= charachterx + 15 && locaties[nummer1] <= charachterx + 15 && (stap1 >= player1y - 10 && stap1 <= player1y + 10)) {	// controleren of blok1 de rechter kant van de speler heeft geraakt
+		} else if(locaties[nummer1] + groottes[nummer1] >= charachterx + 15 && locaties[nummer1] <= charachterx + 15 && (stap1 >= player1y - 10 && stap1 <= player1y + 10)) {	// controleren of blok1 de rechter kant van de speler heeft geraakt
 			checkcollision1 = 1;
 			collisiontijd1 = score;
 			geraakt1++;
-		}
-		
-		if(locaties[nummer2] + groottes[nummer2] >= charachterx - 15 && locaties[nummer2] <= charachterx - 15 && (stap2 >= player1y - 10 && stap2 <= player1y + 10)) {	// controleren of blok2 de linker kant van de speler heeft geraakt
+		} else if(locaties[nummer2] + groottes[nummer2] >= charachterx - 15 && locaties[nummer2] <= charachterx - 15 && (stap2 >= player1y - 10 && stap2 <= player1y + 10)) {	// controleren of blok2 de linker kant van de speler heeft geraakt
 			checkcollision1 = 1;
 			collisiontijd1 = score;
 			geraakt1++;
-		}
-		
-		if(locaties[nummer2] + groottes[nummer2] >= charachterx + 15 && locaties[nummer2] <= charachterx + 15 && (stap2 >= player1y - 10 && stap2 <= player1y + 10)) {	// controleren of blok2 de rechter kant van de speler heeft geraakt
+		} else if(locaties[nummer2] + groottes[nummer2] >= charachterx + 15 && locaties[nummer2] <= charachterx + 15 && (stap2 >= player1y - 10 && stap2 <= player1y + 10)) {	// controleren of blok2 de rechter kant van de speler heeft geraakt
 			checkcollision1 = 1;
 			collisiontijd1 = score;
 			geraakt1++;
@@ -710,21 +710,15 @@ void collision (){
 			checkcollision2 = 1;
 			collisiontijd2 = score;
 			geraakt2++;
-		}
-		
-		if(locaties[nummer1] + groottes[nummer1] >= charachterx2 + 15 && locaties[nummer1] <= charachterx2 + 15 && (stap1 >= player2y - 10 && stap1 <= player2y + 10)) {
+		} else if(locaties[nummer1] + groottes[nummer1] >= charachterx2 + 15 && locaties[nummer1] <= charachterx2 + 15 && (stap1 >= player2y - 10 && stap1 <= player2y + 10)) {
 			checkcollision2 = 1;
 			collisiontijd2 = score;
 			geraakt2++;
-		}
-		
-		if(locaties[nummer2] + groottes[nummer2] >= charachterx2 - 15 && locaties[nummer2] <= charachterx2 - 15 && (stap2 >= player2y - 10 && stap2 <= player2y + 10)) {
+		} else if(locaties[nummer2] + groottes[nummer2] >= charachterx2 - 15 && locaties[nummer2] <= charachterx2 - 15 && (stap2 >= player2y - 10 && stap2 <= player2y + 10)) {
 			checkcollision2 = 1;
 			collisiontijd2 = score;
 			geraakt2++;
-		}
-		
-		if(locaties[nummer2] + groottes[nummer2] >= charachterx2 + 15 && locaties[nummer2] <= charachterx2 + 15 && (stap2 >= player2y - 10 && stap2 <= player2y + 10)) {
+		} else if(locaties[nummer2] + groottes[nummer2] >= charachterx2 + 15 && locaties[nummer2] <= charachterx2 + 15 && (stap2 >= player2y - 10 && stap2 <= player2y + 10)) {
 			checkcollision2 = 1;
 			collisiontijd2 = score;
 			geraakt2++;
@@ -774,9 +768,9 @@ void collision (){
 void drawcharacter(int x, int y, int Color){
 	//speler 1 tekenen
 	
-	if (x > 140 && charachterx < 225) {			//de x coordinaten van de charachter mag niet hoger worden dan 225, anders gaat hij uit het scherm
+	if (x > 140 && charachterx < 223) {			//de x coordinaten van de charachter mag niet hoger worden dan 225, anders gaat hij uit het scherm
 		charachterx = charachterx + spelersnelheid;								//als de nunchuck naar rechts is geduwd, gaat het charachter ook naar rechts
-	} else if (x < 118 && charachterx > 15) {	//de y coordinaten van de charachter mag niet lager worden dan 15, anders gaat hij uit het scherm
+	} else if (x < 118 && charachterx > 17) {	//de y coordinaten van de charachter mag niet lager worden dan 15, anders gaat hij uit het scherm
 		charachterx = charachterx - spelersnelheid;								//als de nunchuck naar links is geduwd, gaat het charachter ook naar links
 	}
 	
@@ -876,24 +870,11 @@ unsigned char EEPROM_read(unsigned int uiAddress)
 	return EEDR;
 }
 
-
-
-
-
-
-
-
-
-
-//________________________________________________________________//
-
-
+//_________________________NUNCHUCK_______________________________________//
 
 static uint8_t nunchuck_buf[6]; // array to store nunchuck data,
 
-
 // Uses port C (analog in) pins as power & ground for Nunchuck
-
 static void nunchuck_setpowerpins()
 {
 	#define pwrpin PC3
@@ -904,11 +885,9 @@ static void nunchuck_setpowerpins()
 	delay(100); // wait for things to stabilize
 }
 
-
 // initialize the I2C system, join the I2C bus,
 
 // and tell the nunchuck we're talking to it
-
 void nunchuck_init()
 {
 	Wire.begin();  // join i2c bus as master
@@ -918,11 +897,9 @@ void nunchuck_init()
 	Wire.endTransmission(); // stop transmitting
 }
 
-
 // Send a request for data to the nunchuck
 
 // was "send_zero()"
-
 void nunchuck_send_request()
 {
 	Wire.beginTransmission(0x52); // transmit to device 0x52
@@ -930,11 +907,9 @@ void nunchuck_send_request()
 	Wire.endTransmission(); // stop transmitting
 }
 
-
 // Receive data back from the nunchuck,
 
 // returns 1 on successful read. returns 0 on failure
-
 int nunchuck_get_data()
 {
 	int cnt=0;
@@ -957,17 +932,13 @@ int nunchuck_get_data()
 // Encode data to format that most wiimote drivers except
 
 // only needed if you use one of the regular wiimote drivers
-
 char nunchuk_decode_byte (char x)
 {
 	x = (x ^ 0x17) + 0x17;
 	return x;
 }
 
-
-
 // returns zbutton state: 1=pressed, 0=notpressed
-
 int nunchuck_zbutton() 
 {
 	return ((nunchuck_buf[5] >> 0) & 1) ? 0 : 1; // voodoo
@@ -975,7 +946,6 @@ int nunchuck_zbutton()
 
 
 // returns zbutton state: 1=pressed, 0=notpressed
-
 int nunchuck_cbutton() 
 {
 	return ((nunchuck_buf[5] >> 1) & 1) ? 0 : 1; // voodoo
@@ -983,7 +953,6 @@ int nunchuck_cbutton()
 
 
 // returns value of x-axis joystick
-
 int nunchuck_joyx() 
 {
 	return nunchuck_buf[0];
@@ -991,7 +960,6 @@ int nunchuck_joyx()
 
 
 // returns value of y-axis joystick
-
 int nunchuck_joyy() 
 {
 	return nunchuck_buf[1];
