@@ -23,22 +23,25 @@ void checkCounter(){
 //    }
       data[dataPointer] = COUNTER;
       dataPointer++;
-      if(dataPointer == 8){
-        dataPointer = 0;
-        for(int i = 0; i < 8; i++)
-          {
-            Serial.print(i);
-            Serial.println(data[i]);
-          }
-      }
+//      if(dataPointer == 8){
+//        dataPointer = 0;
+//        for(int i = 0; i < 8; i++)
+//          {
+//            Serial.print(i, ": ");
+//            Serial.println(data[i]);
+//          }
+//      }
+      Serial.println(COUNTER);    //DIT IS EEN TEST
   }
 }
 
 ISR(TIMER2_OVF_vect){
-	COUNTER++;
+  if(COUNTER < 70){
+    COUNTER++;
+  }
 }
 
-ISR(PCINT_T0_V){
+ISR(PCINT2_vect){
 	changebits = true;
   checkCounter();
   COUNTER = 0;
@@ -55,16 +58,17 @@ int main(){
 	TCCR2B |= (1<<CS21) | (1<<WGM22);                 //set clock pre-scaler to 8 and Fast PWM
 	TIMSK2 |= (1<<TOIE2);
 	sei();                                // enable global interrupts
-	OCR2A = 35;
-	OCR2B = 17;
-	
-	
+	OCR2A = 52;
+	OCR2B = 26;
+
+  PORTD |= (1 << PORTD5); //pullup
+	PCICR |= (1 << PCIE2);    /* set pin-change interrupt for D pins */
+  PCMSK2 |= (1 << PCINT21); /* set mask to look for PCINT18 / PD2 */
+  
 	Serial.begin(9600);
 	
-	DDRD |= (1<<DDD7);
-	DDRD &= ~(1 << DDD3) | (1 << IRpin);
-	
-
+//	DDRD |= (1<<DDD7);
+//	DDRD &= ~(1 << DDD3) | (1 << IRpin);
 	
 	//PORTD |= (1 << LEDpin); // Pin n goes high
 	
