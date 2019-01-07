@@ -28,15 +28,15 @@
     <BootSegment>0</BootSegment>
     <AsfFrameworkConfig>
       <framework-data>
-  <options />
-  <configurations />
-  <files />
-  <documentation help="" />
-  <offline-documentation help="" />
-  <dependencies>
-    <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.36.0" />
-  </dependencies>
-</framework-data>
+        <options />
+        <configurations />
+        <files />
+        <documentation help="" />
+        <offline-documentation help="" />
+        <dependencies>
+          <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.36.0" />
+        </dependencies>
+      </framework-data>
     </AsfFrameworkConfig>
     <preserveEEPROM>true</preserveEEPROM>
     <ResetRule>0</ResetRule>
@@ -56,7 +56,7 @@
     <ListValues>
       <Value>__AVR_ATmega328p__</Value>
       <Value>__AVR_ATmega328P__</Value>
-      <Value>ARDUINO=10807</Value>
+      <Value>ARDUINO=10806</Value>
       <Value>ARDUINO_MAIN</Value>
       <Value>F_CPU=16000000L</Value>
       <Value>__AVR__</Value>
@@ -67,12 +67,8 @@
   <avrgcc.compiler.directories.IncludePaths>
     <ListValues>
       <Value>../../../IRalles</Value>
-      <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/Wire/src</Value>
-      <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/Wire/src/utility</Value>
-      <Value>C:/Users/daand/OneDrive/Documenten/Arduino/libraries/Adafruit_ILI9341</Value>
-      <Value>C:/Users/daand/OneDrive/Documenten/Arduino/libraries/Adafruit_GFX_Library</Value>
       <Value>C:/Program Files (x86)/Arduino/libraries</Value>
-      <Value>C:/Users/daand/OneDrive/Documenten/Arduino/libraries</Value>
+      <Value>C:/Users/Arthur/sketchbook/libraries</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/cores/arduino</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/variants/standard</Value>
@@ -95,7 +91,7 @@
     <ListValues>
       <Value>__AVR_ATmega328p__</Value>
       <Value>__AVR_ATmega328P__</Value>
-      <Value>ARDUINO=10807</Value>
+      <Value>ARDUINO=10806</Value>
       <Value>ARDUINO_MAIN</Value>
       <Value>F_CPU=16000000L</Value>
       <Value>__AVR__</Value>
@@ -106,12 +102,8 @@
   <avrgcccpp.compiler.directories.IncludePaths>
     <ListValues>
       <Value>../../../IRalles</Value>
-      <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/Wire/src</Value>
-      <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/Wire/src/utility</Value>
-      <Value>C:/Users/daand/OneDrive/Documenten/Arduino/libraries/Adafruit_ILI9341</Value>
-      <Value>C:/Users/daand/OneDrive/Documenten/Arduino/libraries/Adafruit_GFX_Library</Value>
       <Value>C:/Program Files (x86)/Arduino/libraries</Value>
-      <Value>C:/Users/daand/OneDrive/Documenten/Arduino/libraries</Value>
+      <Value>C:/Users/Arthur/sketchbook/libraries</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/cores/arduino</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/variants/standard</Value>
@@ -130,7 +122,7 @@
   <avrgcccpp.assembler.debugging.DebugLevel>Default (-Wa,-g)</avrgcccpp.assembler.debugging.DebugLevel>
 </AvrGccCpp>
     </ToolchainSettings>
-    <VMSETTING_IncludePaths>../../../IRalles;C:/Program Files (x86)/Arduino/libraries;C:/Users/Chris/Documents/Arduino/libraries;C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries;C:/Program Files (x86)/Arduino/hardware/arduino/avr/cores/arduino;C:/Program Files (x86)/Arduino/hardware/arduino/avr/variants/standard;C:/Program Files (x86)/Arduino/hardware/tools/avr/avr/include;C:/Program Files (x86)/Arduino/hardware/tools/avr/avr/include/avr;C:/Program Files (x86)/Arduino/hardware/tools/avr/lib/gcc/avr/4.8.1/include;C:/Program Files (x86)/Arduino/hardware/tools/avr/lib/gcc/avr/4.9.2/include;C:/Program Files (x86)/Arduino/hardware/tools/avr/lib/gcc/avr/4.9.3/include;C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/Wire/src;C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/Wire/src/utility;C:/Users/Chris/Documents/Arduino/libraries/Adafruit_ILI9341;C:/Users/Chris/Documents/Arduino/libraries/Adafruit_GFX_Library;C:/Users/daand/OneDrive/Documenten/Arduino/libraries/Adafruit_ILI9341;C:/Users/daand/OneDrive/Documenten/Arduino/libraries/Adafruit_GFX_Library;C:/Users/daand/OneDrive/Documenten/Arduino/libraries;</VMSETTING_IncludePaths>
+    <VMSETTING_IncludePaths>../../../IRalles;C:/Program Files (x86)/Arduino/libraries;C:/Users/Chris/Documents/Arduino/libraries;C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries;C:/Program Files (x86)/Arduino/hardware/arduino/avr/cores/arduino;C:/Program Files (x86)/Arduino/hardware/arduino/avr/variants/standard;C:/Program Files (x86)/Arduino/hardware/tools/avr/avr/include;C:/Program Files (x86)/Arduino/hardware/tools/avr/avr/include/avr;C:/Program Files (x86)/Arduino/hardware/tools/avr/lib/gcc/avr/4.8.1/include;C:/Program Files (x86)/Arduino/hardware/tools/avr/lib/gcc/avr/4.9.2/include;C:/Program Files (x86)/Arduino/hardware/tools/avr/lib/gcc/avr/4.9.3/include;C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/Wire/src;C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/Wire/src/utility;C:/Users/Chris/Documents/Arduino/libraries/Adafruit_ILI9341;C:/Users/Chris/Documents/Arduino/libraries/Adafruit_GFX_Library;C:/Users/daand/OneDrive/Documenten/Arduino/libraries/Adafruit_ILI9341;C:/Users/daand/OneDrive/Documenten/Arduino/libraries/Adafruit_GFX_Library;C:/Users/daand/OneDrive/Documenten/Arduino/libraries;C:/Users/Arthur/sketchbook/libraries;</VMSETTING_IncludePaths>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <ToolchainSettings>
@@ -146,7 +138,7 @@
     <ListValues>
       <Value>__AVR_ATmega328p__</Value>
       <Value>__AVR_ATmega328P__</Value>
-      <Value>ARDUINO=10807</Value>
+      <Value>ARDUINO=10806</Value>
       <Value>ARDUINO_MAIN</Value>
       <Value>F_CPU=16000000L</Value>
       <Value>__AVR__</Value>
@@ -157,12 +149,8 @@
   <avrgcc.compiler.directories.IncludePaths>
     <ListValues>
       <Value>../../../IRalles</Value>
-      <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/Wire/src</Value>
-      <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/Wire/src/utility</Value>
-      <Value>C:/Users/daand/OneDrive/Documenten/Arduino/libraries/Adafruit_ILI9341</Value>
-      <Value>C:/Users/daand/OneDrive/Documenten/Arduino/libraries/Adafruit_GFX_Library</Value>
       <Value>C:/Program Files (x86)/Arduino/libraries</Value>
-      <Value>C:/Users/daand/OneDrive/Documenten/Arduino/libraries</Value>
+      <Value>C:/Users/Arthur/sketchbook/libraries</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/cores/arduino</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/variants/standard</Value>
@@ -185,7 +173,7 @@
     <ListValues>
       <Value>__AVR_ATmega328p__</Value>
       <Value>__AVR_ATmega328P__</Value>
-      <Value>ARDUINO=10807</Value>
+      <Value>ARDUINO=10806</Value>
       <Value>ARDUINO_MAIN</Value>
       <Value>F_CPU=16000000L</Value>
       <Value>__AVR__</Value>
@@ -196,12 +184,8 @@
   <avrgcccpp.compiler.directories.IncludePaths>
     <ListValues>
       <Value>../../../IRalles</Value>
-      <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/Wire/src</Value>
-      <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/Wire/src/utility</Value>
-      <Value>C:/Users/daand/OneDrive/Documenten/Arduino/libraries/Adafruit_ILI9341</Value>
-      <Value>C:/Users/daand/OneDrive/Documenten/Arduino/libraries/Adafruit_GFX_Library</Value>
       <Value>C:/Program Files (x86)/Arduino/libraries</Value>
-      <Value>C:/Users/daand/OneDrive/Documenten/Arduino/libraries</Value>
+      <Value>C:/Users/Arthur/sketchbook/libraries</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/cores/arduino</Value>
       <Value>C:/Program Files (x86)/Arduino/hardware/arduino/avr/variants/standard</Value>
@@ -220,7 +204,7 @@
   <avrgcccpp.assembler.debugging.DebugLevel>Default (-Wa,-g)</avrgcccpp.assembler.debugging.DebugLevel>
 </AvrGccCpp>
     </ToolchainSettings>
-    <VMSETTING_IncludePaths>../../../IRalles;C:/Program Files (x86)/Arduino/libraries;C:/Users/Chris/Documents/Arduino/libraries;C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries;C:/Program Files (x86)/Arduino/hardware/arduino/avr/cores/arduino;C:/Program Files (x86)/Arduino/hardware/arduino/avr/variants/standard;C:/Program Files (x86)/Arduino/hardware/tools/avr/avr/include;C:/Program Files (x86)/Arduino/hardware/tools/avr/avr/include/avr;C:/Program Files (x86)/Arduino/hardware/tools/avr/lib/gcc/avr/4.8.1/include;C:/Program Files (x86)/Arduino/hardware/tools/avr/lib/gcc/avr/4.9.2/include;C:/Program Files (x86)/Arduino/hardware/tools/avr/lib/gcc/avr/4.9.3/include;C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/Wire/src;C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/Wire/src/utility;C:/Users/Chris/Documents/Arduino/libraries/Adafruit_ILI9341;C:/Users/Chris/Documents/Arduino/libraries/Adafruit_GFX_Library;C:/Users/daand/OneDrive/Documenten/Arduino/libraries/Adafruit_ILI9341;C:/Users/daand/OneDrive/Documenten/Arduino/libraries/Adafruit_GFX_Library;C:/Users/daand/OneDrive/Documenten/Arduino/libraries;</VMSETTING_IncludePaths>
+    <VMSETTING_IncludePaths>../../../IRalles;C:/Program Files (x86)/Arduino/libraries;C:/Users/Chris/Documents/Arduino/libraries;C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries;C:/Program Files (x86)/Arduino/hardware/arduino/avr/cores/arduino;C:/Program Files (x86)/Arduino/hardware/arduino/avr/variants/standard;C:/Program Files (x86)/Arduino/hardware/tools/avr/avr/include;C:/Program Files (x86)/Arduino/hardware/tools/avr/avr/include/avr;C:/Program Files (x86)/Arduino/hardware/tools/avr/lib/gcc/avr/4.8.1/include;C:/Program Files (x86)/Arduino/hardware/tools/avr/lib/gcc/avr/4.9.2/include;C:/Program Files (x86)/Arduino/hardware/tools/avr/lib/gcc/avr/4.9.3/include;C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/Wire/src;C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/Wire/src/utility;C:/Users/Chris/Documents/Arduino/libraries/Adafruit_ILI9341;C:/Users/Chris/Documents/Arduino/libraries/Adafruit_GFX_Library;C:/Users/daand/OneDrive/Documenten/Arduino/libraries/Adafruit_ILI9341;C:/Users/daand/OneDrive/Documenten/Arduino/libraries/Adafruit_GFX_Library;C:/Users/daand/OneDrive/Documenten/Arduino/libraries;C:/Users/Arthur/sketchbook/libraries;</VMSETTING_IncludePaths>
   </PropertyGroup>
   <ItemGroup>
     <None Include="IRalles.ino">
