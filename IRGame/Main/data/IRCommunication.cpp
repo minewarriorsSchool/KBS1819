@@ -110,12 +110,13 @@ void IRCommunicatie::encodetimeToLED(int *Times){
 		}
 	} else Serial.println("Something went wrong!!!!");
 	
-	void IRCommunicatie::nextBitQuestionMark(){
-		if(nextBit){														//nextbit is by natural true to start data transfer
-			PORTB ^= (1<<PORTB5);											//switched state of LED pin 13 to let PWM pin 3 be able to send or not send --> multiplexing
-			setCounterToZero();												//set counter to 0 to start counting the right amount of ticks equal to the bit required
-			nextBit = false;												//making sure the LED does not change state while tick counting
-		}
+}
+
+void IRCommunicatie::nextBitQuestionMark(){
+	if(nextBit){														//nextbit is by natural true to start data transfer
+		PORTB ^= (1<<PORTB5);											//switched state of LED pin 13 to let PWM pin 3 be able to send or not send --> multiplexing
+		setCounterToZero();												//set counter to 0 to start counting the right amount of ticks equal to the bit required
+		nextBit = false;												//making sure the LED does not change state while tick counting
 	}
 }
 //End-Functies
