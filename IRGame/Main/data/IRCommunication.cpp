@@ -10,6 +10,7 @@ IRCommunicatie::IRCommunicatie(uint8_t frequency, boolean testMode){
 	
 	if(frequency == frequency38kHz){										//Setting the duty-cycle to 50%; and frequency to 38.000 Hz
 		OCR2A = OCR2AWaarde38kHz;
+		compensatingValue = compensatingValue38kHz;
 		if (testMode == true)
 		{
 			OCR2B = OCR2AWaarde38kHz;
@@ -18,6 +19,7 @@ IRCommunicatie::IRCommunicatie(uint8_t frequency, boolean testMode){
 	
 	if(frequency == frequency56kHz){										//Setting the duty-cycle to 50%; and frequency to 56.000 Hz
 		OCR2A = OCR2AWaarde56kHz;
+		compensatingValue = compensatingValue56kHz;
 		if(testMode == true){
 			OCR2B = OCR2AWaarde56kHz;
 		}else OCR2B = OCR2BWaarde56kHz;

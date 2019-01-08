@@ -13,6 +13,8 @@
 #define OverFlowCounterStartBit 400
 #define OverFlowCounterStopBit 500
 #define OverFlowParityBit 300
+#define compensatingValue38kHz 1,4736842105263157894736842105263
+#define compensatingValue56kHz 0,67857142857142857142857142857143
 
 #if defined(ARDUINO) && ARDUINO >= 100
 #include "arduino.h"
@@ -45,6 +47,7 @@ class IRCommunicatie{
 	private:
 	
 	//-Variabelen
+	long compensatingValue;
 	int counter = 0, bitCounter = 0, dummyVariable[8] = {1,0,1,0,1,0,1,0};
 	boolean nextBit = true, startBitActive = true, stopBitActive = false, parityBitActive = false, allowedToSend;
 };
