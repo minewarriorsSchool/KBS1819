@@ -11,7 +11,7 @@ Project("{E66E83B9-2572-4076-B26E-6BE79FF3018A}") = "IRgame_blokken", "..\IRgame
 EndProject
 Project("{E66E83B9-2572-4076-B26E-6BE79FF3018A}") = "IRgame_charachter", "D:\downloads\IRgame_charachter\IRgame_charachter.cppproj", "{760AAD29-CDD8-4A00-BE0C-CFB0B6C0F419}"
 EndProject
-Project("{E66E83B9-2572-4076-B26E-6BE79FF3018A}") = "IRgame_charachterTest", "..\IRgame_charachterTest\IRgame_charachterTest.cppproj", "{2B45EB24-351D-41F6-99AE-AFFB7E2B94F4}"
+Project("{E66E83B9-2572-4076-B26E-6BE79FF3018A}") = "IRgame_charachterTest2", "..\IRgame_charachterTest2\IRgame_charachterTest2.cppproj", "{40B0A5BD-D090-4B01-AAF7-B3A23B5F91AD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +35,10 @@ Global
 		{760AAD29-CDD8-4A00-BE0C-CFB0B6C0F419}.Debug|AVR.Build.0 = Debug|AVR
 		{760AAD29-CDD8-4A00-BE0C-CFB0B6C0F419}.Release|AVR.ActiveCfg = Release|AVR
 		{760AAD29-CDD8-4A00-BE0C-CFB0B6C0F419}.Release|AVR.Build.0 = Release|AVR
-		{2B45EB24-351D-41F6-99AE-AFFB7E2B94F4}.Debug|AVR.ActiveCfg = Debug|AVR
-		{2B45EB24-351D-41F6-99AE-AFFB7E2B94F4}.Debug|AVR.Build.0 = Debug|AVR
-		{2B45EB24-351D-41F6-99AE-AFFB7E2B94F4}.Release|AVR.ActiveCfg = Release|AVR
-		{2B45EB24-351D-41F6-99AE-AFFB7E2B94F4}.Release|AVR.Build.0 = Release|AVR
+		{40B0A5BD-D090-4B01-AAF7-B3A23B5F91AD}.Debug|AVR.ActiveCfg = Debug|AVR
+		{40B0A5BD-D090-4B01-AAF7-B3A23B5F91AD}.Debug|AVR.Build.0 = Debug|AVR
+		{40B0A5BD-D090-4B01-AAF7-B3A23B5F91AD}.Release|AVR.ActiveCfg = Release|AVR
+		{40B0A5BD-D090-4B01-AAF7-B3A23B5F91AD}.Release|AVR.Build.0 = Release|AVR
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

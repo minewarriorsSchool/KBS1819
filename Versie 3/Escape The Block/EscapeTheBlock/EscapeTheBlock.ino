@@ -14,10 +14,13 @@
 #define LIME	0x07FF
 #define AQUA	0x04FF
 #define	PINK	0xF8FF
-int colors[12] {BLUE, RED, GREEN, CYAN, MAGENTA, YELLOW, WHITE, GREY, ORANGE, LIME, AQUA, PINK};
+int colors[12] {BLUE, RED, GREEN, GREY, MAGENTA, YELLOW, WHITE, CYAN, ORANGE, LIME, PINK, AQUA};
+int greycolors[7] {BLACK, 0x0841, 0x10A2, 0x18E3, 0x2945, 0x3186, 0x39E7};		//array met alle grijstinten van de achtergrond
+int greyindex;		//index voor de greycolors array
 
 #define MAXARRAY 25
-#define BACKGROUND	0x0000
+int BACKGROUND = 0x0000;
+int tempbackground = 0x000;
 
 #define TFT_DC 9
 #define TFT_CS 10
@@ -57,7 +60,7 @@ int geraakt1;
 int geraakt2;
 int score;
 int extrascore;
-int livespointer;		// bij 0 is de linker pijl in het settings menu geselecteerd, bij 1 de rechter pijl en bij 2 geen
+int settingpointer = 4;		// bij 0 is de linker boven pijl in het settings menu geselecteerd, bij 1 de rechtersboven, 2 linksonder, 3 rechtsonder en bij 4 geen
 
 
 int locaties [MAXARRAY], groottes [MAXARRAY];
@@ -109,6 +112,7 @@ int main (){
 	seed();
 	
 	screen.fillScreen(BACKGROUND);
+	
 	
 	for(;;){
 		nunchuck_get_data();	//nunchuck data ophalen
@@ -181,8 +185,10 @@ int main (){
 	}
 }
 
+
 void clearScreen (){
 	if (scherm != oudescherm) {			//het scherm word geleegd als je van scherm veranderd
+		BACKGROUND = tempbackground;
 		screen.fillScreen(BACKGROUND);
 		if(scherm == 1) {				//het spel is terug gegaan naar het hoofdmenu dus alles word gereset naar de beginwaardes
 			stap1 = -200;
@@ -207,6 +213,7 @@ void clearScreen (){
 			spelersnelheid = 3;
 			rectcolor1 = GREY;
 			rectcolor2 = CYAN;
+			settingpointer = 4;
 			seed();					// nieuwe seed berekenen
 			if (oudescherm == 5 || oudescherm == 2) {		//als het vorige scherm het gameover scherm of het spel was en we zitten nu in het menu
 				playerybuffer = player1y;		//locatie van de spelers omwisselen zodat niet steeds 1 speler een voordeel heeft
@@ -221,6 +228,7 @@ void clearScreen (){
 		oudescherm = scherm;
 	}
 }
+
 
 void drawHomescreen(){				//het homescreen
 	screen.setCursor(30, 40);
@@ -320,6 +328,7 @@ void drawPointer(){			//het tekenen  van de aanwijzer
 	
 }
 
+
 void start(){
 	/*
 	Serial.print("nummer1: ");
@@ -338,12 +347,12 @@ void start(){
 	if (MAXLEVENS - geraakt1 > 0) {	
 		drawcharacter(player1x, player1y, speler1kleur);		//teken speler 1
 	}
-	/*
+	
 	if (MAXLEVENS - geraakt2 > 0) {	
 		player2x = 125 - player1x + 125;
 		drawcharacter2(player2x, player2y, speler2kleur);	//teken speler 2
 	} 
-	*/
+	
 
 	// als de array met random locaties en groottes voorbij is moet het scherm even leeg zijn en moet er een nieuwe array worden gemaakt
 	if (nummer2 != MAXARRAY) {
@@ -375,6 +384,7 @@ void start(){
 		scherm = 1;
 	}
 }
+
 
 void gameover() {
 	screen.setCursor(40, 70);
@@ -465,6 +475,7 @@ void controls(){
 	}
 }
 
+
 void settings () {
 	screen.setCursor(30, 40);
 	screen.setTextColor(WHITE);
@@ -476,47 +487,114 @@ void settings () {
 	screen.println("How many lives");
 	screen.setCursor(30, 100);
 	screen.println("do you want?");
-		
-		
-	if (joyx > 160) {
-		livespointer = 1;		//als de nunchuck naar rechts is geduwd, word het rechter pijltje geselecteerd
-	} else if (joyx < 70) {
-		livespointer = 0;		//bij rechts word het rechter pijltje geselecteerd
+	
+	
+	//	layout van het settingsmenu:
+	//
+	//
+	//	settingpointer0		<	lives		>	settingpointer1
+	//
+	//
+	//	settingpointer2		<	brightness	>	settingpointer3
+	//
+	
+	
+	// x as van de pointer bedienen	
+	if (joyx > 160 && (settingpointer == 0 || settingpointer == 4)) {
+		settingpointer = 1;		
+	} else if (joyx < 70  && (settingpointer == 1 || settingpointer == 4)) {
+		settingpointer = 0;		
+	} else if (joyx > 160 && settingpointer == 2) {
+		settingpointer = 3;
+	} else if (joyx < 70  && settingpointer == 3) {
+		settingpointer = 2;
+	} else
+	
+	// y as van de pointer bedienen
+	if (joyy > 160 && settingpointer == 2) {
+		settingpointer = 0;		
+	} else if (joyy < 70  && (settingpointer == 0 || settingpointer == 4)) {
+		settingpointer = 2;		
+	} else if (joyy > 160 && settingpointer == 3) {
+		settingpointer = 1;
+	} else if (joyy < 70  && settingpointer == 1) {
+		settingpointer = 3;
 	}
+	
+		
+	if (settingpointer == 4) {	//geen van de pijlen is nog geselecteerd, ze zijn allebei wit
+		
+		screen.fillTriangle(90, 131, 90, 141, 80, 136, WHITE);		//pijl 0 
+		screen.fillTriangle(140, 131, 140, 141, 150, 136, WHITE);	//pijl 1 
+		
+		screen.fillTriangle(90, 250, 90, 260, 80, 255, WHITE);		//pijl 2 
+		screen.fillTriangle(140, 250, 140, 260, 150, 255, WHITE);	//pijl 3 
 		
 		
-	if (livespointer == 2) {	//geen van de pijlen is nog geselecteerd, ze zijn allebei wit
+	} else if (settingpointer == 0) {		// de linker levens pijl is geslecteerd
 		
-		screen.fillTriangle(90, 131, 90, 141, 80, 136, WHITE);
-		screen.fillTriangle(140, 131, 140, 141, 150, 136, WHITE);
-		
-	} else if (livespointer == 1) {		// de rechter pijl is geselecteerd
-		
-		screen.fillTriangle(90, 131, 90, 141, 80, 136, WHITE);
-		screen.fillTriangle(140, 131, 140, 141, 150, 136, GREEN);		//de rechter pijl is geselecteerd (groen)
-		
-		if(nunchuck_zbutton() == 1 && MAXLEVENS != 99 && zcheck == 0){		// als er op z word gedrukt worden de maxlevens verhoogd met 1
-			MAXLEVENS++;
-			screen.fillRect(95, 131, 50, 15, BACKGROUND);	//oude maxlevens weghalen
-			zcheck = 1;										// zcheck zorgt ervoor dat je de knop apart moet indrukken voor iedere keer dat je er een leven bij of af wilt
-		}
-		
-	} else if (livespointer == 0) {
-		
-		screen.fillTriangle(90, 131, 90, 141, 80, 136, GREEN);			//de linker pijl is geselecteerd (groen)
-		screen.fillTriangle(140, 131, 140, 141, 150, 136, WHITE);
+		screen.fillTriangle(90, 131, 90, 141, 80, 136, GREEN);		//pijl 0 is geselecteerd (groen)
+		screen.fillTriangle(140, 131, 140, 141, 150, 136, WHITE);	//pijl 1
+		screen.fillTriangle(90, 250, 90, 260, 80, 255, WHITE);		//pijl 2
+		screen.fillTriangle(140, 250, 140, 260, 150, 255, WHITE);	//pijl 3
 		
 		if(nunchuck_zbutton() == 1 && MAXLEVENS != 1 && zcheck == 0){
 			MAXLEVENS--;
-			screen.fillRect(95, 131, 50, 15, BACKGROUND);
+			screen.fillRect(95, 131, 41, 15, BACKGROUND);
 			zcheck = 1;
+		}
+		
+	} else if (settingpointer == 1) {		// de rechter levens pijl is geselecteerd
+		
+		screen.fillTriangle(90, 131, 90, 141, 80, 136, WHITE);			//pijl 0
+		screen.fillTriangle(140, 131, 140, 141, 150, 136, GREEN);		//pijl 1 is geselecteerd (groen)
+		screen.fillTriangle(90, 250, 90, 260, 80, 255, WHITE);			//pijl 2 
+		screen.fillTriangle(140, 250, 140, 260, 150, 255, WHITE);		//pijl 3
+		
+		if(nunchuck_zbutton() == 1 && MAXLEVENS != 99 && zcheck == 0){		// als er op z word gedrukt worden de maxlevens verhoogd met 1
+			MAXLEVENS++;
+			screen.fillRect(95, 131, 41, 15, BACKGROUND);	//oude maxlevens weghalen
+			zcheck = 1;										// zcheck zorgt ervoor dat je de knop apart moet indrukken voor iedere keer dat je er een leven bij of af wilt
+
+		}
+		
+		
+	} else if (settingpointer == 2) {		// de linker brightness pijl is geslecteerd
+		screen.fillTriangle(90, 131, 90, 141, 80, 136, WHITE);		//pijl 0 
+		screen.fillTriangle(140, 131, 140, 141, 150, 136, WHITE);	//pijl 1
+		screen.fillTriangle(90, 250, 90, 260, 80, 255, GREEN);		//pijl 2 is geselecteerd (groen)
+		screen.fillTriangle(140, 250, 140, 260, 150, 255, WHITE);	//pijl 3
+		
+		if(nunchuck_zbutton() == 1 && greyindex > 0 && zcheck == 0){
+			zcheck = 1;
+			greyindex--;
+			tempbackground = greycolors[greyindex];
+			screen.drawRect(94, 247, 43, 17, WHITE);
+			screen.fillRect(95, 248, 41, 15, tempbackground);
+		}
+		
+		
+		
+	} else if (settingpointer == 3) {		// de rechter brightness pijl is geslecteerd
+		screen.fillTriangle(90, 131, 90, 141, 80, 136, WHITE);		//pijl 0 
+		screen.fillTriangle(140, 131, 140, 141, 150, 136, WHITE);	//pijl 1
+		screen.fillTriangle(90, 250, 90, 260, 80, 255, WHITE);		//pijl 2
+		screen.fillTriangle(140, 250, 140, 260, 150, 255, GREEN);	//pijl 3 is geselecteerd (groen)
+		
+		if(nunchuck_zbutton() == 1 && greyindex < 6 && zcheck == 0){	
+			zcheck = 1;						
+			greyindex++;				
+			tempbackground = greycolors[greyindex];
+			screen.drawRect(94, 247, 43, 17, WHITE);
+			screen.fillRect(95, 248, 41, 15, tempbackground);
 		}
 	}
 	
-	
+	// print het aantal levens
 	screen.setCursor(105, 131);
 	screen.println(MAXLEVENS);
 	
+	//print waarschuwing dat je highscore niet word opgeslagen als je meer dan 3 levens hebt
 	if (MAXLEVENS > 3) {
 		screen.setTextSize(1);
 		screen.setCursor(20, 160);
@@ -526,6 +604,13 @@ void settings () {
 	} else {
 		screen.fillRect(10, 159, 240, 20, BACKGROUND);
 	}
+	
+	screen.setCursor(20, 200);
+	screen.setTextSize(2);
+	screen.println("Adjust background");
+	screen.setCursor(20, 220);
+	screen.println("brightness");
+	
 		
 	
 	if(nunchuck_zbutton() == 0){
@@ -533,10 +618,11 @@ void settings () {
 	}
 	
 	if(nunchuck_cbutton() == 1){
-		livespointer = 2;
+		settingpointer = 2;
 		scherm = 1;
 	}
 }
+
 
 
 void drawblock(int x, int grootte) {
@@ -557,6 +643,7 @@ void drawblock(int x, int grootte) {
 		}
 	}
 }
+
 
 void drawblock2(int x, int grootte) {
 
@@ -616,6 +703,8 @@ void drawblock2(int x, int grootte) {
 	}
 }
 
+
+
 void seed (){
 	for(int i = 0; i <= MAXARRAY; i++) {		//vul 2 arrays met random groottes en locaties voor de blokken
 		groottes[i] = rand() % 25 + 25;
@@ -630,6 +719,7 @@ void seed (){
 	//Serial.println("");
 }
 
+
 ISR(TIMER1_OVF_vect)				//de interrupt die idere 1000ste van een seconde word aangeroepen
 {
 	TCNT1 = timer1_counter;			// de timer begint weer opnieuw
@@ -643,6 +733,7 @@ ISR(TIMER1_OVF_vect)				//de interrupt die idere 1000ste van een seconde word aa
 		tijd = 0;
 	}
 }
+
 
 void header() {
 	
@@ -679,6 +770,7 @@ void header() {
 	screen.print(score);
 	
 }
+
 
 void collision (){
 	if (checkcollision1 == 0){
