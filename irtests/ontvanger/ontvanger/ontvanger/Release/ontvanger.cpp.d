@@ -1,6 +1,5 @@
-C:\Users\jelle\AppData\Local\Temp\VMBuilds\Main\uno\Release\tasks\Tasks.cpp.o: \
- C:\Users\jelle\AppData\Local\Temp\VMBuilds\Main\uno\Release\tasks\Tasks.cpp \
- C:\Users\jelle\AppData\Local\Temp\VMBuilds\Main\uno\Release\tasks\Tasks.h \
+C:\Users\Arthur\AppData\Local\Temp\VMBuilds\ontvanger\uno\Release\ontvanger.cpp.o: \
+ C:\Users\Arthur\AppData\Local\Temp\VMBuilds\ontvanger\uno\Release\ontvanger.cpp \
  C:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/arduino.h \
  C:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/binary.h \
  C:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/WCharacter.h \
@@ -11,4 +10,5 @@ C:\Users\jelle\AppData\Local\Temp\VMBuilds\Main\uno\Release\tasks\Tasks.cpp.o: \
  C:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/Printable.h \
  C:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/USBAPI.h \
  C:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/Arduino.h \
- C:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\variants\standard/pins_arduino.h
+ C:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\variants\standard/pins_arduino.h \
+ C:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/Arduino.h

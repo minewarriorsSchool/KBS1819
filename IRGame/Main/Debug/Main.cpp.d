@@ -12,4 +12,5 @@ C:\Users\Arthur\AppData\Local\Temp\VMBuilds\Main\uno\Debug\Main.cpp.o: \
  C:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/Arduino.h \
  C:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\variants\standard/pins_arduino.h \
  C:\Users\Arthur\AppData\Local\Temp\VMBuilds\Main\uno\Debug\data/IRCommunication.h \
- C:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/Arduino.h
+ C:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/Arduino.h \
+ C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Extensions\jnlspv5q.e3t\Micro\ Platforms\default\debuggers\VM_DBG/VM_DBG.h

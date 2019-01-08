@@ -58,10 +58,10 @@ void IRCommunicatie::encodingToTime(int *Byte){
 	} setAllowedToSend(true);
 	
 	//start debug
-	//for (int i=0; i<=7; i++)
-	//{
-	//	Serial.println((dummyTimes[i] ));
-	//}
+	/*for (int i=0; i<=7; i++)
+	{
+		Serial.println((dummyTimes[i] ));
+	}*/
 	//end debug
 }
 
@@ -71,28 +71,29 @@ void IRCommunicatie::encodetimeToLED(int *Times){
 		nextBitQuestionMark();												//If boolean nextbit is true it will make a flip on portb5
 		if(getCounter() == OverFlowCounterStartBit){
 			nextBit = true;
-			//Serial.print("Counter StartTime: ");							// debug
-			//Serial.println(getCounter());									// debug
+			/*Serial.print("Counter StartTime: ");							// debug
+			Serial.println(getCounter());		*/							// debug
 			startBitActive = false;
 		}
 		}else if (!startBitActive && stopBitActive && !parityBitActive){	//Check for sending stop bit or not
 		nextBitQuestionMark();
 		if(getCounter() == OverFlowCounterStopBit){
 			nextBit = true;
-			//Serial.print("Counter StopTime: ");							// debug
-			//Serial.println(getCounter());									// debug
+			/*Serial.print("Counter StopTime: ");							// debug
+			Serial.println(getCounter());	*/								// debug
 			stopBitActive = false;
 			startBitActive = true;
 			//PORTB ^=(1<<PORTB5);
-			//Serial.println("StopBit has been send +  parity");
-			setAllowedToSend(false);
+			/*Serial.println("StopBit has been send +  parity");*/
+			setAllowedToSend(true);
+			//setAllowedToSend(false);	//og
 		}
 		} else if(!startBitActive && !stopBitActive && parityBitActive){
 		nextBitQuestionMark();
 		if(getCounter() == OverFlowParityBit){
 			nextBit = true;
-			//Serial.print("Counter ParityTime: ");							// debug
-			//Serial.println(getCounter());									// debug
+			/*Serial.print("Counter ParityTime: ");							// debug
+			Serial.println(getCounter());*/									// debug
 			parityBitActive = false;
 			stopBitActive = true;
 		}
@@ -100,8 +101,8 @@ void IRCommunicatie::encodetimeToLED(int *Times){
 		nextBitQuestionMark();
 		if(getCounter() == Times[bitCounter]){								//Checks if the right amount of ticks for the required bit has been reached
 			nextBit = true;													//If reached it is time to switch states again in previous statement to count ticks for the next bit
-			//Serial.print("Counter DataTime: ");							// debug
-			//Serial.println(getCounter());									// debug
+			/*Serial.print("Counter DataTime: ");							// debug
+			Serial.println(getCounter());*/									// debug
 			bitCounter++;													//get next bit in array
 			if(bitCounter==8){												//if the bitcounter is at the end of the data arrary, set back to [0] for the next data array
 				parityBitActive = true;
@@ -115,6 +116,7 @@ void IRCommunicatie::encodetimeToLED(int *Times){
 void IRCommunicatie::nextBitQuestionMark(){
 	if(nextBit){														//nextbit is by natural true to start data transfer
 		PORTB ^= (1<<PORTB5);											//switched state of LED pin 13 to let PWM pin 3 be able to send or not send --> multiplexing
+		DDRD ^= (1<<DDD3); //test without MP
 		setCounterToZero();												//set counter to 0 to start counting the right amount of ticks equal to the bit required
 		nextBit = false;												//making sure the LED does not change state while tick counting
 	}

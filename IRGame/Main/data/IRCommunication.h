@@ -8,11 +8,11 @@
 #define OCR2BWaarde38kHz 26 // 50.75% 37,71kHz
 #define frequency56kHz 56	// definition of 56 kHz
 #define frequency38kHz 38	// definition of 38 kHz
-#define OverFlowCounterBit0 10
-#define OverFlowCounterBit1 20
-#define OverFlowCounterStartBit 40
-#define OverFlowCounterStopBit 50
-#define OverFlowParityBit 30
+#define OverFlowCounterBit0 100
+#define OverFlowCounterBit1 200
+#define OverFlowCounterStartBit 400
+#define OverFlowCounterStopBit 500
+#define OverFlowParityBit 300
 
 #if defined(ARDUINO) && ARDUINO >= 100
 #include "arduino.h"
