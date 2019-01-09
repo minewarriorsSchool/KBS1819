@@ -68,10 +68,10 @@ void IRCommunicatie::encodingToTime(int *Byte){
 	for (int i=0; i<LengthArrayBits; i++)												//loops through all LENGTHARRAYBITS of data array
 	{
 		if(Byte[i] == 1){													//if the bit is 1
-			dummyTimes[i] = OverFlowCounterBit1;							//turn the 1 into required define time for bit1 and put the value in another array
+			dummyTimes[i] = Devines01OverFlowCounterBit1;							//turn the 1 into required define time for bit1 and put the value in another array
 			//Serial.println(dummyTimes[i]);									//debug
 			} else if(Byte[i] == 0){										//as above, but than for the bit value 0
-			dummyTimes[i] = OverFlowCounterBit0;
+			dummyTimes[i] = Devines01OverFlowCounter0;
 			//Serial.println(dummyTimes[i]);									//debug
 		}else Serial.println("Setting BIT to TIME error");					//debug for if something went wrong in converting bits to time
 	} setAllowedToSend(true);
@@ -88,7 +88,7 @@ void IRCommunicatie::encodingToTime(int *Byte){
 void IRCommunicatie::encodetimeToLED(int *Times){
 	if(startBitActive && !stopBitActive && !parityBitActive){				//Check for sending start bit or not
 		nextBitQuestionMark();												//If boolean nextbit is true it will make a flip on portb5
-		if(getCounterSENDING() == OverFlowCounterStartBit){
+		if(getCounterSENDING() == Devines01OverFlowCounterStartBit){
 			nextBit = true;
 			/*Serial.print("Counter StartTime: ");							// debug
 			Serial.println(getCounter());		*/							// debug
@@ -96,7 +96,7 @@ void IRCommunicatie::encodetimeToLED(int *Times){
 		}
 		}else if (!startBitActive && stopBitActive && !parityBitActive){	//Check for sending stop bit or not
 		nextBitQuestionMark();
-		if(getCounterSENDING() == OverFlowCounterStopBit){
+		if(getCounterSENDING() == Devines01OverFlowCounterStopBit){
 			nextBit = true;
 			/*Serial.print("Counter StopTime: ");							// debug
 			Serial.println(getCounter());	*/								// debug
@@ -109,7 +109,7 @@ void IRCommunicatie::encodetimeToLED(int *Times){
 		}
 		} else if(!startBitActive && !stopBitActive && parityBitActive){
 		nextBitQuestionMark();
-		if(getCounterSENDING() == OverFlowParityBit){
+		if(getCounterSENDING() == Devines01OverFlowParityBit){
 			nextBit = true;
 			/*Serial.print("Counter ParityTime: ");							// debug
 			Serial.println(getCounter());*/									// debug
@@ -173,6 +173,15 @@ int IRCommunicatie::getCounterRECEIVING(){
 //Setters
 void IRCommunicatie::setCountersRECEIVINGToZero(){
 	counterReceiving = 0;
+}
+
+void IRCommunicatie::decodingTimes(int time){
+	if(counterDataBit == 0){
+	}
+}
+
+void IRCommunicatie::setIsDataAvailable(boolean YES_NO){
+	isDataAvailable = YES_NO;
 }
 //End-Setters
 //END OF RECEIVING INFRARED CODE

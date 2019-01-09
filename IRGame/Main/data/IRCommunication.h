@@ -35,12 +35,14 @@ class IRCommunicatie{
 	IRCommunicatie(uint8_t frequency, boolean testMode);
 	
 	//Functies
+	void counterDataBitPlus_Reset();
 	void counterPlusOneSending();
 	void counterPlusOneReceiving();
 	void setHzfrequency();
 	void encodingToTime(int *Byte);
 	void encodetimeToLED(int *Times);
 	void nextBitQuestionMark();
+	void decodingTimes();
 	
 	//Getters
 	int getCounterSENDING();
@@ -50,6 +52,7 @@ class IRCommunicatie{
 	void setCountersSENDINGToZero();
 	void setCountersRECEIVINGToZero();
 	void setAllowedToSend(boolean YES_NO);
+	void setIsDataAvailable(boolean YES_NO);
 	
 	//+Variabelen
 	int dummyTimes[11];
@@ -57,8 +60,9 @@ class IRCommunicatie{
 	private:
 	
 	//-Variabelen
-	int counterSending = 0, counterReceiving = 0, bitCounter = 0, dummyVariable[11] = {1,0,1,0,1,0,1,0,1,0,1};
-	boolean nextBit = true, startBitActive = true, stopBitActive = false, parityBitActive = false, allowedToSend;
+	int counterSending = 0, counterReceiving = 0, bitCounter = 0, dummyVariable[LengthArrayBits] = {1,0,1,0,1,0,1,0,1,0,1}, decodedTimes[LengthArrayBits],
+		 counterDataBit = 0;
+	boolean nextBit = true, startBitActive = true, stopBitActive = false, parityBitActive = false, allowedToSend, isDataAvailable = false;
 };
 
 
