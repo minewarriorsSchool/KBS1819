@@ -3,14 +3,18 @@
 #include "data/IRCommunication.h"
 #include <Arduino.h>
 
-IRCommunicatie *ircommunicatie = new IRCommunicatie(frequency38kHz, false);
-uint8_t test;
+IRCommunicatie *ircommunicatie = new IRCommunicatie(frequency56kHz, false);
 ISR(TIMER2_OVF_vect){
 	ircommunicatie->counterPlusOne();
 	if (ircommunicatie->getAllowedToSend())
 	{
 		ircommunicatie->encodetimeToLED(ircommunicatie->dummyTimes);
 	}
+}
+
+ISR(PCINT2_vect){
+	Serial.println(ircommunicatie->getCounterRECEIVING());
+	ircommunicatie->setCountersRECEIVINGToZero();
 }
 
 

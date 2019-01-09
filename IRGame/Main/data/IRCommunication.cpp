@@ -29,6 +29,8 @@ IRCommunicatie::IRCommunicatie(uint8_t frequency, boolean testMode){
 
 //Functies
 void IRCommunicatie::setHzfrequency(){
+	
+	//Start Of Send Setup
 	PORTB |= (1<<PORTB5);													//if LED 13 is high, IR can not send
 	DDRB |= (1<<DDB5);														//Test LED to output pin 13
 	PORTD |= (1<<PORTD3);													//PWM PIN 3 infra rood to high
@@ -36,6 +38,15 @@ void IRCommunicatie::setHzfrequency(){
 	TCCR2A |= (1<<COM2A0)| (1<<COM2B1) | (1<<WGM20) | (1<<WGM21);			//set compare B
 	TCCR2B |= (1<<CS21) | (1<<WGM22);										//set clock pre-scaler to 8 and Fast PWM
 	TIMSK2 |= (1<<TOIE2);
+	//End of Send Setup
+	
+	//Start of Receive Setup
+	PORTD |= (1 << PORTD5);													//pullup digital pin 5
+	PCICR |= (1 << PCIE2);													/* set pin-change interrupt for D register */
+	PCMSK2 |= (1 << PCINT21);												/* set mask to look for PCINT18, PD2, digital pin 5*/
+	//End Of Receive Setup
+	
+	
 
 	//Debug encoding BIT to DATA
 	encodingToTime(dummyVariable);
@@ -44,25 +55,30 @@ void IRCommunicatie::setHzfrequency(){
 	sei();																	// enable global interrupts
 }
 
+
+//START OF SENDING INFRARED CODE
 void IRCommunicatie::counterPlusOne(){
 	counterSending++;
+	counterReceiving++;
 }
 
 /*This function encodes an array of bits to time frames*/
 void IRCommunicatie::encodingToTime(int *Byte){
-	for (int i=0; i<=LengthArrayBits; i++)												//loops through all 8 bits of data array
+	for (int i=0; i<LengthArrayBits; i++)												//loops through all LENGTHARRAYBITS of data array
 	{
 		if(Byte[i] == 1){													//if the bit is 1
 			dummyTimes[i] = OverFlowCounterBit1;							//turn the 1 into required define time for bit1 and put the value in another array
+			Serial.println(dummyTimes[i]);									//debug
 			} else if(Byte[i] == 0){										//as above, but than for the bit value 0
 			dummyTimes[i] = OverFlowCounterBit0;
+			Serial.println(dummyTimes[i]);									//debug
 		}else Serial.println("Setting BIT to TIME error");					//debug for if something went wrong in converting bits to time
 	} setAllowedToSend(true);
 	
 	//start debug
 	/*for (int i=0; i<=7; i++)
 	{
-		Serial.println((dummyTimes[i] ));
+	Serial.println((dummyTimes[i] ));
 	}*/
 	//end debug
 }
@@ -71,7 +87,7 @@ void IRCommunicatie::encodingToTime(int *Byte){
 void IRCommunicatie::encodetimeToLED(int *Times){
 	if(startBitActive && !stopBitActive && !parityBitActive){				//Check for sending start bit or not
 		nextBitQuestionMark();												//If boolean nextbit is true it will make a flip on portb5
-		if(getCounter() == OverFlowCounterStartBit){
+		if(getCounterSENDING() == OverFlowCounterStartBit){
 			nextBit = true;
 			/*Serial.print("Counter StartTime: ");							// debug
 			Serial.println(getCounter());		*/							// debug
@@ -79,7 +95,7 @@ void IRCommunicatie::encodetimeToLED(int *Times){
 		}
 		}else if (!startBitActive && stopBitActive && !parityBitActive){	//Check for sending stop bit or not
 		nextBitQuestionMark();
-		if(getCounter() == OverFlowCounterStopBit){
+		if(getCounterSENDING() == OverFlowCounterStopBit){
 			nextBit = true;
 			/*Serial.print("Counter StopTime: ");							// debug
 			Serial.println(getCounter());	*/								// debug
@@ -92,7 +108,7 @@ void IRCommunicatie::encodetimeToLED(int *Times){
 		}
 		} else if(!startBitActive && !stopBitActive && parityBitActive){
 		nextBitQuestionMark();
-		if(getCounter() == OverFlowParityBit){
+		if(getCounterSENDING() == OverFlowParityBit){
 			nextBit = true;
 			/*Serial.print("Counter ParityTime: ");							// debug
 			Serial.println(getCounter());*/									// debug
@@ -101,7 +117,7 @@ void IRCommunicatie::encodetimeToLED(int *Times){
 		}
 		} else if(!startBitActive && !stopBitActive && !parityBitActive){
 		nextBitQuestionMark();
-		if(getCounter() == Times[bitCounter]){								//Checks if the right amount of ticks for the required bit has been reached
+		if(getCounterSENDING() == Times[bitCounter]){								//Checks if the right amount of ticks for the required bit has been reached
 			nextBit = true;													//If reached it is time to switch states again in previous statement to count ticks for the next bit
 			/*Serial.print("Counter DataTime: ");							// debug
 			Serial.println(getCounter());*/									// debug
@@ -119,14 +135,14 @@ void IRCommunicatie::nextBitQuestionMark(){
 	if(nextBit){														//nextbit is by natural true to start data transfer
 		PORTB ^= (1<<PORTB5);											//switched state of LED pin 13 to let PWM pin 3 be able to send or not send --> multiplexing
 		DDRD ^= (1<<DDD3); //test without MP
-		setCounterToZero();												//set counterSending to 0 to start counting the right amount of ticks equal to the bit required
+		setCountersSENDINGToZero();												//set counterSending to 0 to start counting the right amount of ticks equal to the bit required
 		nextBit = false;												//making sure the LED does not change state while tick counting
 	}
 }
 //End-Functies
 
 //Getters
-int IRCommunicatie::getCounter(){
+int IRCommunicatie::getCounterSENDING(){
 	return counterSending;
 }
 
@@ -136,7 +152,7 @@ boolean IRCommunicatie::getAllowedToSend(){
 //End-Getters
 
 //Setters
-void IRCommunicatie::setCounterToZero(){
+void IRCommunicatie::setCountersSENDINGToZero(){
 	counterSending = 0;
 }
 
@@ -144,3 +160,18 @@ void IRCommunicatie::setAllowedToSend(boolean YES_NO){
 	allowedToSend = YES_NO;
 }
 //End-Setters
+
+//END OF SENDING INFRARED CODE
+
+//START OF RECEIVING INFRARED CODE
+//Getters
+int IRCommunicatie::getCounterRECEIVING(){
+	return counterReceiving;
+}
+//End-Getters
+//Setters
+void IRCommunicatie::setCountersRECEIVINGToZero(){
+	counterReceiving = 0;
+}
+//End-Setters
+//END OF RECEIVING INFRARED CODE

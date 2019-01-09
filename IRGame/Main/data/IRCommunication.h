@@ -36,10 +36,12 @@ class IRCommunicatie{
 	void nextBitQuestionMark();
 	
 	//Getters
-	int getCounter();
+	int getCounterSENDING();
+	int getCounterRECEIVING();
 	boolean getAllowedToSend();
 	//Setters
-	void setCounterToZero();
+	void setCountersSENDINGToZero();
+	void setCountersRECEIVINGToZero();
 	void setAllowedToSend(boolean YES_NO);
 	
 	//+Variabelen
@@ -49,7 +51,7 @@ class IRCommunicatie{
 	
 	//-Variabelen
 	long compensatingValue;
-	int counterSending = 0, bitCounter = 0, dummyVariable[11] = {1,0,1,0,1,0,1,0,1,0,1};
+	int counterSending = 0, counterReceiving = 0, bitCounter = 0, dummyVariable[11] = {1,0,1,0,1,0,1,0,1,0,1};
 	boolean nextBit = true, startBitActive = true, stopBitActive = false, parityBitActive = false, allowedToSend;
 };
 
