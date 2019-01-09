@@ -68,10 +68,10 @@ void IRCommunicatie::encodingToTime(int *Byte){
 	{
 		if(Byte[i] == 1){													//if the bit is 1
 			dummyTimes[i] = OverFlowCounterBit1;							//turn the 1 into required define time for bit1 and put the value in another array
-			Serial.println(dummyTimes[i]);									//debug
+			//Serial.println(dummyTimes[i]);									//debug
 			} else if(Byte[i] == 0){										//as above, but than for the bit value 0
 			dummyTimes[i] = OverFlowCounterBit0;
-			Serial.println(dummyTimes[i]);									//debug
+			//Serial.println(dummyTimes[i]);									//debug
 		}else Serial.println("Setting BIT to TIME error");					//debug for if something went wrong in converting bits to time
 	} setAllowedToSend(true);
 	
