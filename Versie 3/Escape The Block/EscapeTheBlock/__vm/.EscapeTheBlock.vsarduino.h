@@ -20,6 +20,7 @@
 #define ARDUINO_ARCH_AVR
 int main ();
 void clearScreen ();
+void getAllowedToSend ();
 void drawHomescreen();
 void drawcharHomescreen(int x, int y, int color);
 void drawPointer();

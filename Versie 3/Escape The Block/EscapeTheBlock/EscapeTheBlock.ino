@@ -33,7 +33,7 @@ int rectcolor;
 
 int speler1kleur = BLUE;
 int speler2kleur = RED;
-int MAXLEVENS = 10;			//de hoeveelheid levens die je hebt (er passen er 12 op het scherm)
+int MAXLEVENS = 3;			//de hoeveelheid levens die je hebt (er passen er 12 op het scherm)
 
 int joyy, joyx;						// x en y coordinaten van de joystick
 int pointerPos = 1;					//de positie van de pointer in het hoofdmenu
@@ -72,7 +72,7 @@ int zcheck = 1;
 
 int player1x;			//de x-coordinaten van speler 1 en 2
 int player2x;
-int player1y = 275;		//de y-coordinaten van speler 1 en 2
+int player1y = 265;		//de y-coordinaten van speler 1 en 2
 int player2y = 300;
 int playerybuffer;		// word gebruikt voor het omwisselen van player1y en player2y
 
@@ -83,9 +83,16 @@ int spelersnelheid = 3;		// snelheid waarmee de spelers van links naar rechts ga
 
 //highscore:
 boolean nieuwHighscore = false;
-int Counter = 0;
+int Counter;
 int opslagHigscore1;
 int opslagHigscore2;
+
+//IR communicatie
+boolean allowedToSend = false;
+int player1xoud;
+int player2xoud;
+int geraakt1oud;
+int geraakt2oud;
 
 
 int main (){
@@ -164,6 +171,7 @@ int main (){
 		
 		if(scherm == 2){		//scherm 2 is het spel
 			start();
+			getAllowedToSend();
 		}
 		
 		if(scherm == 3){		//scherm 3 is de highscores
@@ -214,20 +222,41 @@ void clearScreen (){
 			rectcolor1 = GREY;
 			rectcolor2 = CYAN;
 			settingpointer = 4;
-			seed();					// nieuwe seed berekenen
+			seed();		// nieuwe seed berekenen
+			
 			if (oudescherm == 5 || oudescherm == 2) {		//als het vorige scherm het gameover scherm of het spel was en we zitten nu in het menu
 				playerybuffer = player1y;		//locatie van de spelers omwisselen zodat niet steeds 1 speler een voordeel heeft
 				player1y = player2y;
 				player2y = playerybuffer;
 			}
+			
 		}
+		
 		if (scherm == 4) {
 			snelheid = 10;
 			spelersnelheid = 5;
 		}
+		
 		oudescherm = scherm;
 	}
 }
+
+
+
+void getAllowedToSend () {
+	
+	if (player1xoud != player1x || player2xoud != player2x	||	geraakt1oud != geraakt1 || geraakt2oud != geraakt2) {		//als de x waardes van 1 van de spelers veranderd, verzend dat
+		player1xoud = player1x;		//waardes weer gelijkmaken
+		player2xoud = player2x;
+		geraakt1oud = geraakt1;
+		geraakt2oud = geraakt2;
+		allowedToSend = true;
+	} else {
+		allowedToSend = false;
+	}
+	
+}
+
 
 
 void drawHomescreen(){				//het homescreen
@@ -343,15 +372,33 @@ void start(){
 	
 	player1x = nunchuck_joyx();	//x data van de joystick ophalen
 	
-	
 	if (MAXLEVENS - geraakt1 > 0) {	
 		drawcharacter(player1x, player1y, speler1kleur);		//teken speler 1
+	} else if (collisiontijd1 < score + 5) {										//als de speler dood is, laat voor 5 blokken lang een spook zien
+		screen.fillRoundRect(charachterx, player1y - 25, 25, 30, 3, WHITE);		//teken spook
+		screen.fillRect(charachterx + 7, player1y - 18, 7, 7, BLACK);
+		screen.fillRect(charachterx + 16, player1y - 18, 7, 7, BLACK);
+		screen.fillRect(charachterx + 14, player1y - 9, 4, 4, BLACK);
+		screen.fillRect(charachterx + 6, player1y, 5, 5, BLACK);
+		screen.fillRect(charachterx + 16, player1y, 5, 5, BLACK);
 	}
 	
 	if (MAXLEVENS - geraakt2 > 0) {	
 		player2x = 125 - player1x + 125;
 		drawcharacter2(player2x, player2y, speler2kleur);	//teken speler 2
-	} 
+	}  else if (collisiontijd2 < score + 5) {
+		Serial.print("collision: ");
+		Serial.print(collisiontijd2);
+		Serial.print(", score ");
+		Serial.println(score);
+		screen.fillRoundRect(charachterx2, player2y - 10, 25, 30, 3, WHITE);
+		screen.fillRect(charachterx2 + 7, player2y - 3, 7, 7, BLACK);
+		screen.fillRect(charachterx2 + 16, player2y - 3, 7, 7, BLACK);
+		screen.fillRect(charachterx2 + 14, player2y + 6, 4, 4, BLACK);
+		screen.fillRect(charachterx2 + 6, player2y + 15, 5, 5, BLACK);
+		screen.fillRect(charachterx2 + 16, player2y + 15, 5, 5, BLACK);
+		
+	}
 	
 
 	// als de array met random locaties en groottes voorbij is moet het scherm even leeg zijn en moet er een nieuwe array worden gemaakt
@@ -551,7 +598,7 @@ void settings () {
 		screen.fillTriangle(90, 250, 90, 260, 80, 255, WHITE);			//pijl 2 
 		screen.fillTriangle(140, 250, 140, 260, 150, 255, WHITE);		//pijl 3
 		
-		if(nunchuck_zbutton() == 1 && MAXLEVENS != 99 && zcheck == 0){		// als er op z word gedrukt worden de maxlevens verhoogd met 1
+		if(nunchuck_zbutton() == 1 && MAXLEVENS != 9 && zcheck == 0){		// als er op z word gedrukt worden de maxlevens verhoogd met 1
 			MAXLEVENS++;
 			screen.fillRect(95, 131, 41, 15, BACKGROUND);	//oude maxlevens weghalen
 			zcheck = 1;										// zcheck zorgt ervoor dat je de knop apart moet indrukken voor iedere keer dat je er een leven bij of af wilt
@@ -600,7 +647,7 @@ void settings () {
 		screen.setCursor(20, 160);
 		screen.println("If you start with more than 3 lives,");
 		screen.setCursor(20, 170);
-		screen.println("your highscore won't be saved");
+		screen.println("your score won't be saved");
 	} else {
 		screen.fillRect(10, 159, 240, 20, BACKGROUND);
 	}
@@ -773,7 +820,7 @@ void header() {
 
 
 void collision (){
-	if (checkcollision1 == 0){
+	if (checkcollision1 == 0 && MAXLEVENS - geraakt1 > 0){
 		//charachter 1
 		if(locaties[nummer1] + groottes[nummer1] >= charachterx - 15 && locaties[nummer1] <= charachterx - 15 && (stap1 >= player1y - 10 && stap1 <= player1y + 10)) {	// controleren of blok1 de linker kant van de speler heeft geraakt
 			checkcollision1 = 1;		//niet meer checken of er een botsing is
@@ -796,7 +843,7 @@ void collision (){
 	}
 	
 	// 275 - 300
-	if (checkcollision2 == 0){		// collision voor de tweede speler
+	if (checkcollision2 == 0 && MAXLEVENS - geraakt2 > 0){		// collision voor de tweede speler
 		// charachter 2
 		if(locaties[nummer1] + groottes[nummer1] >= charachterx2 - 15 && locaties[nummer1] <= charachterx2 - 15 && (stap1 >= player2y - 10 && stap1 <= player2y + 10)) {
 			checkcollision2 = 1;
@@ -848,10 +895,10 @@ void collision (){
 	/*		UITLEZEN
 	Serial.print("score: ");
 	Serial.print(score);
-	Serial.print("   collisiontijd: ");
-	Serial.print(collisiontijd);
-	Serial.print("   invincibility: ");
-	Serial.println(invincibility);
+	Serial.print("   collisiontijd1: ");
+	Serial.print(collisiontijd1);
+	Serial.print("   invincibility1: ");
+	Serial.println(invinccheck1);
 	*/
 }
 
@@ -865,6 +912,7 @@ void drawcharacter(int x, int y, int Color){
 	} else if (x < 118 && charachterx > 17) {	//de y coordinaten van de charachter mag niet lager worden dan 15, anders gaat hij uit het scherm
 		charachterx = charachterx - spelersnelheid;								//als de nunchuck naar links is geduwd, gaat het charachter ook naar links
 	}
+	
 	
 	//teken het charachter
 	screen.fillCircle(charachterx, y, 10, Color);						//hoofd
@@ -917,8 +965,8 @@ void drawcharacter2(int x, int y, int Color){
 		screen.fillRect(charachterx2 - 25, y - 8, 10, 17, BACKGROUND);														// L schouder L
 		screen.fillTriangle(charachterx2 - 13, y + 6, charachterx2 - 16, y + 2, charachterx2 - 16, y + 6, BACKGROUND);		// L schouder LO
 		screen.fillRect(charachterx2 - 15, y + 6, 7, 6, BACKGROUND);														// L schouder O
-	} else if (x < 118) {		//als de player naar link gaat, haal rechts weg
 		screen.fillTriangle(charachterx2 - 4, y + 11, charachterx2 - 9, y + 6, charachterx2 - 9, y + 11, BACKGROUND);		// LO hoofd
+	} else if (x < 118) {		//als de player naar link gaat, haal rechts weg
 		screen.fillTriangle(charachterx2 + 9, y + 6, charachterx2 + 4, y + 11, charachterx2 + 9, y + 11, BACKGROUND);		// RO hoofd
 		screen.fillRect(charachterx2 + 8, y + 6, 7, 6, BACKGROUND);															// R schouder O
 		screen.fillTriangle(charachterx2 + 13, y + 6, charachterx2 + 16, y + 2, charachterx2 + 16, y + 6, BACKGROUND);		// R schouder RO
