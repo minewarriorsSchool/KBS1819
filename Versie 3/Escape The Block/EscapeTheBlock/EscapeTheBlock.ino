@@ -66,9 +66,9 @@ int settingpointer = 4;		// bij 0 is de linker boven pijl in het settings menu g
 int locaties [MAXARRAY], groottes [MAXARRAY];
 int randomlocatie, randomgrootte, randomafstand = 180;
 int nummer1 = 1, nummer2 = MAXARRAY / 2;
-int timer1_counter;
 int nunchuckcheck;
 int zcheck = 1;
+int timer1_counter;
 
 int player1x;			//de x-coordinaten van speler 1 en 2
 int player2x;
@@ -101,8 +101,7 @@ int main (){
 	TCCR1B = 0;
 	
 	timer1_counter = 34286;   // preload timer 65536-16MHz/256/2Hz
-	
-	TCNT1 = timer1_counter;   // preload timer
+	TCNT1 = timer1_counter;    // 65536-16MHz/256/2Hz
 	TCCR1B |= (1 << CS12);    // 256 prescaler
 	TIMSK1 |= (1 << TOIE1);   // enable timer overflow interrupt
 	interrupts();             // enable alle interrupts
@@ -372,32 +371,38 @@ void start(){
 	
 	player1x = nunchuck_joyx();	//x data van de joystick ophalen
 	
+	
 	if (MAXLEVENS - geraakt1 > 0) {	
 		drawcharacter(player1x, player1y, speler1kleur);		//teken speler 1
-	} else if (collisiontijd1 < score + 5) {										//als de speler dood is, laat voor 5 blokken lang een spook zien
+	} else if (collisiontijd1 + 5 > score) {										//als de speler dood is, laat voor 5 blokken lang een spook zien
+		if (collisiontijd1 == score) {
+			screen.fillRect(charachterx - 20, player1y - 15, 40, 30, BACKGROUND);		//speler weghalen
+		}
 		screen.fillRoundRect(charachterx, player1y - 25, 25, 30, 3, WHITE);		//teken spook
 		screen.fillRect(charachterx + 7, player1y - 18, 7, 7, BLACK);
 		screen.fillRect(charachterx + 16, player1y - 18, 7, 7, BLACK);
 		screen.fillRect(charachterx + 14, player1y - 9, 4, 4, BLACK);
 		screen.fillRect(charachterx + 6, player1y, 5, 5, BLACK);
 		screen.fillRect(charachterx + 16, player1y, 5, 5, BLACK);
+	} else if (collisiontijd1 + 5 == score) {
+		screen.fillRect(charachterx, player1y - 10, 25, 30, BACKGROUND);		//spook weer weghalen
 	}
 	
 	if (MAXLEVENS - geraakt2 > 0) {	
 		player2x = 125 - player1x + 125;
 		drawcharacter2(player2x, player2y, speler2kleur);	//teken speler 2
-	}  else if (collisiontijd2 < score + 5) {
-		Serial.print("collision: ");
-		Serial.print(collisiontijd2);
-		Serial.print(", score ");
-		Serial.println(score);
+	}  else if (collisiontijd2 + 5 > score) {
+		if (collisiontijd2 == score) {
+			screen.fillRect(charachterx2 - 20, player2y - 15, 40, 30, BACKGROUND);
+		}
 		screen.fillRoundRect(charachterx2, player2y - 10, 25, 30, 3, WHITE);
 		screen.fillRect(charachterx2 + 7, player2y - 3, 7, 7, BLACK);
 		screen.fillRect(charachterx2 + 16, player2y - 3, 7, 7, BLACK);
 		screen.fillRect(charachterx2 + 14, player2y + 6, 4, 4, BLACK);
 		screen.fillRect(charachterx2 + 6, player2y + 15, 5, 5, BLACK);
 		screen.fillRect(charachterx2 + 16, player2y + 15, 5, 5, BLACK);
-		
+	} else if (collisiontijd2 + 5 == score) {
+		screen.fillRect(charachterx2, player2y - 10, 25, 30, BACKGROUND);
 	}
 	
 
