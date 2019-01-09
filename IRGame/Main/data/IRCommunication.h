@@ -10,11 +10,12 @@
 #define frequency38kHz 38	// definition of 38 kHz
 #define OverFlowCounterBit0 100
 #define OverFlowCounterBit1 200
-#define OverFlowCounterStartBit 400
+#define OverFlowCounterStartBit 300
 #define OverFlowCounterStopBit 500
-#define OverFlowParityBit 300
+#define OverFlowParityBit 400
 #define compensatingValue38kHz 1,4736842105263157894736842105263
 #define compensatingValue56kHz 0,67857142857142857142857142857143
+#define LengthArrayBits 11
 
 #if defined(ARDUINO) && ARDUINO >= 100
 #include "arduino.h"
@@ -42,13 +43,13 @@ class IRCommunicatie{
 	void setAllowedToSend(boolean YES_NO);
 	
 	//+Variabelen
-	int dummyTimes[8];
+	int dummyTimes[11];
 	protected:
 	private:
 	
 	//-Variabelen
 	long compensatingValue;
-	int counter = 0, bitCounter = 0, dummyVariable[8] = {1,0,1,0,1,0,1,0};
+	int counterSending = 0, bitCounter = 0, dummyVariable[11] = {1,0,1,0,1,0,1,0,1,0,1};
 	boolean nextBit = true, startBitActive = true, stopBitActive = false, parityBitActive = false, allowedToSend;
 };
 

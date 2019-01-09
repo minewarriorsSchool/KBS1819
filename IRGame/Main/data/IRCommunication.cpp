@@ -45,12 +45,12 @@ void IRCommunicatie::setHzfrequency(){
 }
 
 void IRCommunicatie::counterPlusOne(){
-	counter++;
+	counterSending++;
 }
 
 /*This function encodes an array of bits to time frames*/
 void IRCommunicatie::encodingToTime(int *Byte){
-	for (int i=0; i<=7; i++)												//loops through all 8 bits of data array
+	for (int i=0; i<=LengthArrayBits; i++)												//loops through all 8 bits of data array
 	{
 		if(Byte[i] == 1){													//if the bit is 1
 			dummyTimes[i] = OverFlowCounterBit1;							//turn the 1 into required define time for bit1 and put the value in another array
@@ -86,7 +86,7 @@ void IRCommunicatie::encodetimeToLED(int *Times){
 			stopBitActive = false;
 			startBitActive = true;
 			//PORTB ^=(1<<PORTB5);
-			/*Serial.println("StopBit has been send +  parity");*/
+			//Serial.println("StopBit has been send +  parity");
 			setAllowedToSend(true);
 			//setAllowedToSend(false);	//og
 		}
@@ -106,7 +106,7 @@ void IRCommunicatie::encodetimeToLED(int *Times){
 			/*Serial.print("Counter DataTime: ");							// debug
 			Serial.println(getCounter());*/									// debug
 			bitCounter++;													//get next bit in array
-			if(bitCounter==8){												//if the bitcounter is at the end of the data arrary, set back to [0] for the next data array
+			if(bitCounter==LengthArrayBits){												//if the bitcounter is at the end of the data arrary, set back to [0] for the next data array
 				parityBitActive = true;
 				bitCounter = 0;
 			}
@@ -119,7 +119,7 @@ void IRCommunicatie::nextBitQuestionMark(){
 	if(nextBit){														//nextbit is by natural true to start data transfer
 		PORTB ^= (1<<PORTB5);											//switched state of LED pin 13 to let PWM pin 3 be able to send or not send --> multiplexing
 		DDRD ^= (1<<DDD3); //test without MP
-		setCounterToZero();												//set counter to 0 to start counting the right amount of ticks equal to the bit required
+		setCounterToZero();												//set counterSending to 0 to start counting the right amount of ticks equal to the bit required
 		nextBit = false;												//making sure the LED does not change state while tick counting
 	}
 }
@@ -127,7 +127,7 @@ void IRCommunicatie::nextBitQuestionMark(){
 
 //Getters
 int IRCommunicatie::getCounter(){
-	return counter;
+	return counterSending;
 }
 
 boolean IRCommunicatie::getAllowedToSend(){
@@ -137,7 +137,7 @@ boolean IRCommunicatie::getAllowedToSend(){
 
 //Setters
 void IRCommunicatie::setCounterToZero(){
-	counter = 0;
+	counterSending = 0;
 }
 
 void IRCommunicatie::setAllowedToSend(boolean YES_NO){
