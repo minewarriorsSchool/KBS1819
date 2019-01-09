@@ -5,7 +5,8 @@
 
 IRCommunicatie *ircommunicatie = new IRCommunicatie(frequency56kHz, false);
 ISR(TIMER2_OVF_vect){
-	ircommunicatie->counterPlusOne();
+	ircommunicatie->counterPlusOneSending();
+	ircommunicatie->counterPlusOneReceiving();
 	if (ircommunicatie->getAllowedToSend())
 	{
 		ircommunicatie->encodetimeToLED(ircommunicatie->dummyTimes);
@@ -13,6 +14,7 @@ ISR(TIMER2_OVF_vect){
 }
 
 ISR(PCINT2_vect){
+	sei();
 	Serial.println(ircommunicatie->getCounterRECEIVING());
 	ircommunicatie->setCountersRECEIVINGToZero();
 }
@@ -21,7 +23,6 @@ ISR(PCINT2_vect){
 int main(void){
 	
 	Serial.begin(9600);
-	
 	ircommunicatie->setHzfrequency();
 	
 	while(1){

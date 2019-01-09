@@ -8,13 +8,13 @@
 #define OCR2BWaarde38kHz 26 // 50.75% 37,71kHz
 #define frequency56kHz 56	// definition of 56 kHz
 #define frequency38kHz 38	// definition of 38 kHz
-#define OverFlowCounterBit0 100
-#define OverFlowCounterBit1 200
-#define OverFlowCounterStartBit 300
-#define OverFlowCounterStopBit 500
-#define OverFlowParityBit 400
+#define OverFlowCounterBit0 300
+#define OverFlowCounterBit1 400
+#define OverFlowCounterStartBit 500
+#define OverFlowCounterStopBit 700
+#define OverFlowParityBit 600
 #define compensatingValue38kHz 1,47
-#define compensatingValue56kHz 0,67857142857142857142857142857143
+#define compensatingValue56kHz 0,67
 #define LengthArrayBits 11
 
 #if defined(ARDUINO) && ARDUINO >= 100
@@ -30,7 +30,8 @@ class IRCommunicatie{
 	IRCommunicatie(uint8_t frequency, boolean testMode);
 	
 	//Functies
-	void counterPlusOne();
+	void counterPlusOneSending();
+	void counterPlusOneReceiving();
 	void setHzfrequency();
 	void encodingToTime(int *Byte);
 	void encodetimeToLED(int *Times);
@@ -47,7 +48,6 @@ class IRCommunicatie{
 	
 	//+Variabelen
 	int dummyTimes[11];
-	double compensatingValue;
 	protected:
 	private:
 	
