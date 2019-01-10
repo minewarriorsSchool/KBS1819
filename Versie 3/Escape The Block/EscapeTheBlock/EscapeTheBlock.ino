@@ -126,7 +126,6 @@ int main (){
 	TIMSK1 |= (1 << TOIE1);   // enable timer overflow interrupt
 	interrupts();             // enable alle interrupts
 	init();
-	
 	ircommunicatie->setHzfrequency();
 	
 	Serial.begin(9600);
