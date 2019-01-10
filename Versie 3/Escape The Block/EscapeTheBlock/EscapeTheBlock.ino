@@ -132,7 +132,8 @@ ISR(TIMER1_OVF_vect)				//de interrupt die idere 1000ste van een seconde word aa
 //MAIN
 int main (){
 	Serial.begin(9600);
-	Serial.println("Game has started");
+	//screen.begin();
+	//screen.fillScreen(BACKGROUND);
 	TCCR1A = 0;
 	TCCR1B = 0;
 	timer1_counter = 34286;   // preload timer 65536-16MHz/256/2Hz
@@ -140,16 +141,12 @@ int main (){
 	TCCR1B |= (1 << CS12);    // 256 prescaler
 	TIMSK1 |= (1 << TOIE1);   // enable timer overflow interrupt
 	ircommunicatie->setHzfrequency();
-	screen.fillScreen(BACKGROUND);
 	
 	nunchuck_setpowerpins();
 	nunchuck_init();			//nunchuck initialiseren
 	
 	srand(3);
-	seed();
-	
-	screen.fillScreen(BACKGROUND);
-	
+	seed();	
 	
 	//for(;;){
 		//nunchuck_get_data();	//nunchuck data ophalen
