@@ -162,14 +162,12 @@ void IRCommunicatie::setBitOverFlows(uint8_t frequency){
 		OverFlowCounterStartBit = 3000;
 		OverFlowCounterStopBit = 5000;
 		OverFlowCounterParityBit = 4000;
-		Serial.println("Frequenty has been set");
 	}else if(frequency == frequency38kHz){
 		OverFlowCounterBit0 = 100;
 		OverFlowCounterBit1 = 200;
 		OverFlowCounterStartBit = 400;
 		OverFlowCounterStopBit = 500;
 		OverFlowCounterParityBit = 300;
-		Serial.println("Frequenty has been set");
 	}
 }
 
