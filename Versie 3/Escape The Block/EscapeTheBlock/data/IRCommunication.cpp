@@ -157,17 +157,19 @@ boolean IRCommunicatie::getAllowedToSend(){
 //Setters
 void IRCommunicatie::setBitOverFlows(uint8_t frequency){
 	if (frequency == frequency56kHz){
-		OverFlowCounterBit0 = 500;
-		OverFlowCounterBit1 = 1000;
-		OverFlowCounterStartBit = 2000;
-		OverFlowCounterStopBit = 2500;
-		OverFlowCounterParityBit = 1500;
+		OverFlowCounterBit0 = 1000;
+		OverFlowCounterBit1 = 2000;
+		OverFlowCounterStartBit = 3000;
+		OverFlowCounterStopBit = 4000;
+		OverFlowCounterParityBit = 5000;
+		Serial.println("Frequenty has been set");
 	}else if(frequency == frequency38kHz){
 		OverFlowCounterBit0 = 100;
 		OverFlowCounterBit1 = 200;
 		OverFlowCounterStartBit = 400;
 		OverFlowCounterStopBit = 500;
 		OverFlowCounterParityBit = 300;
+		Serial.println("Frequenty has been set");
 	}
 }
 

@@ -63,11 +63,7 @@ class IRCommunicatie{
 	//-Variabelen
 	int counterSending = 0, counterReceiving = 0, bitCounter = 0, dummyVariable[LengthArrayBits] = {1,0,1,0,1,0,1,0,1,0,1}, decodedTimes[LengthArrayBits],
 	counterDataBit = 0,
-	OverFlowCounterBit0 = 500,
-	OverFlowCounterBit1 = 1000,
-	OverFlowCounterStartBit = 2000,
-	OverFlowCounterStopBit = 2500,
-	OverFlowCounterParityBit = 1500;
+	OverFlowCounterBit0, OverFlowCounterBit1, OverFlowCounterStartBit, OverFlowCounterStopBit,	OverFlowCounterParityBit;
 	boolean nextBit = true, startBitActive = true, stopBitActive = false, parityBitActive = false, allowedToSend, isDataAvailable = false;
 };
 
