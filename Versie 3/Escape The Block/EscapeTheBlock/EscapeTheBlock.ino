@@ -1,5 +1,7 @@
 #include <Wire.h>
 #include <Adafruit_ILI9341.h>
+#include "data/IRCommunication.h"
+#include <Arduino.h>
 
 #define BLACK   0x0000
 #define BLUE    0x001F
@@ -88,15 +90,33 @@ int opslagHigscore1;
 int opslagHigscore2;
 
 //IR communicatie
+IRCommunicatie *ircommunicatie = new IRCommunicatie(frequency56kHz, false);	//Creër IR object, testmode is uit, dus false.
 boolean allowedToSend = false;
 int player1xoud;
 int player2xoud;
 int geraakt1oud;
 int geraakt2oud;
 
+//Interupts en timers
+ISR(TIMER2_OVF_vect){
+	ircommunicatie->counterPlusOneSending();
+	ircommunicatie->counterPlusOneReceiving();
+	if (ircommunicatie->getAllowedToSend())
+	{
+		ircommunicatie->encodetimeToLED(ircommunicatie->dummyTimes);
+	}
+}
 
+ISR(PCINT2_vect){
+	sei();
+	//Serial.println( (int) (((float) ircommunicatie->getCounterRECEIVING()) * compensatingValue));
+	Serial.println(ircommunicatie->getCounterRECEIVING());
+	ircommunicatie->setCountersRECEIVINGToZero();
+}
+
+//MAIN
 int main (){
-	noInterrupts();           // disable alle interrupts
+	//noInterrupts();           // disable alle interrupts
 	TCCR1A = 0;
 	TCCR1B = 0;
 	
@@ -106,6 +126,8 @@ int main (){
 	TIMSK1 |= (1 << TOIE1);   // enable timer overflow interrupt
 	interrupts();             // enable alle interrupts
 	init();
+	
+	ircommunicatie->setHzfrequency();
 	
 	Serial.begin(9600);
 	screen.begin();
