@@ -90,7 +90,7 @@ int opslagHigscore1;
 int opslagHigscore2;
 
 //IR communicatie
-IRCommunicatie *ircommunicatie = new IRCommunicatie(frequency38kHz, false);	//Creër IR object, testmode is uit, dus false.
+IRCommunicatie *ircommunicatie = new IRCommunicatie(frequency56kHz, false);	//Creër IR object, testmode is uit, dus false.
 int player1xoud;
 int player2xoud;
 int geraakt1oud;
@@ -270,10 +270,7 @@ void getAllowedToSend () {
 		player2xoud = player2x;
 		geraakt1oud = geraakt1;
 		geraakt2oud = geraakt2;
-		allowedToSend = true;
-		} else {
-		allowedToSend = false;
-	}
+		} 
 	
 }
 
