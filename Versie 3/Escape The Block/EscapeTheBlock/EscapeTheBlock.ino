@@ -114,22 +114,32 @@ ISR(PCINT2_vect){
 	ircommunicatie->setCountersRECEIVINGToZero();
 }
 
+ISR(TIMER1_OVF_vect)				//de interrupt die idere 1000ste van een seconde word aangeroepen
+{
+	sei();
+	TCNT1 = timer1_counter;			// de timer begint weer o	pnieuw
+	tijd++;							// de tijd word met 1 verhoogt
+	
+	if (tijd > snelheid) {
+		stap1++;
+		if (blok2 == 1){
+			stap2++;
+		}
+		tijd = 0;
+	}
+}
+
 //MAIN
 int main (){
-	//noInterrupts();           // disable alle interrupts
+	Serial.begin(9600);
+	Serial.println("Game has started");
 	TCCR1A = 0;
 	TCCR1B = 0;
-	
 	timer1_counter = 34286;   // preload timer 65536-16MHz/256/2Hz
 	TCNT1 = timer1_counter;    // 65536-16MHz/256/2Hz
 	TCCR1B |= (1 << CS12);    // 256 prescaler
 	TIMSK1 |= (1 << TOIE1);   // enable timer overflow interrupt
-	//interrupts();             // enable alle interrupts
-	
 	ircommunicatie->setHzfrequency();
-	
-	Serial.begin(9600);
-	screen.begin();
 	screen.fillScreen(BACKGROUND);
 	
 	nunchuck_setpowerpins();
@@ -141,76 +151,76 @@ int main (){
 	screen.fillScreen(BACKGROUND);
 	
 	
-	for(;;){
-		nunchuck_get_data();	//nunchuck data ophalen
-		joyy = nunchuck_joyy();	//y data van de joystick ophalen
-		joyx = nunchuck_joyx();	//x data van de joystick ophalen
-		/*		UITLEZEN
-		Serial.print("scherm: ");
-		Serial.print(scherm);
-		Serial.print(", c button: ");
-		Serial.print(nunchuck_cbutton());
-		Serial.print(", z button: ");
-		Serial.print(nunchuck_zbutton());
-		Serial.print(", joyy: ");
-		Serial.print(joyy);
-		Serial.print(", joyx: ");
-		Serial.println(joyx);
-		*/
-		
-		while (joyy == 0 && joyx == 0 && nunchuck_cbutton() == 1 && nunchuck_zbutton() == 1) {	//check of de nunchuck is aangesloten
-			nunchuckcheck = 0;
-			screen.setCursor(50, 40);		// print dat de nunchuck niet is aangesloten
-			screen.setTextColor(WHITE);
-			screen.setTextSize(3);
-			screen.println("PLEASE");
-			screen.setCursor(50, 70);
-			screen.println("CONNECT");
-			screen.setCursor(50, 100);
-			screen.println("NUNCHUCK");
-			screen.setCursor(50, 130);
-			screen.println("AND");
-			screen.setCursor(50, 160);
-			screen.println("RESET");
-		}
-		if (nunchuckcheck == 0) {		// het scherm weer eenmaal zwart maken om de tekst "please connect nunchuck" weg te halen
-			nunchuckcheck = 1;
-			screen.fillScreen(BACKGROUND);
-		}
-		
-		
-		clearScreen();			// als het scherm is veranderd alles eerst zwart maken
-		
-		
-		if(scherm == 1){		//scherm 1 is het homescreen
-			drawHomescreen();
-			drawPointer();
-		}
-		
-		clearScreen();
-		
-		if(scherm == 2){		//scherm 2 is het spel
-			start();
-			getAllowedToSend();
-		}
-		
-		if(scherm == 3){		//scherm 3 is de highscores
-			highscore();
-		}
-		
-		if(scherm == 4){		//scherm 4 is de controls
-			controls();
-		}
-		
-		if (scherm == 5){		//scherm 5 is het gameover scherm
-			gameover();
-		}
-		
-		if (scherm == 6) {
-			settings();
-		}
-		
-	}
+	//for(;;){
+		//nunchuck_get_data();	//nunchuck data ophalen
+		//joyy = nunchuck_joyy();	//y data van de joystick ophalen
+		//joyx = nunchuck_joyx();	//x data van de joystick ophalen
+		///*		UITLEZEN
+		//Serial.print("scherm: ");
+		//Serial.print(scherm);
+		//Serial.print(", c button: ");
+		//Serial.print(nunchuck_cbutton());
+		//Serial.print(", z button: ");
+		//Serial.print(nunchuck_zbutton());
+		//Serial.print(", joyy: ");
+		//Serial.print(joyy);
+		//Serial.print(", joyx: ");
+		//Serial.println(joyx);
+		//*/
+		//
+		//while (joyy == 0 && joyx == 0 && nunchuck_cbutton() == 1 && nunchuck_zbutton() == 1) {	//check of de nunchuck is aangesloten
+			//nunchuckcheck = 0;
+			//screen.setCursor(50, 40);		// print dat de nunchuck niet is aangesloten
+			//screen.setTextColor(WHITE);
+			//screen.setTextSize(3);
+			//screen.println("PLEASE");
+			//screen.setCursor(50, 70);
+			//screen.println("CONNECT");
+			//screen.setCursor(50, 100);
+			//screen.println("NUNCHUCK");
+			//screen.setCursor(50, 130);
+			//screen.println("AND");
+			//screen.setCursor(50, 160);
+			//screen.println("RESET");
+		//}
+		//if (nunchuckcheck == 0) {		// het scherm weer eenmaal zwart maken om de tekst "please connect nunchuck" weg te halen
+			//nunchuckcheck = 1;
+			//screen.fillScreen(BACKGROUND);
+		//}
+		//
+		//
+		//clearScreen();			// als het scherm is veranderd alles eerst zwart maken
+		//
+		//
+		//if(scherm == 1){		//scherm 1 is het homescreen
+			//drawHomescreen();
+			//drawPointer();
+		//}
+		//
+		//clearScreen();
+		//
+		//if(scherm == 2){		//scherm 2 is het spel
+			//start();
+			//getAllowedToSend();
+		//}
+		//
+		//if(scherm == 3){		//scherm 3 is de highscores
+			//highscore();
+		//}
+		//
+		//if(scherm == 4){		//scherm 4 is de controls
+			//controls();
+		//}
+		//
+		//if (scherm == 5){		//scherm 5 is het gameover scherm
+			//gameover();
+		//}
+		//
+		//if (scherm == 6) {
+			//settings();
+		//}
+		//
+	//}
 }
 
 
@@ -787,22 +797,6 @@ void seed (){
 		locaties[i] = rand() % (240 - groottes[i]);
 	}
 	//Serial.println("");
-}
-
-
-ISR(TIMER1_OVF_vect)				//de interrupt die idere 1000ste van een seconde word aangeroepen
-{
-	sei();
-	TCNT1 = timer1_counter;			// de timer begint weer o	pnieuw
-	tijd++;							// de tijd word met 1 verhoogt
-	
-	if (tijd > snelheid) {
-		stap1++;
-		if (blok2 == 1){
-			stap2++;
-		}
-		tijd = 0;
-	}
 }
 
 
